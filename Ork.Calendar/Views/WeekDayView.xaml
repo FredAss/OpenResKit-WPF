@@ -1,0 +1,126 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:Views="clr-namespace:Ork.Calendar.Views"
+  xmlns:ViewModels="clr-namespace:Ork.Calendar.ViewModels"
+  xmlns:Converters="clr-namespace:Ork.Calendar.Converters">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary
+      Source="Theme.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Converters:WidthConverter
+    x:Key="WidthConverter" />
+
+  <Converters:MarginConverter
+    x:Key="MarginConverter" />
+
+  <DataTemplate
+    DataType="{x:Type ViewModels:DayViewModel}">
+
+    <Grid>
+
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+
+      <!--Whole calendar grid-->
+      <ItemsControl
+        Grid.Row="1"
+        ItemsSource="{Binding Hours}">
+
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+
+              <Grid.RowDefinitions>
+                <RowDefinition
+                  Height="30" />
+                <RowDefinition
+                  Height="30" />
+              </Grid.RowDefinitions>
+
+              <!--Full hour border-->
+              <Border
+                Grid.Column="1"
+                Grid.Row="0"
+                BorderBrush="{StaticResource GridColor}"
+                BorderThickness="1 1 1 1" />
+
+              <!--Half hour border-->
+              <Border
+                Grid.Column="1"
+                Grid.Row="1"
+                BorderBrush="{StaticResource GridColor}"
+                BorderThickness="1 0 1 1" />
+
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <!--Date Entries overlay-->
+      <Grid
+        Grid.Row="1"
+        Margin="1">
+
+        <ItemsControl
+          x:Name="DayEntries"
+          ItemsSource="{Binding Entries}">
+
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <Canvas />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Views:EntryView
+                x:Name="DayEntry">
+
+                <Views:EntryView.Margin>
+                  <MultiBinding
+                    Converter="{StaticResource MarginConverter}">
+
+                    <Binding
+                      RelativeSource="{RelativeSource Mode=Self}"
+                      Path="DataContext" />
+                    <Binding
+                      ElementName="DayEntries"
+                      Path="ActualWidth" />
+
+                  </MultiBinding>
+                </Views:EntryView.Margin>
+
+                <Views:EntryView.Width>
+                  <MultiBinding
+                    Converter="{StaticResource WidthConverter}">
+                    <Binding
+                      RelativeSource="{RelativeSource Mode=Self}"
+                      Path="DataContext" />
+                    <Binding
+                      ElementName="DayEntries"
+                      Path="ActualWidth" />
+                  </MultiBinding>
+                </Views:EntryView.Width>
+
+              </Views:EntryView>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+
+      </Grid>
+
+    </Grid>
+
+  </DataTemplate>
+
+</ResourceDictionary>

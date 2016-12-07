@@ -1,0 +1,305 @@
+﻿<UserControl
+  x:Class="Ork.Waste.Views.AddWasteCollectionView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:converters="clr-namespace:Ork.Waste.Converters"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <converters:FillLevelReadingFillLevelToColorConverter
+      x:Key="FillLevelToColor" />
+  </UserControl.Resources>
+
+  <Grid
+    Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="*" />
+      <RowDefinition
+        Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <AdornerDecorator
+      Grid.Row="0">
+      <xctk:AutoSelectTextBox
+        Width="200"
+        HorizontalAlignment="Left"
+        Tag="{lex:Loc FilterContainers}"
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding SearchTextContainer, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+        <controls:WatermarkService.Watermark>
+          <TextBlock
+            Text="{lex:Loc Ork.Waste:Translate:FilterContainers}"
+            Foreground="{DynamicResource TextForegroundColorBrush}" />
+        </controls:WatermarkService.Watermark>
+
+      </xctk:AutoSelectTextBox>
+
+    </AdornerDecorator>
+
+    <toolkit:DataGrid
+      Visibility="{Binding DataGridWithoutDisposerVisibile}"
+      ItemsSource="{Binding FilteredContainers, Mode=OneWay}"
+      Grid.Row="1">
+      <toolkit:DataGrid.Columns>
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:Name}"
+          Binding="{Binding Name, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:Barcode}"
+          Binding="{Binding Barcode, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:ValueOfSecondLastReading}"
+          Width="Auto"
+          SortMemberPath="ValueSecondLastReading">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid
+                ToolTip="{Binding DateSecondLastReading}">
+                <xctk:Pie
+                  Width="22"
+                  Height="22"
+                  Margin="2"
+                  Fill="DimGray"
+                  StartAngle="0"
+                  EndAngle="360" />
+                <xctk:Pie
+                  Width="20"
+                  Height="20"
+                  Margin="2"
+                  Fill="{Binding ValueSecondLastReading, Converter={StaticResource FillLevelToColor}}"
+                  StartAngle="0"
+                  EndAngle="{Binding PieChartAngleSecondLastReading, Mode=OneWay}">
+                  <xctk:Pie.RenderTransform>
+                    <TransformGroup>
+                      <RotateTransform
+                        Angle="-90"
+                        CenterX="10"
+                        CenterY="10" />
+                    </TransformGroup>
+                  </xctk:Pie.RenderTransform>
+                </xctk:Pie>
+              </Grid>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:ValueOfLastReading}"
+          Width="Auto"
+          SortMemberPath="ValueLastReading">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid
+                ToolTip="{Binding DateLastReading}">
+                <xctk:Pie
+                  Width="22"
+                  Height="22"
+                  Margin="2"
+                  Fill="DimGray"
+                  StartAngle="0"
+                  EndAngle="360" />
+                <xctk:Pie
+                  Width="20"
+                  Height="20"
+                  Margin="2"
+                  Fill="{Binding ValueLastReading, Converter={StaticResource FillLevelToColor}}"
+                  StartAngle="0"
+                  EndAngle="{Binding PieChartAngleLastReading, Mode=OneWay}">
+                  <xctk:Pie.RenderTransform>
+                    <TransformGroup>
+                      <RotateTransform
+                        Angle="-90"
+                        CenterX="10"
+                        CenterY="10" />
+                    </TransformGroup>
+                  </xctk:Pie.RenderTransform>
+                </xctk:Pie>
+              </Grid>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:LastCollection}"
+          Binding="{Binding DateLastWasteCollection, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:Collect}"
+          SortMemberPath="IsSelected"
+          Width="Auto">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <StackPanel
+                Orientation="Horizontal">
+                <CheckBox
+                  HorizontalAlignment="Center"
+                  IsChecked="{Binding IsSelected}" />
+                <Path
+                  Style="{DynamicResource IconWarning}"
+                  Visibility="{Binding IconWarningVisibility}"
+                  ToolTip="{lex:Loc Ork.Waste:Translate:ZeroFillLevel}"
+                  Margin="5,0,0,0" />
+              </StackPanel>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+      </toolkit:DataGrid.Columns>
+
+
+    </toolkit:DataGrid>
+
+    <toolkit:DataGrid
+      Visibility="{Binding DataGridWithDisposerVisibile}"
+      ItemsSource="{Binding FilteredContainers, Mode=OneWay}"
+      Grid.Row="1">
+
+      <toolkit:DataGrid.Columns>
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:Disposer}"
+          Binding="{Binding Disposer.Name, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:Name}"
+          Binding="{Binding Name, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:Barcode}"
+          Binding="{Binding Barcode, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:ValueOfSecondLastReading}"
+          Width="Auto"
+          SortMemberPath="ValueSecondLastReading">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid
+                ToolTip="{Binding DateSecondLastReading}">
+                <xctk:Pie
+                  Width="22"
+                  Height="22"
+                  Margin="2"
+                  Fill="DimGray"
+                  StartAngle="0"
+                  EndAngle="360" />
+                <xctk:Pie
+                  Width="20"
+                  Height="20"
+                  Margin="2"
+                  Fill="{Binding ValueSecondLastReading, Converter={StaticResource FillLevelToColor}}"
+                  StartAngle="0"
+                  EndAngle="{Binding PieChartAngleSecondLastReading, Mode=OneWay}">
+                  <xctk:Pie.RenderTransform>
+                    <TransformGroup>
+                      <RotateTransform
+                        Angle="-90"
+                        CenterX="10"
+                        CenterY="10" />
+                    </TransformGroup>
+                  </xctk:Pie.RenderTransform>
+                </xctk:Pie>
+              </Grid>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:ValueOfLastReading}"
+          Width="Auto"
+          SortMemberPath="ValueLastReading">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid
+                ToolTip="{Binding DateLastReading}">
+                <xctk:Pie
+                  Width="22"
+                  Height="22"
+                  Margin="2"
+                  Fill="DimGray"
+                  StartAngle="0"
+                  EndAngle="360" />
+                <xctk:Pie
+                  Width="20"
+                  Height="20"
+                  Margin="2"
+                  Fill="{Binding ValueLastReading, Converter={StaticResource FillLevelToColor}}"
+                  StartAngle="0"
+                  EndAngle="{Binding PieChartAngleLastReading, Mode=OneWay}">
+                  <xctk:Pie.RenderTransform>
+                    <TransformGroup>
+                      <RotateTransform
+                        Angle="-90"
+                        CenterX="10"
+                        CenterY="10" />
+                    </TransformGroup>
+                  </xctk:Pie.RenderTransform>
+                </xctk:Pie>
+              </Grid>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+
+        <toolkit:DataGridTextColumn
+          Header="{lex:Loc Ork.Waste:Translate:LastCollection}"
+          Binding="{Binding DateLastWasteCollection, Mode=OneWay}"
+          Width="40*" />
+
+        <toolkit:DataGridTemplateColumn
+          Header="{lex:Loc Ork.Waste:Translate:Collect}"
+          SortMemberPath="IsSelected"
+          Width="Auto">
+          <toolkit:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <StackPanel
+                Orientation="Horizontal">
+                <CheckBox
+                  HorizontalAlignment="Center"
+                  IsChecked="{Binding IsSelected}" />
+                <Path
+                  Style="{DynamicResource IconWarning}"
+                  Visibility="{Binding IconWarningVisibility}"
+                  ToolTip="{lex:Loc Ork.Waste:Translate:ZeroFillLevel}"
+                  Margin="5,0,0,0" />
+              </StackPanel>
+            </DataTemplate>
+          </toolkit:DataGridTemplateColumn.CellTemplate>
+        </toolkit:DataGridTemplateColumn>
+
+      </toolkit:DataGrid.Columns>
+
+    </toolkit:DataGrid>
+
+    <Button
+      HorizontalAlignment="Right"
+      Grid.Row="2"
+      cal:Message.Attach="ExecuteCollection"
+      IsEnabled="{Binding IsExecutionEnabled}"
+      Content="{lex:Loc Ork.Waste:Translate:ExecuteCollection}" />
+
+  </Grid>
+</UserControl>

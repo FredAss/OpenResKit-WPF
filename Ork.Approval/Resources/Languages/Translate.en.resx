@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abort" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddInspection" xml:space="preserve">
+    <value>Add Inspection</value>
+  </data>
+  <data name="AddPermission" xml:space="preserve">
+    <value>Add permission</value>
+  </data>
+  <data name="AddPlant" xml:space="preserve">
+    <value>Add plant</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllOtherDates" xml:space="preserve">
+    <value>Other inspections</value>
+  </data>
+  <data name="Bbodschg" xml:space="preserve">
+    <value>BBodSchG-Permission</value>
+  </data>
+  <data name="Bimschg" xml:space="preserve">
+    <value>BImSchG-Permission</value>
+  </data>
+  <data name="ClickToSet" xml:space="preserve">
+    <value>Click to add a picture</value>
+  </data>
+  <data name="ConditionAddInfo" xml:space="preserve">
+    <value>To add a auxillary condition press ENTER</value>
+  </data>
+  <data name="ConditionInfoWithCount" xml:space="preserve">
+    <value>From {0} AC's are {1} active</value>
+  </data>
+  <data name="ConditionInfoWithoutCount" xml:space="preserve">
+    <value>There are no AC's</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Auxillary conditions</value>
+  </data>
+  <data name="DateOfApplication" xml:space="preserve">
+    <value>Date of application</value>
+  </data>
+  <data name="DateTimeForShortPlanning" xml:space="preserve">
+    <value>ddd, MM/dd/yyyy</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteCondition" xml:space="preserve">
+    <value>Delete auxillary condition</value>
+  </data>
+  <data name="DeleteDocument" xml:space="preserve">
+    <value>Delete document</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DocumentInfoWithCount" xml:space="preserve">
+    <value>{0} attached documents</value>
+  </data>
+  <data name="DocumentInfoWithoutCount" xml:space="preserve">
+    <value>There are no documents</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DueDateTimeRange" xml:space="preserve">
+    <value>h:mm tt</value>
+  </data>
+  <data name="EndOfPermission" xml:space="preserve">
+    <value>End of the permission</value>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>Filenumber</value>
+  </data>
+  <data name="FilterInspections" xml:space="preserve">
+    <value>Filter inspections...</value>
+  </data>
+  <data name="FilterPlants" xml:space="preserve">
+    <value>Filter plants...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="InEffect" xml:space="preserve">
+    <value>In effect</value>
+  </data>
+  <data name="InspectionColor" xml:space="preserve">
+    <value>Color of Inspection</value>
+  </data>
+  <data name="InspectionName" xml:space="preserve">
+    <value>Name of Inspection</value>
+  </data>
+  <data name="InThisWeek" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenDocument" xml:space="preserve">
+    <value>Open document</value>
+  </data>
+  <data name="OutEffect" xml:space="preserve">
+    <value>Out of effect</value>
+  </data>
+  <data name="PassedDates" xml:space="preserve">
+    <value>Passed inspection</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="PermissionAdd" xml:space="preserve">
+    <value>Add permission...</value>
+  </data>
+  <data name="PermissionEdit" xml:space="preserve">
+    <value>Edit permission...</value>
+  </data>
+  <data name="PermissionKind" xml:space="preserve">
+    <value>Kind of permission</value>
+  </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="Planning" xml:space="preserve">
+    <value>Planning</value>
+  </data>
+  <data name="Plant" xml:space="preserve">
+    <value>Plant</value>
+  </data>
+  <data name="PlantAdd" xml:space="preserve">
+    <value>Add plant...</value>
+  </data>
+  <data name="PlantEdit" xml:space="preserve">
+    <value>Edit plant...</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Plants</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="QR-Code" xml:space="preserve">
+    <value>QR-Code</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="ShowAllPermissions" xml:space="preserve">
+    <value>All Permissions</value>
+  </data>
+  <data name="StartOfPermission" xml:space="preserve">
+    <value>Begin of the permission</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sure?</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Whg" xml:space="preserve">
+    <value>WHG-Permission</value>
+  </data>
+  <data name="WholeDay" xml:space="preserve">
+    <value>Whole day</value>
+  </data>
+  <data name="FilterAuxillaryConditions" xml:space="preserve">
+    <value>Filter AC's...</value>
+  </data>
+  <data name="FilterResponsibleSubjects" xml:space="preserve">
+    <value>Filter responsible...</value>
+  </data>
+  <data name="AddMeasure" xml:space="preserve">
+    <value>Add measure</value>
+  </data>
+  <data name="AuxillaryCondition" xml:space="preserve">
+    <value>Auxillary condition</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Planned date</value>
+  </data>
+  <data name="Inspections" xml:space="preserve">
+    <value>Inspections</value>
+  </data>
+  <data name="MeasureAdd" xml:space="preserve">
+    <value>Add measure...</value>
+  </data>
+  <data name="MeasureEdit" xml:space="preserve">
+    <value>Edit measure...</value>
+  </data>
+  <data name="NoticableInspections" xml:space="preserve">
+    <value>Remarkable inspections</value>
+  </data>
+  <data name="NotNoticableInspections" xml:space="preserve">
+    <value>Unremarkable inspections</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="PriorityHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="PriorityLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="PriorityMedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="ProgressAdded" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="ProgressClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ProgressRunning" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible person</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="FridayShort" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="MondayShort" xml:space="preserve">
+    <value>Mon</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="SaturdayShort" xml:space="preserve">
+    <value>Sat</value>
+  </data>
+  <data name="SundayShort" xml:space="preserve">
+    <value>Sun</value>
+  </data>
+  <data name="ThursdayShort" xml:space="preserve">
+    <value>Thu</value>
+  </data>
+  <data name="TuesdayShort" xml:space="preserve">
+    <value>Tue</value>
+  </data>
+  <data name="WednesdayShort" xml:space="preserve">
+    <value>Wed</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>After</value>
+  </data>
+  <data name="At" xml:space="preserve">
+    <value>At</value>
+  </data>
+  <data name="Beginning" xml:space="preserve">
+    <value>Begin at</value>
+  </data>
+  <data name="Dates" xml:space="preserve">
+    <value>dates</value>
+  </data>
+  <data name="DayOfMonth" xml:space="preserve">
+    <value>Day of month</value>
+  </data>
+  <data name="Ending" xml:space="preserve">
+    <value>Ends</value>
+  </data>
+  <data name="RepeatAt" xml:space="preserve">
+    <value>Repeat at</value>
+  </data>
+  <data name="RepeatEvery" xml:space="preserve">
+    <value>Repeat every...</value>
+  </data>
+  <data name="RepeatInterval" xml:space="preserve">
+    <value>Wiederholungsintervall</value>
+  </data>
+  <data name="SelectedAuxillaryCondition" xml:space="preserve">
+    <value>Auxillary condition</value>
+  </data>
+  <data name="Weekday" xml:space="preserve">
+    <value>Weekday</value>
+  </data>
+  <data name="DeleteAllFollowingScheduledTasks" xml:space="preserve">
+    <value>Delete all following scheduled tasks</value>
+  </data>
+  <data name="DeleteOnlyThisScheduledTask" xml:space="preserve">
+    <value>Delete only this scheduled task</value>
+  </data>
+  <data name="DelteAllScheduledTasks" xml:space="preserve">
+    <value>Delete all scheduled tasks</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="InspectionAdd" xml:space="preserve">
+    <value>Add inspection...</value>
+  </data>
+  <data name="InspectionEdit" xml:space="preserve">
+    <value>Edit inspection...</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Weeks</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="EntryDate" xml:space="preserve">
+    <value>Date of Inspection</value>
+  </data>
+  <data name="FalseAC" xml:space="preserve">
+    <value>Incorrect AC's</value>
+  </data>
+  <data name="LatestPermission" xml:space="preserve">
+    <value>Latest status of permission</value>
+  </data>
+  <data name="TotalAC" xml:space="preserve">
+    <value>Total AC's</value>
+  </data>
+  <data name="TotalAuxillaryCondition" xml:space="preserve">
+    <value>Total Auxillary Condition</value>
+  </data>
+  <data name="TotalEvaluation" xml:space="preserve">
+    <value>Total evaluation</value>
+  </data>
+  <data name="TotalMeasures" xml:space="preserve">
+    <value>Total measures</value>
+  </data>
+  <data name="TrueAC" xml:space="preserve">
+    <value>Correct AC's</value>
+  </data>
+  <data name="MeetedAC" xml:space="preserve">
+    <value>Meeted</value>
+  </data>
+  <data name="TotalACDescription" xml:space="preserve">
+    <value>There is a total of {0} auxillary conditions, of these are {1} meeted</value>
+  </data>
+  <data name="TotalMeasureDescription" xml:space="preserve">
+    <value>There is a total of {0} undone measures</value>
+  </data>
+  <data name="TotalPermissionDescription" xml:space="preserve">
+    <value>There is a total of {0} permissions</value>
+  </data>
+  <data name="UnmeetedAC" xml:space="preserve">
+    <value>Unmeeted</value>
+  </data>
+</root>

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="YearOfReadings" xml:space="preserve">
+    <value>Year of Readings</value>
+  </data>
+  <data name="FilterContainersOrScheduledTasks" xml:space="preserve">
+    <value>Filter Containers / Scheduled Tasks</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sure?</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Barcode/Name</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="kWh" xml:space="preserve">
+    <value>kWh</value>
+  </data>
+  <data name="m3" xml:space="preserve">
+    <value>m³</value>
+  </data>
+  <data name="SetPlace" xml:space="preserve">
+    <value>Set place</value>
+  </data>
+  <data name="SetPlaceExplanation" xml:space="preserve">
+    <value>Set position with doubleclick. Abort with right click.</value>
+  </data>
+  <data name="FilterMeters" xml:space="preserve">
+    <value>Filter Meters...</value>
+  </data>
+  <data name="FilterReadings" xml:space="preserve">
+    <value>Filter Readings...</value>
+  </data>
+  <data name="WholeDay" xml:space="preserve">
+    <value>Whole day</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="RepetitionInterval" xml:space="preserve">
+    <value>Repetition interval</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="RepeatEvery" xml:space="preserve">
+    <value>Repeat every....</value>
+  </data>
+  <data name="RepeatAT" xml:space="preserve">
+    <value>Repeat at</value>
+  </data>
+  <data name="DayOfMonth" xml:space="preserve">
+    <value>Day of month</value>
+  </data>
+  <data name="Weekday" xml:space="preserve">
+    <value>Weekday</value>
+  </data>
+  <data name="Beginning" xml:space="preserve">
+    <value>Beginning</value>
+  </data>
+  <data name="Ending" xml:space="preserve">
+    <value>Ending</value>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>After</value>
+  </data>
+  <data name="Dates" xml:space="preserve">
+    <value>Dates</value>
+  </data>
+  <data name="At" xml:space="preserve">
+    <value>At</value>
+  </data>
+  <data name="DeleteOnlyThisScheduledTask" xml:space="preserve">
+    <value>Delete only this scheduled task</value>
+  </data>
+  <data name="DeleteAllFollowingScheduledTasks" xml:space="preserve">
+    <value>Delete all following scheduled tasks</value>
+  </data>
+  <data name="DelteAllScheduledTasks" xml:space="preserve">
+    <value>Delete all scheduled tasks</value>
+  </data>
+  <data name="ReadingName" xml:space="preserve">
+    <value>Name of Reading</value>
+  </data>
+  <data name="ReadingColor" xml:space="preserve">
+    <value>Color of Reading</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat...</value>
+  </data>
+  <data name="SelectMeter" xml:space="preserve">
+    <value>Select Meter...</value>
+  </data>
+  <data name="SelectResponsibleSubject" xml:space="preserve">
+    <value>Select responsible employee/group</value>
+  </data>
+  <data name="FilterEmployees" xml:space="preserve">
+    <value>Filter Employees...</value>
+  </data>
+  <data name="Graph" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="Table" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="thisweek" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="ReadAt" xml:space="preserve">
+    <value>Read at</value>
+  </data>
+  <data name="ReadingValue" xml:space="preserve">
+    <value>Read Value</value>
+  </data>
+  <data name="ScheduledTask" xml:space="preserve">
+    <value>Scheduled Task</value>
+  </data>
+  <data name="TitleEvaluationManagementViewModel" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="AllOtherDates" xml:space="preserve">
+    <value>All other dates</value>
+  </data>
+  <data name="InThisWeek" xml:space="preserve">
+    <value>In this week</value>
+  </data>
+  <data name="Meter" xml:space="preserve">
+    <value>Meter</value>
+  </data>
+  <data name="PassedDates" xml:space="preserve">
+    <value>Passed dates</value>
+  </data>
+  <data name="AddMeter" xml:space="preserve">
+    <value>Add Meter...</value>
+  </data>
+  <data name="EditMeter" xml:space="preserve">
+    <value>Edit Meter...</value>
+  </data>
+  <data name="Planning" xml:space="preserve">
+    <value>Planning</value>
+  </data>
+  <data name="OnAnotherMap" xml:space="preserve">
+    <value>On another map</value>
+  </data>
+  <data name="OnNoMap" xml:space="preserve">
+    <value>On no map</value>
+  </data>
+  <data name="OnThisMap" xml:space="preserve">
+    <value>On this map</value>
+  </data>
+  <data name="ChangeToMap" xml:space="preserve">
+    <value>Change to map</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="AddMap" xml:space="preserve">
+    <value>Add Map...</value>
+  </data>
+  <data name="EditMap" xml:space="preserve">
+    <value>Edit Map...</value>
+  </data>
+  <data name="SeriesAdd" xml:space="preserve">
+    <value>Add Series...</value>
+  </data>
+  <data name="SeriesEdit" xml:space="preserve">
+    <value>Edit Series...</value>
+  </data>
+  <data name="NotReadYet" xml:space="preserve">
+    <value>Not read yet</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>MM/dd/yyyy</value>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>Reading</value>
+  </data>
+  <data name="ReadingAt" xml:space="preserve">
+    <value>Date of Reading</value>
+  </data>
+  <data name="ValueOfReading" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Controller" xml:space="preserve">
+    <value>Responsible Person</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value: </value>
+  </data>
+  <data name="FridayShort" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="MondayShort" xml:space="preserve">
+    <value>Mon</value>
+  </data>
+  <data name="SaturdayShort" xml:space="preserve">
+    <value>Sat</value>
+  </data>
+  <data name="SundayShort" xml:space="preserve">
+    <value>Sun</value>
+  </data>
+  <data name="ThursdayShort" xml:space="preserve">
+    <value>Thu</value>
+  </data>
+  <data name="TuesdayShort" xml:space="preserve">
+    <value>Tue</value>
+  </data>
+  <data name="WednesdayShort" xml:space="preserve">
+    <value>Wed</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Weeks</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="DateTimeForShortPlanning" xml:space="preserve">
+    <value>ddd, MM/dd/yyyy</value>
+  </data>
+  <data name="DueDateTimeRange" xml:space="preserve">
+    <value>h:mm tt</value>
+  </data>
+</root>

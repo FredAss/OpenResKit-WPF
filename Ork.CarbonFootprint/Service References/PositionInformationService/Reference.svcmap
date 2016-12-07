@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1b000de0-3fc1-41a3-91eb-ddfb7358da96" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:7000/PositionInformationService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PositionInformationService.wsdl" MetadataType="Wsdl" ID="a0930cb8-0cdb-4834-afbf-13e59f61ab0e" SourceId="1" SourceUrl="http://localhost:7000/PositionInformationService" />
+    <MetadataFile FileName="PositionInformationService.xsd" MetadataType="Schema" ID="5e95e065-c0f4-4c2c-b422-3f53db13ad33" SourceId="1" SourceUrl="http://localhost:7000/PositionInformationService?xsd=xsd0" />
+    <MetadataFile FileName="PositionInformationService1.xsd" MetadataType="Schema" ID="eb4ff652-9c8c-4af8-b149-c43751b99c2c" SourceId="1" SourceUrl="http://localhost:7000/PositionInformationService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

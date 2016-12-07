@@ -1,0 +1,44 @@
+﻿@model Ork.Building.PDFs.Models.RoomListViewModel
+
+<!-- Header -->
+<div width="595pt">
+    <h1>@Model.PdfTitle</h1>
+    <div style="position: absolute; right: 0; top: 0;">
+        <img class="logo" src="@Model.Base64Logo" />
+    </div>
+</div>
+<table style="border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 99pt">
+        <col style="width: 142pt">
+        <col style="width: 85pt">
+        <col style="width: 85pt">
+        <col style="width: 85pt">
+        <col style="width: 99pt">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>@Model.TitleName</th>
+        <th>@Model.TitleDescription</th>
+        <th>@Model.TitleAreaInM2</th>
+        <th>@Model.TitleHeightInM</th>
+        <th>@Model.TitleVolume</th>
+        <th>@Model.TitleBuilding</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var roomViewModel in Model.Rooms)
+    {
+        <tr class="">
+            <td>@roomViewModel.Name</td>
+            <td>@roomViewModel.Description</td>
+            <td>@roomViewModel.Area</td>
+            <td>@roomViewModel.Height</td>
+            <td>@roomViewModel.Volume</td>
+            <td>@roomViewModel.Building.Name</td>
+        </tr>
+    }
+
+    </tbody>
+</table>

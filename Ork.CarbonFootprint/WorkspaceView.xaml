@@ -1,0 +1,11 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.WorkspaceView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:micro="http://www.caliburnproject.org">
+
+  <ContentControl
+    micro:View.Context="{Binding State, Mode=TwoWay}"
+    micro:View.Model="{Binding}" />
+
+</UserControl>

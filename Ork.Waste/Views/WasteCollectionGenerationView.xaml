@@ -1,0 +1,74 @@
+﻿<UserControl
+  x:Class="Ork.Waste.Views.WasteCollectionGenerationView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+    <StackPanel>
+      <toolkit:DataGrid
+        ItemsSource="{Binding WasteCollections, Mode=OneWay}">
+
+        <toolkit:DataGrid.Columns>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Waste:Translate:Name}"
+            Binding="{Binding ContainerText, Mode=OneWay}"
+            Width="Auto" />
+
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Waste:Translate:DesiredState}"
+            Width="Auto">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBox
+                  Style="{DynamicResource EntryControl}"
+                  Text="{Binding DesiredState, Mode=TwoWay}"/>
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Waste:Translate:DesiredPrice}"
+            Width="Auto">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBox
+                  Style="{DynamicResource EntryControl}"
+                  Text="{Binding DesiredPrice, Mode=TwoWay}" />
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+
+          </toolkit:DataGridTemplateColumn>
+
+        </toolkit:DataGrid.Columns>
+
+      </toolkit:DataGrid>
+
+
+      <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+        <Button
+          cal:Message.Attach="ExecuteGeneration($dataContext)"
+          Content="{lex:Loc Add}" />
+        <Button
+          cal:Message.Attach="CloseEditor"
+          Content="{lex:Loc Abort}"
+          Margin="12 0 0 0" />
+      </StackPanel>
+    </StackPanel>
+
+  </Grid>
+</UserControl>

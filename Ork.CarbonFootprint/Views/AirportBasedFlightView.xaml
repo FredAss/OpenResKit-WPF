@@ -1,0 +1,115 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.Views.AirportBasedFlightView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="400">
+
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition
+        Width="Auto" />
+      <ColumnDefinition
+        Width="Auto" />
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="0"
+      Grid.ColumnSpan="3"
+      Text="{lex:Loc Airport}" />
+
+    <controls:AutoCompleteBox
+      Grid.Column="0"
+      Grid.Row="1"
+      Style="{DynamicResource AutoCompleteControl}"
+      ItemsSource="{Binding GlobalAirports}"
+      SelectedItem="{Binding SelectedAirport, Mode=TwoWay}"
+      ValueMemberPath="name"
+      Text="Flughafen suchen..."
+      MinimumPrefixLength="2"
+      FilterMode="ContainsOrdinal"
+      MinimumPopulateDelay="400"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Center">
+      <controls:AutoCompleteBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel
+            Orientation="Horizontal">
+            <TextBlock
+              Text="{Binding iata_code}"
+              Margin="10 0 0 0" />
+            <TextBlock
+              Text="{Binding name}"
+              Margin="10 0 0 0" />
+          </StackPanel>
+        </DataTemplate>
+      </controls:AutoCompleteBox.ItemTemplate>
+    </controls:AutoCompleteBox>
+
+    <Button
+      Grid.Column="1"
+      Grid.Row="1"
+      x:Name="AddAirportToList"
+      Margin="5 5 0 5"
+      Cursor="Hand"
+      Content="{lex:Loc Add}" />
+
+    <Button
+      Grid.Column="2"
+      Grid.Row="1"
+      x:Name="DeleteAirportFromList"
+      Margin="5 5 0 5"
+      Cursor="Hand"
+      Content="{lex:Loc Delete}" />
+
+    <ListBox
+      Style="{DynamicResource ListBoxStyle}"
+      Grid.Column="0"
+      Grid.Row="2"
+      Grid.ColumnSpan="3"
+      VerticalAlignment="Top"
+      SelectionMode="Single"
+      ItemsSource="{Binding AirportPositions, Mode=TwoWay}"
+      SelectedItem="{Binding SelectedPosition, Mode=TwoWay}">
+
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel
+            Orientation="Horizontal">
+            <TextBlock
+              Text="{Binding Order}"
+              Width="30"
+              Margin="5 0 5 0" />
+            <TextBlock
+              Text="{Binding IataCode}"
+              Foreground="SteelBlue"
+              Width="35"
+              Margin="5 0" />
+            <TextBlock
+              TextWrapping="Wrap"
+              Text="{Binding Name}" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+
+    </ListBox>
+
+  </Grid>
+
+</UserControl>

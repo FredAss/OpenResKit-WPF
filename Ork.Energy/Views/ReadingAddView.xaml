@@ -1,0 +1,62 @@
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ReadingAddView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <StackPanel
+      Grid.Column="0">
+      <TextBlock
+        Text="Wert (kWh/a)" />
+      <controls:NumericUpDown
+        Margin="0 0 0 3"
+        Value="{Binding NewCounterReading}"
+        TextAlignment="Left"
+        Minimum="0" />
+      <TextBlock
+        Text="Auswertungsdatum" />
+      <DatePicker
+        Margin="0 0 0 3"
+        HorizontalAlignment="Stretch"
+        controls:TextBoxHelper.Watermark="Bitte ein Datum auswählen"
+        SelectedDate="{Binding NewReadingDate}" />
+      <TextBlock
+        Text="Verwendetes Messgerät" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding NewMeasuringDevice}" />
+    </StackPanel>
+    <Button
+      Grid.Column="1"
+      Width="50"
+      Height="50"
+      Margin="2"
+      VerticalAlignment="Bottom"
+      HorizontalAlignment="Left"
+      Style="{DynamicResource MetroCircleButtonStyle}"
+      cal:Message.Attach="AddNewReading($dataContext)"
+      ToolTip="Neue Ablesung hinzufügen">
+      <Rectangle
+        Width="20"
+        Height="20"
+        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+            Stretch="Fill"
+            Visual="{DynamicResource appbar_add}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+    </Button>
+
+  </Grid>
+</UserControl>

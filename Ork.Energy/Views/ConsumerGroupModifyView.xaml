@@ -1,0 +1,104 @@
+﻿<UserControl
+  x:Class="Ork.Energy.Views.ConsumerGroupModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  mc:Ignorable="d"
+  xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+  xmlns:views="clr-namespace:Ork.Energy.Views"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <StackPanel>
+      <TextBlock
+        Text="Name" />
+      <TextBox
+        Text="{Binding GroupName}"
+        AcceptsReturn="True"
+        Margin="0 0 0 3" />
+      <TextBlock
+        Text="Typenliste"
+        Margin="0 0 0 3" />
+      <DataGrid
+        ItemsSource="{Binding ConsumerTypes}"
+        AutoGenerateColumns="False"
+        HeadersVisibility="None"
+        CanUserAddRows="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn
+            Binding="{Binding TypeName}" />
+          <DataGridTemplateColumn>
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Margin="0 1 0 0"
+                  FontFamily="Marlett"
+                  Text="r"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Stretch"
+                  cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteConsumerType($dataContext)]" />
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <!--<ListView
+        ItemsSource="{Binding ConsumerTypes}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                  Width="*" />
+                <ColumnDefinition
+                  Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock
+                Text="{Binding TypeName}"
+                Grid.Column="0" />
+              <TextBlock
+                Margin="0 1 0 0"
+                Grid.Column="1"
+                FontFamily="Marlett"
+                Text="r"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteConsumerType($dataContext)]" />
+            </Grid>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>-->
+      <Grid
+        Margin="0 3 0 3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox
+          Grid.Column="0"
+          Text="{Binding ConsumerType}"
+          TextWrapping="Wrap" />
+        <Button
+          Grid.Column="1"
+          Style="{DynamicResource SquareButtonStyle}"
+          cal:Message.Attach="AddConsumerType"
+          Content="Hinzufügen" />
+      </Grid>
+
+
+    </StackPanel>
+    <views:ModifyActionsView
+      Grid.Row="1" />
+  </Grid>
+</UserControl>

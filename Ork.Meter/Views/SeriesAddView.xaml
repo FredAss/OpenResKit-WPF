@@ -1,0 +1,39 @@
+<UserControl
+  x:Class="Ork.Meter.Views.SeriesAddView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:views="clr-namespace:Ork.Meter.Views"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Meter"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="370"
+  d:DesignWidth="350">
+
+  <StackPanel>
+    <views:SeriesView />
+    <StackPanel
+      Orientation="Horizontal"
+      Margin="0 20 0 0"
+      HorizontalAlignment="Right">
+
+      <Button
+        cal:Message.Attach="GenerateReadings"
+        IsEnabled="{Binding GenerateEnabled}"
+        Content="{lex:Loc Generate}"
+        Margin="0 0 12 0" />
+
+      <Button
+        cal:Message.Attach="Cancel"
+        HorizontalAlignment="Right"
+        Content="{lex:Loc Abort}" />
+
+    </StackPanel>
+
+  </StackPanel>
+
+</UserControl>

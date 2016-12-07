@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="Ork.Approval.Views.PlantModifyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Approval"
+             lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Vertical">
+
+            <TextBlock
+                Text="{lex:Loc Name}"
+                Style="{DynamicResource LabelControl}"/>
+
+            <TextBox
+                Text="{Binding Name}"
+                Style="{DynamicResource EntryControl}"/>
+            
+            <TextBlock
+                Text="{lex:Loc Number}"
+                Style="{DynamicResource LabelControl}"/>
+
+            <TextBox
+                Text="{Binding Number}"
+                Style="{DynamicResource EntryControl}"/>
+
+            <TextBlock
+                Text="{lex:Loc Position}"
+                Style="{DynamicResource LabelControl}"/>
+
+            <TextBox
+                Text="{Binding Position}"
+                Style="{DynamicResource EntryControl}"/>
+            
+            <TextBlock
+                Text="{lex:Loc Description}"
+                Style="{DynamicResource LabelControl}"/>
+            
+            <TextBox
+                Text="{Binding Description}"
+                Style="{DynamicResource EntryControl}"/>
+
+            <TextBlock
+          Text="{lex:Loc Documents}"
+                Style="{DynamicResource LabelControl}"/>
+            <ScrollViewer
+          VerticalScrollBarVisibility="Auto">
+                <ListBox
+                    Height="150"
+            MaxHeight="150"
+            Margin="4 4 0 0"
+            Background="Black"
+            ItemsSource="{Binding AttachedDocuments}"
+            Style="{DynamicResource FlyoutListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                  Margin="0 3 0 3"
+                  Background="Transparent">
+
+                                <!--<StackPanel
+                    Orientation="Horizontal">
+                                    <Path
+                      Style="{Binding Name, Converter={StaticResource StyleConverter}}" />-->
+                                    <TextBlock
+                      Margin="2 0 0 0"
+                      Text="{Binding Name}" />
+                               <!-- </StackPanel> -->
+
+                                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+                                    <Button
+                      Style="{DynamicResource UnstyledButtonStyle}"
+                      cal:Message.Attach="OpenDocument($dataContext)">
+                                        <Path
+                        ToolTip="{lex:Loc OpenDocument}"
+                        Margin="2"
+                        Style="{DynamicResource IconEye}" />
+                                    </Button>
+
+                                   <Button
+                      Style="{DynamicResource UnstyledButtonStyle}"
+                      cal:Message.Attach="DeleteDocument($dataContext)">
+                                        <Path
+                        ToolTip="{lex:Loc DeleteDocument}"
+                        Margin="2"
+                        Style="{DynamicResource IconDelete}" />
+                                    </Button>
+
+                                </StackPanel>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+            <Button
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+                Style="{DynamicResource SmallButton}"
+        cal:Message.Attach="AddDocument"
+        Content="{lex:Loc Add}"
+        Margin="0 4 0 0" />
+
+        </StackPanel>
+        
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="2">
+            <TextBlock
+                Text="{lex:Loc QR-Code}"
+                Style="{DynamicResource LabelControl}"/>
+
+            <Image
+                Width="256"
+                Height="256"
+            Source="{Binding QRImage, Mode=OneWay}"/>
+            
+            <Button
+                Content="Drucken"
+                cal:Message.Attach="PrintQRCode"></Button>
+
+            <Button
+                Content="Substanzen importieren"
+                cal:Message.Attach="Test"></Button>
+
+        </StackPanel>
+        
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Orientation="Vertical">
+
+            <TextBlock
+                Text="{lex:Loc Picture}"
+                Style="{DynamicResource LabelControl}"/>
+
+            <Image
+          cal:Message.Attach="[Event MouseLeftButtonDown]=[Action SetImage]; [Event MouseRightButtonDown]=[Action RemoveImage]"
+          Source="{Binding PlantImage}"
+            Width="256"
+                Height="256"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center">
+                <Image.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <Trigger
+                  Property="Image.IsMouseOver"
+                  Value="True">
+                                <Setter
+                    Property="Image.Opacity"
+                    Value="0.5" />
+                                <Setter
+                    Property="Image.Cursor"
+                    Value="Hand" />
+                                <Setter
+                    Property="Image.ToolTip"
+                    Value="{lex:Loc Ork.Approval:Translate:ClickToSet}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </StackPanel>
+    </Grid>
+</UserControl>

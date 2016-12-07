@@ -1,0 +1,290 @@
+﻿<UserControl x:Class="Ork.Approval.Views.MeasureModifyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+             xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:converters1="clr-namespace:Ork.Approval.Converters"
+             xmlns:viewModels="clr-namespace:Ork.Approval.ViewModels"
+             lex:LocalizeDictionary.DesignCulture="de"
+             lex:ResxLocalizationProvider.DefaultAssembly="Ork.Approval"
+             lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:EnumLanguageConverter
+                x:Key="EnumLanguageConverter" />
+
+            <converters1:IntToBackgroundConverter
+                x:Key="IntToBackgroundConverter" />
+
+            <Style
+                x:Key="DatePickerCalendarStyle"
+                TargetType="{x:Type Calendar}"
+                BasedOn="{StaticResource {x:Type Calendar}}" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Column="0"
+            Orientation="Vertical">
+
+            <TextBlock
+                Text="{lex:Loc Name}"
+                Style="{DynamicResource LabelControl}" />
+
+            <TextBox
+                Text="{Binding Name}"
+                Style="{DynamicResource EntryControl}" />
+
+            <TextBlock
+                Text="{lex:Loc Description}"
+                Style="{DynamicResource LabelControl}" />
+
+            <TextBox
+                Text="{Binding Description}"
+                Style="{DynamicResource EntryControl}" />
+
+            <TextBlock
+                Text="{lex:Loc DueDate}"
+                Style="{DynamicResource LabelControl}" />
+
+            <DatePicker
+                Margin="4"
+                SelectedDate="{Binding DateOfApplication}" />
+
+            <TextBlock
+                Text="{lex:Loc Priority}"
+                Style="{DynamicResource LabelControl}" />
+
+            <ComboBox
+                Style="{DynamicResource ComboBoxStyle}"
+                Margin="4"
+                ItemsSource="{Binding Priorities}"
+                SelectedIndex="{Binding Priority}">
+                <ComboBox.ItemTemplateSelector>
+                    <controls:ComboBoxItemTemplateSelector>
+                        <controls:ComboBoxItemTemplateSelector.SelectedTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Content="{Binding Path=.,Mode=OneWay, Converter={StaticResource EnumLanguageConverter}}"
+                                        Grid.Column="0"
+                                        Width="300"
+                                        Margin="0" />
+
+                                    <Ellipse
+                                        Grid.Column="1"
+                                        Width="15"
+                                        Height="15"
+                                        Fill="{Binding Path=., Converter={StaticResource IntToBackgroundConverter}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </controls:ComboBoxItemTemplateSelector.SelectedTemplate>
+
+                        <controls:ComboBoxItemTemplateSelector.DropDownTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Content="{Binding Path=.,Mode=OneWay, Converter={StaticResource EnumLanguageConverter}}"
+                                        Grid.Column="0"
+                                        Margin="0" />
+
+                                    <Ellipse
+                                        Grid.Column="1"
+                                        Width="15"
+                                        Height="15"
+                                        Fill="{Binding Path=., Converter={StaticResource IntToBackgroundConverter}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </controls:ComboBoxItemTemplateSelector.DropDownTemplate>
+
+                    </controls:ComboBoxItemTemplateSelector>
+                </ComboBox.ItemTemplateSelector>
+            </ComboBox>
+
+            <TextBlock
+                Text="{lex:Loc Progress}"
+                Style="{DynamicResource LabelControl}" />
+
+            <ComboBox
+                Style="{DynamicResource ComboBoxStyle}"
+                Margin="4"
+                ItemsSource="{Binding Progresses}"
+                SelectedIndex="{Binding Progress}">
+                <ComboBox.ItemTemplate>
+
+                    <DataTemplate>
+                        <Label
+                            Content="{Binding Path=.,Mode=OneWay, Converter={StaticResource EnumLanguageConverter}}"
+                            Height="Auto"
+                            Margin="0"
+                            VerticalAlignment="Center" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Orientation="Vertical">
+
+            <TextBlock
+                Text="{lex:Loc Responsible}"
+                Style="{DynamicResource LabelControl}" />
+
+            <ListBox
+                ItemsSource="{Binding ResponsibleSubjectViewModels}"
+                ScrollViewer.CanContentScroll="True"
+                SelectedItem="{Binding SelectedResponsibleSubjectViewModel, Mode=TwoWay}"
+                Style="{DynamicResource FlyoutListBoxStyle}"
+                Background="Black"
+                Margin="12 0 6 0"
+                Height="100">
+                <ListBox.Resources>
+                    <DataTemplate
+                        DataType="{x:Type viewModels:EmployeeViewModel}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto" />
+                                <ColumnDefinition
+                                    Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Path
+                                Grid.Column="0"
+                                Style="{DynamicResource IconEmployee}"
+                                HorizontalAlignment="Left" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding FullName}"
+                                TextTrimming="CharacterEllipsis"
+                                HorizontalAlignment="Left"
+                                Margin="4 0 0 4" />
+
+                        </Grid>
+                    </DataTemplate>
+
+                    <DataTemplate
+                        DataType="{x:Type viewModels:GroupViewModel}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto" />
+                                <ColumnDefinition
+                                    Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Grid.Column="0"
+                                Style="{DynamicResource IconGroup}"
+                                HorizontalAlignment="Left" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding Name}"
+                                TextTrimming="CharacterEllipsis"
+                                HorizontalAlignment="Left"
+                                Margin="4 0 0 4" />
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="2"
+            Orientation="Vertical">
+
+            <TextBlock
+                Text="{lex:Loc Documents}"
+                Style="{DynamicResource LabelControl}" />
+
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto">
+                <ListBox
+                    Height="285"
+                    MaxHeight="285"
+                    Margin="4 4 0 0"
+                    Background="Black"
+                    ItemsSource="{Binding AttachedDocuments}"
+                    Style="{DynamicResource FlyoutListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="0 3 0 3"
+                                Background="Transparent">
+
+                                <TextBlock
+                                    Margin="2 0 0 0"
+                                    Text="{Binding Name}" />
+
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+
+                                    <Button
+                                        Style="{DynamicResource UnstyledButtonStyle}"
+                                        cal:Message.Attach="OpenDocument($dataContext)">
+                                        <Path
+                                            ToolTip="{lex:Loc OpenDocument}"
+                                            Margin="2"
+                                            Style="{DynamicResource IconEye}" />
+                                    </Button>
+
+                                    <Button
+                                        Style="{DynamicResource UnstyledButtonStyle}"
+                                        cal:Message.Attach="DeleteDocument($dataContext)">
+                                        <Path
+                                            ToolTip="{lex:Loc DeleteDocument}"
+                                            Margin="2"
+                                            Style="{DynamicResource IconDelete}" />
+                                    </Button>
+
+                                </StackPanel>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+            <Button
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Style="{DynamicResource SmallButton}"
+                cal:Message.Attach="AddDocument"
+                Content="{lex:Loc Add}"
+                Margin="0 4 0 0" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

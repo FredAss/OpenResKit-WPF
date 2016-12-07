@@ -1,0 +1,98 @@
+﻿<UserControl
+  x:Class="Ork.Waste.Views.DisposerEditView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  
+  xmlns:views="clr-namespace:Ork.Waste.Views"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:micro="http://www.caliburnproject.org"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <Storyboard
+        x:Key="OpenDeletePopup"
+        BeginTime="0:0:0">
+        <BooleanAnimationUsingKeyFrames
+          Storyboard.TargetName="DeleteChoicesPopup"
+          Storyboard.TargetProperty="IsOpen">
+          <DiscreteBooleanKeyFrame
+            KeyTime="00:00:00"
+            Value="true" />
+        </BooleanAnimationUsingKeyFrames>
+      </Storyboard>
+
+    </ResourceDictionary>
+
+  </UserControl.Resources>
+
+
+  <StackPanel>
+
+    <views:DisposerModifyView />
+
+
+    <StackPanel
+      Margin="0 20 0 0 "
+      Orientation="Horizontal"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="12 0 0 0">
+
+
+        <Button
+          x:Name="DeleteButton"
+          Content="{lex:Loc Delete}"
+          HorizontalAlignment="Left">
+
+          <Button.Triggers>
+            <EventTrigger
+              RoutedEvent="Button.Click">
+              <BeginStoryboard
+                Storyboard="{StaticResource OpenDeletePopup}" />
+            </EventTrigger>
+          </Button.Triggers>
+        </Button>
+
+        <Popup
+          AllowsTransparency="True"
+          x:Name="DeleteChoicesPopup"
+          StaysOpen="False"
+          Placement="Top"
+          PlacementTarget="{Binding ElementName=DeleteButton}">
+
+          <StackPanel
+            Background="{DynamicResource WindowBackgroundColorBrush}"
+            HorizontalAlignment="Center">
+
+            <Button
+              Style="{DynamicResource DeleteButtonStyle}"
+              micro:Message.Attach="RemoveDisposer"
+              Content="{lex:Loc Sure}" />
+
+          </StackPanel>
+
+        </Popup>
+
+      </Grid>
+
+      <Button
+        Margin="10 0 0 0 "
+        IsEnabled="{Binding IsSaveAllowed}"
+        micro:Message.Attach="EditDisposer($dataContext)"
+        HorizontalAlignment="Right"
+        Content="{lex:Loc Ok}" />
+
+    </StackPanel>
+
+  </StackPanel>
+</UserControl>

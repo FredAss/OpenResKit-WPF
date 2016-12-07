@@ -1,0 +1,279 @@
+﻿<UserControl
+  x:Class="Ork.Invest.Views.InvestmentManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:converters2="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Invest"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <converters2:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <!--<DataTemplate
+        x:Key="RotateHeaderTemplate">
+        <TextBlock
+          Text="{Binding}"
+          Foreground="{DynamicResource TextForegroundColorBrush}"
+          Background="Transparent"
+          TextWrapping="Wrap"
+          Margin="0 0 2 0" />
+      </DataTemplate>-->
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid
+      x:Name="InvestmentDetailView"
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition
+          Height="*" />
+        <RowDefinition
+          Height="Auto" />
+      </Grid.RowDefinitions>
+      <Grid.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="InvestmentsPlansFlyout" />
+          <Binding
+            ElementName="InvestmentDetailView" />
+          <Binding
+            ElementName="InvestmentsPlansFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </Grid.Margin>
+
+      <StackPanel
+        Grid.Row="0"
+        Orientation="Horizontal">
+        <TextBlock>
+          <Run
+            Text="{lex:Loc ImputedInterestRate}" />
+          <Run
+            Text="(%): " />
+        </TextBlock>
+        <TextBlock
+          Text="{Binding SelectedInvestmentPlanViewModel.ImputedInterestRate}"
+          Margin="0 0 20 0" />
+        <TextBlock>
+          <Run
+            Text="{lex:Loc OtherCostsChangePA}" />
+          <Run
+            Text="(%): " />
+        </TextBlock>
+        <TextBlock
+          Text="{Binding SelectedInvestmentPlanViewModel.OtherCostsChangePA}"
+          Margin="0 0 20 0" />
+        <TextBlock>
+          <Run
+            Text="{lex:Loc OtherRevenueChangePA}" />
+          <Run
+            Text="(%): " />
+        </TextBlock>
+        <TextBlock
+          Text="{Binding SelectedInvestmentPlanViewModel.OtherRevenueChangePA}" />
+      </StackPanel>
+
+      <ContentControl
+        Grid.Row="1"
+        Name="ActiveItem">
+        <toolkit:DataGrid
+          ItemsSource="{Binding Comparisons}">
+          <toolkit:DataGrid.Resources>
+            <Style
+              TargetType="{x:Type toolkit:DataGridColumnHeader}">
+              <Setter
+                Property="Background"
+                Value="{DynamicResource WorkspaceBackgroundColorBrush}" />
+              <!--<Setter
+                Property="ContentTemplate"
+                Value="{StaticResource RotateHeaderTemplate}" />-->
+            </Style>
+
+
+          </toolkit:DataGrid.Resources>
+
+          <toolkit:DataGrid.RowStyle>
+            <Style
+              TargetType="{x:Type toolkit:DataGridRow}">
+              <Setter
+                Property="cal:Message.Attach"
+                Value="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+              <Style.Triggers>
+                <DataTrigger
+                  Binding="{Binding Path=IsReadOnly}"
+                  Value="true">
+                  <Setter
+                    Property="Background"
+                    Value="DimGray" />
+                  <Setter
+                    Property="IsEnabled"
+                    Value="False" />
+                  <Setter
+                    Property="FontWeight"
+                    Value="Bold" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </toolkit:DataGrid.RowStyle>
+
+          <toolkit:DataGrid.Columns>
+            <toolkit:DataGridTextColumn
+              Width="100"
+              Header="{lex:Loc Ork.Invest:Translate:Name}"
+              Binding="{Binding ComparisonName}" />
+            <toolkit:DataGridTextColumn
+              Width="68"
+              Header="{lex:Loc Ork.Invest:Translate:Lifetime_withUnit}"
+              Binding="{Binding Lifetime}" />
+            <toolkit:DataGridTextColumn
+              Width="80"
+              Header="{lex:Loc Ork.Invest:Translate:InvestmentSum_withUnit}"
+              Binding="{Binding InvestmentSum}" />
+            <toolkit:DataGridTextColumn
+              Width="78"
+              Header="{lex:Loc Ork.Invest:Translate:RecoveryValueToday_withUnit}"
+              Binding="{Binding RecoveryValueToday}" />
+            <toolkit:DataGridTextColumn
+              Width="86"
+              Header="{lex:Loc Ork.Invest:Translate:RecoveryValueAfterLifetime_withUnit}"
+              Binding="{Binding RecoveryValueAfterLifetime}" />
+            <toolkit:DataGridTextColumn
+              Width="90"
+              Header="{lex:Loc Ork.Invest:Translate:EnergyCostsAnnual_withUnit}"
+              Binding="{Binding EnergyCostsAnnual}" />
+            <toolkit:DataGridTextColumn
+              Width="86"
+              Header="{lex:Loc Ork.Invest:Translate:EnergyCostsChangePA_withUnit}"
+              Binding="{Binding EnergyCostsChangePA}" />
+            <toolkit:DataGridTextColumn
+              Width="77"
+              Header="{lex:Loc Ork.Invest:Translate:OtherCostsPA_withUnit}"
+              Binding="{Binding OtherCostsPA}" />
+            <toolkit:DataGridTextColumn
+              Width="76"
+              Header="{lex:Loc Ork.Invest:Translate:OtherRevenuePA_withUnit}"
+              Binding="{Binding OtherRevenuePA}" />
+          </toolkit:DataGrid.Columns>
+
+        </toolkit:DataGrid>
+      </ContentControl>
+
+
+      <Button
+        HorizontalAlignment="Right"
+        Grid.Row="2"
+        cal:Message.Attach="OpenComparisonAddDialog"
+        Content="{lex:Loc Add}" />
+
+
+    </Grid>
+
+    <controls:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="InvestmentsPlansFlyout"
+      HorizontalAlignment="Left">
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+            <controls:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Invest:Translate:SearchTextInvestment}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </controls:WatermarkService.Watermark>
+          </xctk:AutoSelectTextBox>
+        </AdornerDecorator>
+
+
+        <ListBox
+          ItemsSource="{Binding FilteredInvestmentPlans}"
+          Margin="12 0 0 0"
+          SelectedItem="{Binding SelectedInvestmentPlanViewModel}"
+          Grid.Row="2"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                  Grid.Column="0"
+                  Text="{Binding InvestmentName}"
+                  cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+                <Button
+                  Grid.Column="1"
+                  VerticalAlignment="Top"
+                  Style="{DynamicResource UnstyledButtonStyle}"
+                  cal:Message.Attach="OpenInvestmentPlanEditDialog($dataContext)"
+                  Cursor="Hand"
+                  ToolTipService.ToolTip="{lex:Loc Ork.Invest:Translate:Edit}"
+                  Margin="0 2 0 2">
+
+                  <Path
+                    Style="{DynamicResource IconPencil}" />
+
+                </Button>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+
+
+        </ListBox>
+        <Button
+          Grid.Row="3"
+          Width="100"
+          HorizontalAlignment="Right"
+          Content="{lex:Loc Ork.Invest:Translate:Add}"
+          cal:Message.Attach="OpenInvestmentPlanAddDialog()" />
+      </Grid>
+
+
+    </controls:Flyout>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+
+
+  </Grid>
+
+</UserControl>

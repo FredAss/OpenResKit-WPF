@@ -1,0 +1,185 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.Views.MachineEnergyConsumptionView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:converter="clr-namespace:Ork.CarbonFootprint.Converter"
+  mc:Ignorable="d"
+  d:DesignHeight="400"
+  d:DesignWidth="300">
+  <UserControl.Resources>
+
+    <converter:EnumToIEnumerableConverter
+      x:Key="EnumToIEnumerableConverter" />
+
+    <converter:EnergySourceToVisibilityConverter
+      x:Key="EnergySourceToVisibilityConverter" />
+
+    <converter:EnumToIntConverter
+      x:Key="EnumToIntConverter" />
+
+  </UserControl.Resources>
+
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition
+        Width="Auto" />
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="0"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc ConsumptionWhenOn}" />
+
+    <TextBox
+      Grid.Column="0"
+      Grid.Row="1"
+      TextAlignment="Right"
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding ConsumptionPerHourForProcessing, Mode=TwoWay}" />
+
+    <TextBlock
+      Grid.Column="1"
+      Grid.Row="1"
+      Text="kWh"
+      VerticalAlignment="Center"
+      Style="{DynamicResource LabelControl}" />
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="2"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc OperatingHours}" />
+
+    <TextBox
+      Grid.Column="0"
+      Grid.Row="3"
+      TextAlignment="Right"
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding HoursInProcessingState, Mode=TwoWay}" />
+
+    <TextBlock
+      Grid.Column="1"
+      Grid.Row="3"
+      Text="h"
+      VerticalAlignment="Center"
+      Style="{DynamicResource LabelControl}" />
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="4"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc ConsumptionWhenInStandby}" />
+
+    <TextBox
+      Grid.Column="0"
+      Grid.Row="5"
+      TextAlignment="Right"
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding ConsumptionPerHourForStandby, Mode=TwoWay}" />
+
+    <TextBlock
+      Grid.Column="1"
+      Grid.Row="5"
+      Text="kWh"
+      VerticalAlignment="Center"
+      Style="{DynamicResource LabelControl}" />
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="6"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc StandbyHours}" />
+
+    <TextBox
+      Grid.Column="0"
+      Grid.Row="7"
+      TextAlignment="Right"
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding HoursInStandbyState, Mode=TwoWay}" />
+
+    <TextBlock
+      Grid.Column="1"
+      Grid.Row="7"
+      Text="h"
+      VerticalAlignment="Center"
+      Style="{DynamicResource LabelControl}" />
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="8"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc EnergySource}" />
+
+    <ComboBox
+      Grid.Column="0"
+      Grid.Row="9"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource ComboBoxStyle}"
+      ItemsSource="{Binding EnergySource, Mode=OneTime, Converter={StaticResource EnumToIEnumerableConverter}}"
+      SelectedIndex="{Binding EnergySource, Mode=TwoWay, Converter={StaticResource EnumToIntConverter}}" />
+
+    <TextBlock
+      Grid.Column="0"
+      Grid.Row="10"
+      Grid.ColumnSpan="2"
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc CarbonProduction}"
+      Visibility="{Binding EnergySource, Converter={StaticResource EnergySourceToVisibilityConverter}}" />
+
+    <TextBox
+      Grid.Column="0"
+      Grid.Row="11"
+      TextAlignment="Right"
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding CarbonProduction, Mode=TwoWay}"
+      Visibility="{Binding EnergySource, Converter={StaticResource EnergySourceToVisibilityConverter}}" />
+
+    <TextBlock
+      Grid.Column="1"
+      Grid.Row="11"
+      Text="g CO2"
+      VerticalAlignment="Center"
+      Style="{DynamicResource LabelControl}"
+      Visibility="{Binding EnergySource, Converter={StaticResource EnergySourceToVisibilityConverter}}" />
+
+  </Grid>
+
+</UserControl>

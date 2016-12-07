@@ -1,0 +1,303 @@
+﻿<UserControl
+  x:Class="Ork.Discard.Views.ProductionItemsManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Discard"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:frameworkConverters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      
+      <frameworkConverters:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <ToolTip
+        x:Key="DiscardToolTip">
+
+        <StackPanel>
+
+          <TextBlock
+            Text="{Binding ItemDescription}" />
+
+        </StackPanel>
+
+      </ToolTip>
+
+      <Style
+        BasedOn="{StaticResource {x:Type toolkit:DataGrid}}"
+        TargetType="toolkit:DataGrid">
+
+        <Setter
+          Property="SelectedItem"
+          Value="{Binding SelectedProductionItemViewModel}" />
+        <Setter
+          Property="cal:Message.Attach"
+          Value="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+
+        <Setter
+          Property="RowStyle">
+          <Setter.Value>
+            <Style
+              TargetType="toolkit:DataGridRow">
+              <Setter
+                Property="ToolTip"
+                Value="{StaticResource DiscardToolTip}" />
+            </Style>
+          </Setter.Value>
+        </Setter>
+
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid>
+
+    <Grid
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+      Name="ProductionItemTable">
+
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="*" />
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition
+          Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <Grid.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="ProductionItemFlyout" />
+          <Binding
+            ElementName="ProductionItemTable" />
+          <Binding
+            ElementName="ProductionItemFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </Grid.Margin>
+
+
+      <toolkit:DataGrid
+        Visibility="{Binding CustomerColumnDataGridVisibility}"
+        ItemsSource="{Binding FilteredProductionItems, Mode=OneWay}"
+        Grid.Row="0">
+
+        <toolkit:DataGrid.Columns>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemNumber}"
+            Binding="{Binding ItemNumber, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemName}"
+            Binding="{Binding ItemName, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ToolNumber}"
+            Binding="{Binding ToolNumber, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ReferenceNumber1}"
+            Binding="{Binding ReferenceNumber1, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ReferenceNumber2}"
+            Binding="{Binding ReferenceNumber2, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemCategory}"
+            SortMemberPath="ItemCategory"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Text="{Binding ItemCategory}" />
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:Customer}"
+            Binding="{Binding Customer.Name, Mode=OneWay}"
+            Width="40*" />
+        </toolkit:DataGrid.Columns>
+
+      </toolkit:DataGrid>
+
+      <toolkit:DataGrid
+        Visibility="{Binding NoCustomerColumnDataGridVisibility}"
+        ItemsSource="{Binding FilteredProductionItems}"
+        Grid.Row="0">
+
+        <toolkit:DataGrid.Columns>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemNumber}"
+            Binding="{Binding ItemNumber, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemName}"
+            Binding="{Binding ItemName, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ToolNumber}"
+            Binding="{Binding ToolNumber, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ReferenceNumber1}"
+            Binding="{Binding ReferenceNumber1, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Discard:Translate:ReferenceNumber2}"
+            Binding="{Binding ReferenceNumber2, Mode=OneWay}"
+            Width="40*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Discard:Translate:ItemCategory}"
+            SortMemberPath="ItemCategory"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Text="{Binding ItemCategory}" />
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+          </toolkit:DataGridTemplateColumn>
+
+
+        </toolkit:DataGrid.Columns>
+
+      </toolkit:DataGrid>
+
+      <Button
+        Grid.Row="1"
+        Content="{lex:Loc Add}"
+        Width="100"
+        HorizontalAlignment="Right"
+        IsEnabled="{Binding ButtonIsEnabled}"
+        cal:Message.Attach="OpenProductionItemAddDialog" />
+
+
+    </Grid>
+
+    <global:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="ProductionItemFlyout"
+      HorizontalAlignment="Left">
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+            <global:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Discard:Translate:SearchTextProductionItems}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </global:WatermarkService.Watermark>
+          </xctk:AutoSelectTextBox>
+        </AdornerDecorator>
+
+        <Button
+          Grid.Row="1"
+          Style="{DynamicResource ButtonAsItem}"
+          cal:Message.Attach="ShowAllDiscards"
+          Margin="14 0 0 2"
+          Padding="4 0 0 0"
+          Content="{lex:Loc Ork.Discard:Translate:AllCustomers}"
+          FontSize="12" />
+
+        <ListBox
+          ItemsSource="{Binding  FilteredCustomers}"
+          Margin="12 0 0 0"
+          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+          SelectedIndex="0"
+          Grid.Row="2"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                  Grid.Column="0"
+                  Style="{DynamicResource TextBlockStyle}"
+                  Text="{Binding Name}"
+                  TextTrimming="CharacterEllipsis"
+                  Margin="0 0 0 4" />
+
+                <Button
+                  Grid.Column="1"
+                  Style="{DynamicResource UnstyledButtonStyle}"
+                  cal:Message.Attach="OpenCustomerEditDialog($dataContext)"
+                  Cursor="Hand"
+                  ToolTipService.ToolTip="{lex:Loc Ork.Discard:Translate:EditCustomer}"
+                  Margin="0 2 0 2">
+                  <Path
+                    Style="{DynamicResource IconPencil}" />
+                </Button>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+        <Button
+          Grid.Row="3"
+          Width="100"
+          HorizontalAlignment="Right"
+          Content="{lex:Loc Ork.Discard:Translate:Add}"
+          cal:Message.Attach="OpenCustomerAddDialog" />
+
+      </Grid>
+    </global:Flyout>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs"
+      d:IsHidden="True" />
+
+  </Grid>
+</UserControl>

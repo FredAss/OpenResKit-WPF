@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Framework", "Ork.Framework\Ork.Framework.csproj", "{D2CC3B92-C255-4756-9222-2C14DB339A73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D08B8941-238A-4F3E-B7BA-9303D4696938}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.About", "Ork.About\Ork.About.csproj", "{0B0D8C0C-DC90-4ED1-ACC5-4D937C27FEFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Setting", "Ork.Setting\Ork.Setting.csproj", "{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.FMIT", "Ork.FMIT\Ork.FMIT.csproj", "{172E66D9-6814-405A-8457-12E0957292F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.FMITClient", "Ork.FMITClient\Ork.FMITClient.csproj", "{0DA0AD95-9D63-4F23-8B90-17CD51722782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ork.Theme.Dark", "Ork.Theme.Dark\Ork.Theme.Dark.csproj", "{DD0032E9-D839-4141-96E5-2EC604F66B93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2CC3B92-C255-4756-9222-2C14DB339A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CC3B92-C255-4756-9222-2C14DB339A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CC3B92-C255-4756-9222-2C14DB339A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CC3B92-C255-4756-9222-2C14DB339A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0D8C0C-DC90-4ED1-ACC5-4D937C27FEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0D8C0C-DC90-4ED1-ACC5-4D937C27FEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0D8C0C-DC90-4ED1-ACC5-4D937C27FEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0D8C0C-DC90-4ED1-ACC5-4D937C27FEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91FAFCFF-402B-4C28-B7C8-9FDC9A850455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{172E66D9-6814-405A-8457-12E0957292F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172E66D9-6814-405A-8457-12E0957292F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172E66D9-6814-405A-8457-12E0957292F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172E66D9-6814-405A-8457-12E0957292F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA0AD95-9D63-4F23-8B90-17CD51722782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA0AD95-9D63-4F23-8B90-17CD51722782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA0AD95-9D63-4F23-8B90-17CD51722782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA0AD95-9D63-4F23-8B90-17CD51722782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD0032E9-D839-4141-96E5-2EC604F66B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD0032E9-D839-4141-96E5-2EC604F66B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD0032E9-D839-4141-96E5-2EC604F66B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD0032E9-D839-4141-96E5-2EC604F66B93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

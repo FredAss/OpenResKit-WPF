@@ -1,0 +1,304 @@
+﻿<UserControl
+  x:Class="Ork.Invest.Views.SummaryView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:wpf="http://oxyplot.org/wpf"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Invest"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <UserControl.Resources>
+
+    <ControlTemplate
+      x:Key="TrackerControlTemplate">
+
+      <wpf:TrackerControl
+        Position="{Binding Position}"
+        BorderThickness="2"
+        LineStroke="SteelBlue"
+        Background="{DynamicResource WindowBackgroundColorBrush}"
+        LineExtents="{Binding PlotModel.PlotArea}">
+        <wpf:TrackerControl.Content>
+
+          <UniformGrid
+            Columns="1"
+            Canvas.Left="{Binding Position.X}"
+            Canvas.Top="{Binding Position.Y}"
+            Margin="6">
+
+            <TextBlock
+              Foreground="{DynamicResource TextForegroundColorBrush}"
+              Text="{Binding DataPoint.Y, StringFormat=F2}" />
+
+
+          </UniformGrid>
+
+        </wpf:TrackerControl.Content>
+      </wpf:TrackerControl>
+
+    </ControlTemplate>
+
+  </UserControl.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="*" />
+    </Grid.RowDefinitions>
+
+    <StackPanel
+      Grid.Row="0">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+          Grid.Column="0"
+          HorizontalAlignment="Right"
+          FontSize="16"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}"
+          Text="{lex:Loc Ork.Invest:Translate:AmortisationStatic}" />
+
+        <StackPanel
+          Grid.Column="1"
+          Orientation="Horizontal"
+          HorizontalAlignment="Left">
+
+          <TextBlock
+            FontSize="24"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding StaticAmortisation}" />
+          <TextBlock
+            FontSize="24"
+            Style="{DynamicResource LabelStyle}"
+            Text="a" />
+
+          <TextBlock
+            Style="{DynamicResource LabelStyle}"
+            FontSize="24"
+            Text="{Binding StaticAmortisationPercentage}"
+            Margin="6 0 0 0" />
+          <TextBlock
+            Style="{DynamicResource LabelStyle}"
+            FontSize="24"
+            Margin="0 0 6 0"
+            Text="{lex:Loc Ork.Invest:Translate:PercentageOfLifetime}" />
+
+        </StackPanel>
+      </Grid>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+          Grid.Column="0"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}"
+          HorizontalAlignment="Right">
+          <Run
+            Text="{lex:Loc Ork.Invest:Translate:Amortisation}" />
+          <Run
+            Text="" />
+          <Run
+            Text="{Binding InterestRate, Mode=OneWay}" />
+          <Run
+            Text=" %" />
+        </TextBlock>
+
+
+        <StackPanel
+          Grid.Column="1"
+          HorizontalAlignment="Left"
+          Orientation="Horizontal">
+          <TextBlock
+            FontSize="24"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding Amortisation10Percent}" />
+          <TextBlock
+            FontSize="24"
+            Margin="6 0 6 0"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding Amortisation10PercentPercentage}" />
+
+        </StackPanel>
+      </Grid>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock
+          Grid.Column="0"
+          HorizontalAlignment="Right"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}">
+          <Run
+            Text="{lex:Loc Ork.Invest:Translate:CapitalValue}" />
+          <Run
+            Text="" />
+          <Run
+            Text="{Binding InterestRate, Mode=OneWay}" />
+          <Run
+            Text=" %" />
+        </TextBlock>
+        <TextBlock
+          Grid.Column="1"
+          HorizontalAlignment="Left"
+          FontSize="24"
+          Style="{DynamicResource LabelStyle}"
+          Text="{Binding CapitalValue10Percent}"
+          Margin="0 0 6 0" />
+      </Grid>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock
+          Grid.Column="0"
+          HorizontalAlignment="Right"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}"
+          Text="{lex:Loc Ork.Invest:Translate:InternalYield}" />
+        <TextBlock
+          Grid.Column="1"
+          HorizontalAlignment="Left"
+          FontSize="24"
+          Style="{DynamicResource LabelStyle}"
+          Text="{Binding InterneVerzinsung}"
+          Margin="0 0 6 0" />
+      </Grid>
+    </StackPanel>
+
+    <StackPanel
+      Margin="0 12 0 12"
+      Grid.Row="1">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid
+          Grid.Column="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <TextBlock
+            Grid.Column="0"
+            Style="{DynamicResource SmallHeaderTextBlockStyle}"
+            Text="{lex:Loc Ork.Invest:Translate:OldNew}" />
+          <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="6 0 6 0"
+            Style="{DynamicResource SmallHeaderTextBlockStyle}"
+            Text="{lex:Loc Ork.Invest:Translate:Comparison}" />
+        </Grid>
+      </Grid>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+          Grid.Column="0"
+          HorizontalAlignment="Right"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}"
+          Text="{lex:Loc Ork.Invest:Translate:YearlyCostIncl}" />
+        <Grid
+          Grid.Column="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <TextBlock
+            Grid.Column="0"
+            Margin="6 0 6 0"
+            FontSize="24"
+            HorizontalAlignment="Left"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding JahreskostenAltNeu}" />
+          <TextBlock
+            Grid.Column="1"
+            Margin="6 0 6 0"
+            FontSize="24"
+            HorizontalAlignment="Left"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding JahreskostenVergleich}" />
+        </Grid>
+      </Grid>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+          Grid.Column="0"
+          HorizontalAlignment="Right"
+          Style="{DynamicResource SmallHeaderTextBlockStyle}"
+          Text="{lex:Loc Ork.Invest:Translate:YearlySavings}" />
+
+        <Grid
+          Grid.Column="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <TextBlock
+            Grid.Column="1"
+            Margin="6 0 6 0"
+            FontSize="24"
+            HorizontalAlignment="Left"
+            Style="{DynamicResource LabelStyle}"
+            Text="{Binding Kostenersparnis}" />
+        </Grid>
+      </Grid>
+
+    </StackPanel>
+
+
+    <Grid
+      Grid.Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="*" />
+        <ColumnDefinition
+          Width="*" />
+        <ColumnDefinition
+          Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <wpf:Plot
+        Grid.Column="0"
+        DefaultTrackerTemplate="{StaticResource TrackerControlTemplate}"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding PlotModelZinsen}" />
+      <wpf:Plot
+        Grid.Column="1"
+        DefaultTrackerTemplate="{StaticResource TrackerControlTemplate}"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding PlotModelCapital}" />
+      <wpf:Plot
+        Grid.Column="2"
+        DefaultTrackerTemplate="{StaticResource TrackerControlTemplate}"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding PlotModelTime}" />
+    </Grid>
+  </Grid>
+</UserControl>

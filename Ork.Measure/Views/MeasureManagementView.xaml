@@ -1,0 +1,604 @@
+﻿<UserControl
+  x:Class="Ork.Measure.Views.MeasureManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  xmlns:converters2="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:converters="clr-namespace:Ork.Measure.Converters"
+  xmlns:wpf="http://oxyplot.org/wpf"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Measure"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="600">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <converters:PriorityToColorConverter
+        x:Key="PriorityToColorConverter" />
+
+      <converters:DelayedToVisibiltyConverter
+        x:Key="DelayedToVisibiltyConverter" />
+
+      <converters2:BoolToVisibilityReversableConverter
+        x:Key="BoolToVisibilityReversableConverter" />
+
+
+      <ToolTip
+        x:Key="MeasureToolTip">
+
+        <StackPanel>
+
+          <TextBlock
+            Text="{Binding Description}" />
+          <TextBlock
+            Text="{Binding Evaluation}" />
+
+        </StackPanel>
+
+      </ToolTip>
+
+      <converters2:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <Style
+        BasedOn="{StaticResource {x:Type toolkit:DataGrid}}"
+        TargetType="toolkit:DataGrid">
+
+        <Setter
+          Property="cal:Message.Attach"
+          Value="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+
+        <Setter
+          Property="RowStyle">
+          <Setter.Value>
+            <Style
+              TargetType="toolkit:DataGridRow">
+              <Setter
+                Property="ToolTip"
+                Value="{StaticResource MeasureToolTip}" />
+              <Style.Triggers>
+                <DataTrigger
+                  Binding="{Binding StatusName}"
+                  Value="Abgeschlossen">
+                  <Setter
+                    Property="FontStyle"
+                    Value="Italic" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <ControlTemplate
+        x:Key="TrackerControlTemplate">
+
+        <wpf:TrackerControl
+          Position="{Binding Position}"
+          BorderThickness="2"
+          LineStroke="SteelBlue"
+          Background="{DynamicResource WindowBackgroundColorBrush}"
+          LineExtents="{Binding PlotModel.PlotArea}">
+          <wpf:TrackerControl.Content>
+
+            <UniformGrid
+              Columns="1"
+              Canvas.Left="{Binding Position.X}"
+              Canvas.Top="{Binding Position.Y}"
+              Margin="6">
+
+              <TextBlock
+                Text="{Binding Series.Title}"
+                FontWeight="Bold"
+                FontSize="15"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+
+              <TextBlock
+                Foreground="{DynamicResource TextForegroundColorBrush}">
+                <Run
+                  Text="{lex:Loc Ork.Measure:Translate:Amount}"
+                  FontWeight="Bold" />
+                <Run
+                  Text="{Binding DataPoint.Y, StringFormat='{}{0:0}'}" />
+              </TextBlock>
+
+            </UniformGrid>
+
+          </wpf:TrackerControl.Content>
+        </wpf:TrackerControl>
+
+      </ControlTemplate>
+
+    </ResourceDictionary>
+
+
+  </UserControl.Resources>
+
+  <Grid>
+
+    <Grid
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+      Name="MeasureTable">
+
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition
+          Height="*" />
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition
+          Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <Grid.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="MeasureFlyout" />
+          <Binding
+            ElementName="MeasureTable" />
+          <Binding
+            ElementName="MeasureFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </Grid.Margin>
+
+      <AdornerDecorator
+        Grid.Row="0"
+        HorizontalAlignment="Left"
+        Width="300"
+        Margin="10 10 0 0">
+        <xctk:AutoSelectTextBox
+          Style="{DynamicResource EntryControl}"
+          Text="{Binding SearchTextMeasures, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+          <global:WatermarkService.Watermark>
+            <TextBlock
+              Text="{lex:Loc Ork.Measure:Translate:FilterResponsible}"
+              Foreground="{DynamicResource TextForegroundColorBrush}" />
+          </global:WatermarkService.Watermark>
+        </xctk:AutoSelectTextBox>
+      </AdornerDecorator>
+
+      <toolkit:DataGrid
+        Grid.Row="1"
+        Visibility="{Binding VisibleCat, Converter={StaticResource BoolToVisibilityReversableConverter}}"
+        ItemsSource="{Binding Measures}"
+        SelectedItem="{Binding SelectedMeasure}">
+
+        <toolkit:DataGrid.Columns>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:Name}"
+            Binding="{Binding Name}"
+            Width="40*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:Planning}"
+            SortMemberPath="DueDate"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel
+                  Orientation="Horizontal">
+                  <TextBlock
+                    Text="{Binding DueDateString}" />
+                  <Path
+                    Style="{DynamicResource IconWarning}"
+                    Visibility="{Binding Delayed, Converter={StaticResource DelayedToVisibiltyConverter}}"
+                    Margin="5,0,0,0" />
+                </StackPanel>
+
+              </DataTemplate>
+
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+            <toolkit:DataGridTemplateColumn.CellStyle>
+              <Style
+                TargetType="toolkit:DataGridCell"
+                BasedOn="{StaticResource {x:Type toolkit:DataGridCell}}">
+                <Style.Triggers>
+                  <DataTrigger
+                    Binding="{Binding Delayed}"
+                    Value="true">
+
+                    <Setter
+                      Property="ToolTip">
+                      <Setter.Value>
+                        <TextBlock
+                          Text="{Binding DueDateIsDelayed}" />
+                      </Setter.Value>
+                    </Setter>
+
+                  </DataTrigger>
+                </Style.Triggers>
+
+              </Style>
+            </toolkit:DataGridTemplateColumn.CellStyle>
+
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:EntryDate}"
+            SortMemberPath="EntryDate"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel
+                  Orientation="Horizontal">
+                  <TextBlock
+                    Text="{Binding EntryDateString}" />
+                  <Path
+                    Style="{DynamicResource IconWarning}"
+                    Visibility="{Binding DelayedCompleted, Converter={StaticResource DelayedToVisibiltyConverter}}"
+                    Margin="5,0,0,0" />
+                </StackPanel>
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+            <toolkit:DataGridTemplateColumn.CellStyle>
+              <Style
+                TargetType="toolkit:DataGridCell"
+                BasedOn="{StaticResource {x:Type toolkit:DataGridCell}}">
+                <Style.Triggers>
+                  <DataTrigger
+                    Binding="{Binding DelayedCompleted}"
+                    Value="true">
+
+                    <Setter
+                      Property="ToolTip">
+                      <Setter.Value>
+                        <TextBlock
+                          Text="{Binding EntryDateIsDelayed}" />
+                      </Setter.Value>
+                    </Setter>
+
+                  </DataTrigger>
+                </Style.Triggers>
+
+              </Style>
+            </toolkit:DataGridTemplateColumn.CellStyle>
+
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:State}"
+            Binding="{Binding StatusName}"
+            SortDirection="Ascending"
+            Width="25*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:Priority}"
+            SortMemberPath="Priority"
+            Width="25*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Text="{Binding PriorityName}"
+                  Foreground="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}" />
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:ResponsibleSubject}"
+            Binding="{Binding ResponsibleSubjectName}"
+            Width="70*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:RelatedElementName}"
+            Binding="{Binding RelatedElementName}"
+            Width="30*" />
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:CreationDate}"
+            Binding="{Binding CreationDateString}"
+            Width="30*" />
+        </toolkit:DataGrid.Columns>
+
+      </toolkit:DataGrid>
+
+      <toolkit:DataGrid
+        Grid.Row="1"
+        ItemsSource="{Binding Measures}"
+        SelectedItem="{Binding SelectedMeasure}"
+        Visibility="{Binding VisibleNormal, Converter={StaticResource BoolToVisibilityReversableConverter}}">
+
+        <toolkit:DataGrid.Columns>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:Name}"
+            Binding="{Binding Name}"
+            Width="40*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:Planning}"
+            SortMemberPath="DueDate"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel
+                  Orientation="Horizontal">
+                  <TextBlock
+                    Text="{Binding DueDateString}" />
+                  <Path
+                    Style="{DynamicResource IconWarning}"
+                    Visibility="{Binding Delayed, Converter={StaticResource DelayedToVisibiltyConverter}}"
+                    Margin="5,0,0,0" />
+                </StackPanel>
+
+              </DataTemplate>
+
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+            <toolkit:DataGridTemplateColumn.CellStyle>
+              <Style
+                TargetType="toolkit:DataGridCell"
+                BasedOn="{StaticResource {x:Type toolkit:DataGridCell}}">
+                <Style.Triggers>
+                  <DataTrigger
+                    Binding="{Binding Delayed}"
+                    Value="true">
+
+                    <Setter
+                      Property="ToolTip">
+                      <Setter.Value>
+                        <TextBlock
+                          Text="{Binding DueDateIsDelayed}" />
+                      </Setter.Value>
+                    </Setter>
+
+                  </DataTrigger>
+                </Style.Triggers>
+
+              </Style>
+            </toolkit:DataGridTemplateColumn.CellStyle>
+
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:EntryDate}"
+            SortMemberPath="EntryDate"
+            Width="40*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel
+                  Orientation="Horizontal">
+                  <TextBlock
+                    Text="{Binding EntryDateString}" />
+                  <Path
+                    Style="{DynamicResource IconWarning}"
+                    Visibility="{Binding DelayedCompleted, Converter={StaticResource DelayedToVisibiltyConverter}}"
+                    Margin="5,0,0,0" />
+                </StackPanel>
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+            <toolkit:DataGridTemplateColumn.CellStyle>
+              <Style
+                TargetType="toolkit:DataGridCell"
+                BasedOn="{StaticResource {x:Type toolkit:DataGridCell}}">
+                <Style.Triggers>
+                  <DataTrigger
+                    Binding="{Binding DelayedCompleted}"
+                    Value="true">
+
+                    <Setter
+                      Property="ToolTip">
+                      <Setter.Value>
+                        <TextBlock
+                          Text="{Binding EntryDateIsDelayed}" />
+                      </Setter.Value>
+                    </Setter>
+
+                  </DataTrigger>
+                </Style.Triggers>
+
+              </Style>
+            </toolkit:DataGridTemplateColumn.CellStyle>
+
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:State}"
+            Binding="{Binding StatusName}"
+            SortDirection="Ascending"
+            Width="25*" />
+
+          <toolkit:DataGridTemplateColumn
+            Header="{lex:Loc Ork.Measure:Translate:Priority}"
+            SortMemberPath="Priority"
+            Width="25*">
+            <toolkit:DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock
+                  Text="{Binding PriorityName}"
+                  Foreground="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}" />
+              </DataTemplate>
+            </toolkit:DataGridTemplateColumn.CellTemplate>
+          </toolkit:DataGridTemplateColumn>
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:ResponsibleSubject}"
+            Binding="{Binding ResponsibleSubjectName}"
+            Width="40*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:Catalog}"
+            Binding="{Binding Catalog.Name}"
+            Width="30*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:RelatedElementName}"
+            Binding="{Binding RelatedElementName}"
+            Width="30*" />
+
+          <toolkit:DataGridTextColumn
+            Header="{lex:Loc Ork.Measure:Translate:CreationDate}"
+            Binding="{Binding CreationDateString}"
+            Width="30*" />
+        </toolkit:DataGrid.Columns>
+
+      </toolkit:DataGrid>
+
+      <wpf:Plot
+        Grid.Row="2"
+        Model="{Binding PlotModel}"
+        Margin="10"
+        Height="200"
+        Background="{DynamicResource WindowBackgroundColorBrush}"
+        DefaultTrackerTemplate="{StaticResource TrackerControlTemplate}"
+        Visibility="{Binding VisiblePlot, Converter={StaticResource BoolToVisibilityReversableConverter}}" />
+
+      <Button
+        Grid.Row="3"
+        Content="{lex:Loc Add}"
+        HorizontalAlignment="Right"
+        Width="100"
+        Margin="0 0 10 0"
+        IsEnabled="{Binding CanAdd}"
+        cal:Message.Attach="OpenMeasureAddDialog()" />
+
+    </Grid>
+
+    <global:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="MeasureFlyout"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+            <global:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Measure:Translate:FilterCatalogs}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </global:WatermarkService.Watermark>
+          </xctk:AutoSelectTextBox>
+        </AdornerDecorator>
+
+        <Button
+          Grid.Row="1"
+          Style="{DynamicResource ButtonAsItem}"
+          cal:Message.Attach="ShowAllMeasures"
+          Margin="12 0 0 2">
+          <Button.Content>
+            <StackPanel
+              Orientation="Vertical">
+              <TextBlock
+                Text="{lex:Loc Ork.Measure:Translate:AllMeasures}"
+                FontSize="16"
+                Margin="3 0 0 0" />
+              <TextBlock
+                Text="{Binding AllMeasures, Mode=OneWay}"
+                FontSize="12"
+                Margin="3 0 0 0" />
+            </StackPanel>
+          </Button.Content>
+        </Button>
+
+        <ListBox
+          ItemsSource="{Binding Catalogs}"
+          Margin="12 0 0 12"
+          SelectedItem="{Binding SelectedCatalog}"
+          SelectedIndex="0"
+          Grid.Row="2"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+          <ListBox.GroupStyle>
+            <GroupStyle>
+
+              <GroupStyle.ContainerStyle>
+                <Style
+                  TargetType="{x:Type GroupItem}">
+
+                  <Setter
+                    Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate
+                        TargetType="{x:Type GroupItem}">
+                        <Grid>
+
+                          <Expander
+                            IsExpanded="True">
+                            <Expander.Header>
+                              <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding Name}"
+                                FontSize="18"
+                                Margin="0 12 0 6" />
+
+                            </Expander.Header>
+                            <Expander.Content>
+                              <ItemsPresenter />
+                            </Expander.Content>
+                          </Expander>
+                        </Grid>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </GroupStyle.ContainerStyle>
+            </GroupStyle>
+          </ListBox.GroupStyle>
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel
+                Margin="0 0 4 0"
+                Background="Transparent"
+                Orientation="Vertical"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+                <TextBlock
+                  Style="{DynamicResource TextBlockStyle}"
+                  FontSize="16"
+                  Text="{Binding Name}"
+                  TextTrimming="CharacterEllipsis"
+                  Margin="0 0 0 4" />
+                <TextBlock
+                  Style="{DynamicResource TextBlockStyle}"
+                  Text="{Binding FullDate}"
+                  TextTrimming="CharacterEllipsis"
+                  Margin="0 0 0 4" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+        <Button
+          Grid.Row="3"
+          Width="100"
+          HorizontalAlignment="Right"
+          Content="{lex:Loc Add}"
+          cal:Message.Attach="OpenCatalogAddDialog" />
+
+      </Grid>
+    </global:Flyout>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+
+  </Grid>
+
+</UserControl>

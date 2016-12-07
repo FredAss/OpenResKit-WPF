@@ -1,0 +1,1808 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="OpenResKit.DomainModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Plant">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Position" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="PlantImageSource" Relationship="OpenResKit.DomainModel.Plant_PlantImageSource" ToRole="Plant_PlantImageSource_Target" FromRole="Plant_PlantImageSource_Source" />
+        <NavigationProperty Name="AttachedDocuments" Relationship="OpenResKit.DomainModel.Plant_AttachedDocuments" ToRole="Plant_AttachedDocuments_Target" FromRole="Plant_AttachedDocuments_Source" />
+        <NavigationProperty Name="Permissions" Relationship="OpenResKit.DomainModel.Plant_Permissions" ToRole="Plant_Permissions_Target" FromRole="Plant_Permissions_Source" />
+        <NavigationProperty Name="Substances" Relationship="OpenResKit.DomainModel.Plant_Substances" ToRole="Plant_Substances_Target" FromRole="Plant_Substances_Source" />
+      </EntityType>
+      <EntityType Name="PlantImageSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="Document">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="DocumentSource" Relationship="OpenResKit.DomainModel.Document_DocumentSource" ToRole="Document_DocumentSource_Target" FromRole="Document_DocumentSource_Source" />
+      </EntityType>
+      <EntityType Name="DocumentSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="Permission">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="InEffect" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="PermissionKind" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FileNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="DateOfApplication" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="StartOfPermission" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndOfPermission" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="AttachedDocuments" Relationship="OpenResKit.DomainModel.Permission_AttachedDocuments" ToRole="Permission_AttachedDocuments_Target" FromRole="Permission_AttachedDocuments_Source" />
+        <NavigationProperty Name="Plants" Relationship="OpenResKit.DomainModel.Plant_Permissions" ToRole="Plant_Permissions_Source" FromRole="Plant_Permissions_Target" />
+        <NavigationProperty Name="AuxillaryConditions" Relationship="OpenResKit.DomainModel.Permission_AuxillaryConditions" ToRole="Permission_AuxillaryConditions_Target" FromRole="Permission_AuxillaryConditions_Source" />
+      </EntityType>
+      <EntityType Name="AuxillaryCondition">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Condition" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Reference" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="InEffect" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="ConditionInspections" Relationship="OpenResKit.DomainModel.AuxillaryCondition_ConditionInspections" ToRole="AuxillaryCondition_ConditionInspections_Target" FromRole="AuxillaryCondition_ConditionInspections_Source" />
+      </EntityType>
+      <EntityType Name="ConditionInspection">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="AuxillaryConditionId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InspectionId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Status" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="EntryDate" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.ConditionInspection_Measures" ToRole="ConditionInspection_Measures_Target" FromRole="ConditionInspection_Measures_Source" />
+      </EntityType>
+      <EntityType Name="ResponsibleSubject" Abstract="true">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+      </EntityType>
+      <EntityType Name="Employee" BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property Name="FirstName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="LastName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="UserName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Groups" Relationship="OpenResKit.DomainModel.Employee_Groups" ToRole="Employee_Groups_Target" FromRole="Employee_Groups_Source" />
+      </EntityType>
+      <EntityType Name="EmployeeGroup" BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="MeasureImageSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="Substance">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Category" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DangerTypes" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Action" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="RiskPotential" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Appointment">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Begin" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="End" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="IsAllDay" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Series">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Begin" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Cycle" Type="Edm.Int32" Nullable="false" />
+        <Property Name="End" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndsWithDate" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsAllDay" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsWeekdayRecurrence" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="NumberOfRecurrences" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RecurrenceInterval" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Repeat" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RepeatUntilDate" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="SeriesColor" Relationship="OpenResKit.DomainModel.Series_SeriesColor" ToRole="Series_SeriesColor_Target" FromRole="Series_SeriesColor_Source" />
+        <NavigationProperty Name="WeekDays" Relationship="OpenResKit.DomainModel.Series_WeekDays" ToRole="Series_WeekDays_Target" FromRole="Series_WeekDays_Source" />
+      </EntityType>
+      <EntityType Name="SeriesColor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="B" Type="Edm.Byte" Nullable="false" />
+        <Property Name="G" Type="Edm.Byte" Nullable="false" />
+        <Property Name="R" Type="Edm.Byte" Nullable="false" />
+      </EntityType>
+      <EntityType Name="DayOfWeek">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="WeekDay" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="CarbonFootprint">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="SiteLocation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Employees" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Calculation" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Positions" Relationship="OpenResKit.DomainModel.CarbonFootprint_Positions" ToRole="CarbonFootprint_Positions_Target" FromRole="CarbonFootprint_Positions_Source" />
+      </EntityType>
+      <EntityType Name="CarbonFootprintPosition" Abstract="true">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Start" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Finish" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IconId" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Tag" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Calculation" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.CarbonFootprintPosition_ResponsibleSubject" ToRole="CarbonFootprintPosition_ResponsibleSubject_Target" FromRole="CarbonFootprintPosition_ResponsibleSubject_Source" />
+      </EntityType>
+      <EntityType Name="AirportBasedFlight" BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <NavigationProperty Name="Airports" Relationship="OpenResKit.DomainModel.AirportBasedFlight_Airports" ToRole="AirportBasedFlight_Airports_Target" FromRole="AirportBasedFlight_Airports_Source" />
+      </EntityType>
+      <EntityType Name="Car" BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property Name="CarbonProduction" Type="Edm.Double" Nullable="false" />
+        <Property Name="Consumption" Type="Edm.Double" Nullable="false" />
+        <Property Name="Kilometrage" Type="Edm.Int32" Nullable="false" />
+        <Property Name="m_Fuel" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="FullyQualifiedCar" BaseType="OpenResKit.DomainModel.Car">
+        <Property Name="CarId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="GeoLocatedCar" BaseType="OpenResKit.DomainModel.FullyQualifiedCar">
+        <Property Name="StartName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="StartLatitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="StartLongitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="DestinationName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="DestinationLatitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="DestinationLongitude" Type="Edm.Double" Nullable="false" />
+      </EntityType>
+      <EntityType Name="PublicTransport" BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property Name="Kilometrage" Type="Edm.Int32" Nullable="false" />
+        <Property Name="m_TransportType" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="GeoLocatedPublicTransport" BaseType="OpenResKit.DomainModel.PublicTransport">
+        <Property Name="StartName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="StartLatitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="StartLongitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="DestinationName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="DestinationLatitude" Type="Edm.Double" Nullable="false" />
+        <Property Name="DestinationLongitude" Type="Edm.Double" Nullable="false" />
+      </EntityType>
+      <EntityType Name="EnergyConsumption" BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property Name="Consumption" Type="Edm.Double" Nullable="false" />
+        <Property Name="m_EnergySource" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CarbonProduction" Type="Edm.Double" Nullable="false" />
+      </EntityType>
+      <EntityType Name="MachineEnergyConsumption" BaseType="OpenResKit.DomainModel.EnergyConsumption">
+        <Property Name="HoursInStandbyState" Type="Edm.Double" Nullable="false" />
+        <Property Name="HoursInProcessingState" Type="Edm.Double" Nullable="false" />
+        <Property Name="ConsumptionPerHourForStandby" Type="Edm.Double" Nullable="false" />
+        <Property Name="ConsumptionPerHourForProcessing" Type="Edm.Double" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Flight" BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property Name="RadiativeForcing" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Kilometrage" Type="Edm.Int32" Nullable="false" />
+        <Property Name="m_FlightType" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AirportPosition">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Order" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AirportID" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Action">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="DueDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Effect" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Execution" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Person" Relationship="OpenResKit.DomainModel.Action_Person" ToRole="Action_Person_Target" FromRole="Action_Person_Source" />
+      </EntityType>
+      <EntityType Name="Person">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Assessment">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="AssessmentDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="EvaluatingPerson" Relationship="OpenResKit.DomainModel.Assessment_EvaluatingPerson" ToRole="Assessment_EvaluatingPerson_Target" FromRole="Assessment_EvaluatingPerson_Source" />
+        <NavigationProperty Name="Threats" Relationship="OpenResKit.DomainModel.Assessment_Threats" ToRole="Assessment_Threats_Target" FromRole="Assessment_Threats_Source" />
+      </EntityType>
+      <EntityType Name="Threat">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Actionneed" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="RiskDimension" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RiskPossibility" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Status" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Actions" Relationship="OpenResKit.DomainModel.Threat_Actions" ToRole="Threat_Actions_Target" FromRole="Threat_Actions_Source" />
+        <NavigationProperty Name="Activity" Relationship="OpenResKit.DomainModel.Threat_Activity" ToRole="Threat_Activity_Target" FromRole="Threat_Activity_Source" />
+        <NavigationProperty Name="Dangerpoint" Relationship="OpenResKit.DomainModel.Threat_Dangerpoint" ToRole="Threat_Dangerpoint_Target" FromRole="Threat_Dangerpoint_Source" />
+        <NavigationProperty Name="GFactor" Relationship="OpenResKit.DomainModel.Threat_GFactor" ToRole="Threat_GFactor_Target" FromRole="Threat_GFactor_Source" />
+        <NavigationProperty Name="Pictures" Relationship="OpenResKit.DomainModel.Threat_Pictures" ToRole="Threat_Pictures_Target" FromRole="Threat_Pictures_Source" />
+        <NavigationProperty Name="ProtectionGoals" Relationship="OpenResKit.DomainModel.Threat_ProtectionGoals" ToRole="Threat_ProtectionGoals_Target" FromRole="Threat_ProtectionGoals_Source" />
+      </EntityType>
+      <EntityType Name="Activity">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Dangerpoint">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="GFactor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Dangerpoints" Relationship="OpenResKit.DomainModel.GFactor_Dangerpoints" ToRole="GFactor_Dangerpoints_Target" FromRole="GFactor_Dangerpoints_Source" />
+        <NavigationProperty Name="Questions" Relationship="OpenResKit.DomainModel.GFactor_Questions" ToRole="GFactor_Questions_Target" FromRole="GFactor_Questions_Source" />
+      </EntityType>
+      <EntityType Name="Question">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="QuestionName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Picture">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Pic" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="ProtectionGoal">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Category">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="GFactors" Relationship="OpenResKit.DomainModel.Category_GFactors" ToRole="Category_GFactors_Target" FromRole="Category_GFactors_Source" />
+      </EntityType>
+      <EntityType Name="Company">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Adress" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Telephone" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="TypeOfBusiness" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Persons" Relationship="OpenResKit.DomainModel.Company_Persons" ToRole="Company_Persons_Target" FromRole="Company_Persons_Source" />
+        <NavigationProperty Name="Workplaces" Relationship="OpenResKit.DomainModel.Company_Workplaces" ToRole="Company_Workplaces_Target" FromRole="Company_Workplaces_Source" />
+      </EntityType>
+      <EntityType Name="Workplace">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="NameCompany" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Activities" Relationship="OpenResKit.DomainModel.Workplace_Activities" ToRole="Workplace_Activities_Target" FromRole="Workplace_Activities_Source" />
+        <NavigationProperty Name="Assessments" Relationship="OpenResKit.DomainModel.Workplace_Assessments" ToRole="Workplace_Assessments_Target" FromRole="Workplace_Assessments_Source" />
+        <NavigationProperty Name="SurveyType" Relationship="OpenResKit.DomainModel.Workplace_SurveyType" ToRole="Workplace_SurveyType_Target" FromRole="Workplace_SurveyType_Source" />
+      </EntityType>
+      <EntityType Name="SurveyType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Categories" Relationship="OpenResKit.DomainModel.SurveyType_Categories" ToRole="SurveyType_Categories_Target" FromRole="SurveyType_Categories_Source" />
+        <NavigationProperty Name="SurveyTypeDocx" Relationship="OpenResKit.DomainModel.SurveyType_SurveyTypeDocx" ToRole="SurveyType_SurveyTypeDocx_Target" FromRole="SurveyType_SurveyTypeDocx_Source" />
+      </EntityType>
+      <EntityType Name="WorkplaceCategory">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty Name="Category" Relationship="OpenResKit.DomainModel.WorkplaceCategory_Category" ToRole="WorkplaceCategory_Category_Target" FromRole="WorkplaceCategory_Category_Source" />
+        <NavigationProperty Name="Workplace" Relationship="OpenResKit.DomainModel.WorkplaceCategory_Workplace" ToRole="WorkplaceCategory_Workplace_Target" FromRole="WorkplaceCategory_Workplace_Source" />
+      </EntityType>
+      <EntityType Name="DiscardItem">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="InspectionAttribute" Relationship="OpenResKit.DomainModel.DiscardItem_InspectionAttribute" ToRole="DiscardItem_InspectionAttribute_Target" FromRole="DiscardItem_InspectionAttribute_Source" />
+      </EntityType>
+      <EntityType Name="InspectionAttribute">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="DiscardImageSource" Relationship="OpenResKit.DomainModel.InspectionAttribute_DiscardImageSource" ToRole="InspectionAttribute_DiscardImageSource_Target" FromRole="InspectionAttribute_DiscardImageSource_Source" />
+      </EntityType>
+      <EntityType Name="DiscardImageSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="Inspection">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ProductionDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="InspectionDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ProductionShift" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InspectionShift" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InspectionType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SampleSize" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Unit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="TotalAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Finished" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.Inspection_ResponsibleSubject" ToRole="Inspection_ResponsibleSubject_Target" FromRole="Inspection_ResponsibleSubject_Source" />
+        <NavigationProperty Name="ProductionItem" Relationship="OpenResKit.DomainModel.Inspection_ProductionItem" ToRole="Inspection_ProductionItem_Target" FromRole="Inspection_ProductionItem_Source" />
+        <NavigationProperty Name="DiscardItems" Relationship="OpenResKit.DomainModel.Inspection_DiscardItems" ToRole="Inspection_DiscardItems_Target" FromRole="Inspection_DiscardItems_Source" />
+      </EntityType>
+      <EntityType Name="ProductionItem">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="ItemNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ItemName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ItemDescription" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ToolNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ChangeIndex" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Material" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ReferenceNumber1" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ReferenceNumber2" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ItemCategory" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="Customer" Relationship="OpenResKit.DomainModel.ProductionItem_Customer" ToRole="ProductionItem_Customer_Target" FromRole="ProductionItem_Customer_Source" />
+        <NavigationProperty Name="InspectionAttributes" Relationship="OpenResKit.DomainModel.ProductionItem_InspectionAttributes" ToRole="ProductionItem_InspectionAttributes_Target" FromRole="ProductionItem_InspectionAttributes_Source" />
+      </EntityType>
+      <EntityType Name="Customer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Consumer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Manufacturer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsMachine" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Identifier" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Year" Type="Edm.Int32" />
+        <Property Name="PowerOutput" Type="Edm.Double" />
+        <Property Name="PowerCurrent" Type="Edm.Double" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Consumer_Readings" ToRole="Consumer_Readings_Target" FromRole="Consumer_Readings_Source" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Consumer_Room" ToRole="Consumer_Room_Target" FromRole="Consumer_Room_Source" />
+        <NavigationProperty Name="Distributor" Relationship="OpenResKit.DomainModel.Consumer_Distributor" ToRole="Consumer_Distributor_Target" FromRole="Consumer_Distributor_Source" />
+        <NavigationProperty Name="ConsumerGroup" Relationship="OpenResKit.DomainModel.Consumer_ConsumerGroup" ToRole="Consumer_ConsumerGroup_Target" FromRole="Consumer_ConsumerGroup_Source" />
+        <NavigationProperty Name="ConsumerType" Relationship="OpenResKit.DomainModel.Consumer_ConsumerType" ToRole="Consumer_ConsumerType_Target" FromRole="Consumer_ConsumerType_Source" />
+      </EntityType>
+      <EntityType Name="Reading">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="CounterReading" Type="Edm.Double" Nullable="false" />
+        <Property Name="ReadingDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MeasuringDevice" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Room">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Building" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Floor" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Level" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Space" Type="Edm.Single" />
+        <Property Name="Height" Type="Edm.Single" />
+        <NavigationProperty Name="RoomInformation" Relationship="OpenResKit.DomainModel.Room_RoomInformation" ToRole="Room_RoomInformation_Target" FromRole="Room_RoomInformation_Source" />
+        <NavigationProperty Name="Flooring" Relationship="OpenResKit.DomainModel.Room_Flooring" ToRole="Room_Flooring_Target" FromRole="Room_Flooring_Source" />
+        <NavigationProperty Name="CleaningInterval" Relationship="OpenResKit.DomainModel.Room_CleaningInterval" ToRole="Room_CleaningInterval_Target" FromRole="Room_CleaningInterval_Source" />
+      </EntityType>
+      <EntityType Name="RoomUsage">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Group" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Key" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Example" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="UsageGroup" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Flooring">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="FloorCovering" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Manufacturer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Material" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Color" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Info" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="CleaningMethod" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ApprovedDetergents" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Cleaning">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="CleaningPerWeek" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="External" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Internal" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Special" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Weekdays" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Rota" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Distributor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Comment" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsMainDistributor" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Distributor_Readings" ToRole="Distributor_Readings_Target" FromRole="Distributor_Readings_Source" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Distributor_Room" ToRole="Distributor_Room_Target" FromRole="Distributor_Room_Source" />
+      </EntityType>
+      <EntityType Name="ConsumerGroup">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="GroupName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="ConsumerTypes" Relationship="OpenResKit.DomainModel.ConsumerGroup_ConsumerTypes" ToRole="ConsumerGroup_ConsumerTypes_Target" FromRole="ConsumerGroup_ConsumerTypes_Source" />
+      </EntityType>
+      <EntityType Name="ConsumerType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="TypeName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="SubMeasure">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject" ToRole="SubMeasure_ResponsibleSubject_Target" FromRole="SubMeasure_ResponsibleSubject_Source" />
+        <NavigationProperty Name="ReleatedMeasure" Relationship="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure" ToRole="SubMeasure_ReleatedMeasure_Target" FromRole="SubMeasure_ReleatedMeasure_Source" />
+      </EntityType>
+      <EntityType Name="Idea">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="ShortDescription" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="LongDescription" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Solution" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CreationDate" Type="Edm.DateTime" />
+        <Property Name="Creator" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.Idea_Measures" ToRole="Idea_Measures_Target" FromRole="Idea_Measures_Source" />
+      </EntityType>
+      <EntityType Name="Measure">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Evaluation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="EntryDate" Type="Edm.DateTime" />
+        <Property Name="DueDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="CreationDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Priority" Type="Edm.Int32" Nullable="false" />
+        <Property Name="EvaluationRating" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.Measure_ResponsibleSubject" ToRole="Measure_ResponsibleSubject_Target" FromRole="Measure_ResponsibleSubject_Source" />
+        <NavigationProperty Name="MeasureImageSource" Relationship="OpenResKit.DomainModel.Measure_MeasureImageSource" ToRole="Measure_MeasureImageSource_Target" FromRole="Measure_MeasureImageSource_Source" />
+        <NavigationProperty Name="AttachedDocuments" Relationship="OpenResKit.DomainModel.Measure_AttachedDocuments" ToRole="Measure_AttachedDocuments_Target" FromRole="Measure_AttachedDocuments_Source" />
+      </EntityType>
+      <EntityType Name="Approval_Measure" BaseType="OpenResKit.DomainModel.Measure">
+        <Property Name="Progress" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="EnergyMeasure" BaseType="OpenResKit.DomainModel.Measure">
+        <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Department" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ConsumerUnit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Parameter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Meter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Investment" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyShould" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyIs" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyAtm" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattAtm" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattShould" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattIs" Type="Edm.Double" Nullable="false" />
+        <Property Name="FailureMoney" Type="Edm.Double" Nullable="false" />
+        <Property Name="Reference" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Consumer" Relationship="OpenResKit.DomainModel.EnergyMeasure_Consumer" ToRole="EnergyMeasure_Consumer_Target" FromRole="EnergyMeasure_Consumer_Source" />
+        <NavigationProperty Name="ConsumptionActual" Relationship="OpenResKit.DomainModel.EnergyMeasure_ConsumptionActual" ToRole="EnergyMeasure_ConsumptionActual_Target" FromRole="EnergyMeasure_ConsumptionActual_Source" />
+        <NavigationProperty Name="ConsumptionNormative" Relationship="OpenResKit.DomainModel.EnergyMeasure_ConsumptionNormative" ToRole="EnergyMeasure_ConsumptionNormative_Target" FromRole="EnergyMeasure_ConsumptionNormative_Source" />
+      </EntityType>
+      <EntityType Name="Calculation" Abstract="true">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Lifetime" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvestmentSum" Type="Edm.Single" Nullable="false" />
+        <Property Name="RecoveryValueToday" Type="Edm.Single" Nullable="false" />
+        <Property Name="RecoveryValueAfterLifetime" Type="Edm.Single" Nullable="false" />
+        <Property Name="EnergyCostsAnnual" Type="Edm.Single" Nullable="false" />
+        <Property Name="EnergyCostsChangePA" Type="Edm.Single" Nullable="false" />
+        <Property Name="OtherCostsPA" Type="Edm.Single" Nullable="false" />
+        <Property Name="OtherRevenuePA" Type="Edm.Single" Nullable="false" />
+      </EntityType>
+      <EntityType Name="InvestmentPlan" BaseType="OpenResKit.DomainModel.Calculation">
+        <Property Name="InvestmentName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="StartYear" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ImputedInterestRate" Type="Edm.Single" Nullable="false" />
+        <Property Name="OtherCostsChangePA" Type="Edm.Single" Nullable="false" />
+        <Property Name="OtherRevenueChangePA" Type="Edm.Single" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.InvestmentPlan_ResponsibleSubject" ToRole="InvestmentPlan_ResponsibleSubject_Target" FromRole="InvestmentPlan_ResponsibleSubject_Source" />
+        <NavigationProperty Name="Comparisons" Relationship="OpenResKit.DomainModel.InvestmentPlan_Comparisons" ToRole="InvestmentPlan_Comparisons_Target" FromRole="InvestmentPlan_Comparisons_Source" />
+      </EntityType>
+      <EntityType Name="Comparison" BaseType="OpenResKit.DomainModel.Calculation">
+        <Property Name="ComparisonName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="InvestmentRelatedElement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty Name="Comparison" Relationship="OpenResKit.DomainModel.InvestmentRelatedElement_Comparison" ToRole="InvestmentRelatedElement_Comparison_Target" FromRole="InvestmentRelatedElement_Comparison_Source" />
+        <NavigationProperty Name="Measure" Relationship="OpenResKit.DomainModel.InvestmentRelatedElement_Measure" ToRole="InvestmentRelatedElement_Measure_Target" FromRole="InvestmentRelatedElement_Measure_Source" />
+      </EntityType>
+      <EntityType Name="Catalog">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.Catalog_Measures" ToRole="Catalog_Measures_Target" FromRole="Catalog_Measures_Source" />
+      </EntityType>
+      <EntityType Name="Meter">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Barcode" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Unit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="MapPosition" Relationship="OpenResKit.DomainModel.Meter_MapPosition" ToRole="Meter_MapPosition_Target" FromRole="Meter_MapPosition_Source" />
+      </EntityType>
+      <EntityType Name="MapPosition">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="XPosition" Type="Edm.Double" Nullable="false" />
+        <Property Name="YPosition" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Map" Relationship="OpenResKit.DomainModel.MapPosition_Map" ToRole="MapPosition_Map_Target" FromRole="MapPosition_Map_Source" />
+      </EntityType>
+      <EntityType Name="Map">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="MapSource" Relationship="OpenResKit.DomainModel.Map_MapSource" ToRole="Map_MapSource_Target" FromRole="Map_MapSource_Source" />
+      </EntityType>
+      <EntityType Name="MapSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="MeterRelatedElement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty Name="Measure" Relationship="OpenResKit.DomainModel.MeterRelatedElement_Measure" ToRole="MeterRelatedElement_Measure_Target" FromRole="MeterRelatedElement_Measure_Source" />
+        <NavigationProperty Name="Meter" Relationship="OpenResKit.DomainModel.MeterRelatedElement_Meter" ToRole="MeterRelatedElement_Meter_Target" FromRole="MeterRelatedElement_Meter_Source" />
+      </EntityType>
+      <EntityType Name="NoiseMeasurement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="MeasurementDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MinValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="MaxValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="AverageValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="Employee" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Comment" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Method" Relationship="OpenResKit.DomainModel.NoiseMeasurement_Method" ToRole="NoiseMeasurement_Method_Target" FromRole="NoiseMeasurement_Method_Source" />
+        <NavigationProperty Name="MeasuringPoint" Relationship="OpenResKit.DomainModel.NoiseMeasurement_MeasuringPoint" ToRole="NoiseMeasurement_MeasuringPoint_Target" FromRole="NoiseMeasurement_MeasuringPoint_Source" />
+      </EntityType>
+      <EntityType Name="MeasuringMethod">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="MeasuringPoint">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Barcode" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Notes" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="GreenValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="YellowValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="RedValue" Type="Edm.Single" Nullable="false" />
+        <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="Position" Relationship="OpenResKit.DomainModel.MeasuringPoint_Position" ToRole="MeasuringPoint_Position_Target" FromRole="MeasuringPoint_Position_Source" />
+      </EntityType>
+      <EntityType Name="NoiseMapPosition">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="XPosition" Type="Edm.Int32" Nullable="false" />
+        <Property Name="YPosition" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="NoiseMap" Relationship="OpenResKit.DomainModel.NoiseMapPosition_NoiseMap" ToRole="NoiseMapPosition_NoiseMap_Target" FromRole="NoiseMapPosition_NoiseMap_Source" />
+      </EntityType>
+      <EntityType Name="NoiseMap">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Site" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Building" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Level" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="File" Relationship="OpenResKit.DomainModel.NoiseMap_File" ToRole="NoiseMap_File_Target" FromRole="NoiseMap_File_Source" />
+      </EntityType>
+      <EntityType Name="File">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="ScheduledTask">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Progress" Type="Edm.Single" Nullable="false" />
+        <NavigationProperty Name="AppointmentResponsibleSubject" Relationship="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject" ToRole="ScheduledTask_AppointmentResponsibleSubject_Target" FromRole="ScheduledTask_AppointmentResponsibleSubject_Source" />
+        <NavigationProperty Name="DueDate" Relationship="OpenResKit.DomainModel.ScheduledTask_DueDate" ToRole="ScheduledTask_DueDate_Target" FromRole="ScheduledTask_DueDate_Source" />
+        <NavigationProperty Name="EntryDate" Relationship="OpenResKit.DomainModel.ScheduledTask_EntryDate" ToRole="ScheduledTask_EntryDate_Target" FromRole="ScheduledTask_EntryDate_Source" />
+        <NavigationProperty Name="EntryResponsibleSubject" Relationship="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject" ToRole="ScheduledTask_EntryResponsibleSubject_Target" FromRole="ScheduledTask_EntryResponsibleSubject_Source" />
+        <NavigationProperty Name="RelatedSeries" Relationship="OpenResKit.DomainModel.ScheduledTask_RelatedSeries" ToRole="ScheduledTask_RelatedSeries_Target" FromRole="ScheduledTask_RelatedSeries_Source" />
+      </EntityType>
+      <EntityType Name="Approval_Inspection" BaseType="OpenResKit.DomainModel.ScheduledTask">
+        <NavigationProperty Name="ConditionInspections" Relationship="OpenResKit.DomainModel.Approval_Inspection_ConditionInspections" ToRole="Approval_Inspection_ConditionInspections_Target" FromRole="Approval_Inspection_ConditionInspections_Source" />
+      </EntityType>
+      <EntityType Name="MeterReading" BaseType="OpenResKit.DomainModel.ScheduledTask">
+        <Property Name="CounterReading" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="ReadingMeter" Relationship="OpenResKit.DomainModel.MeterReading_ReadingMeter" ToRole="MeterReading_ReadingMeter_Target" FromRole="MeterReading_ReadingMeter_Source" />
+      </EntityType>
+      <EntityType Name="FillLevelReading" BaseType="OpenResKit.DomainModel.ScheduledTask">
+        <Property Name="FillLevel" Type="Edm.Single" Nullable="false" />
+        <NavigationProperty Name="ReadingContainer" Relationship="OpenResKit.DomainModel.FillLevelReading_ReadingContainer" ToRole="FillLevelReading_ReadingContainer_Target" FromRole="FillLevelReading_ReadingContainer_Source" />
+      </EntityType>
+      <EntityType Name="WasteContainer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Barcode" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Size" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="MapPosition" Relationship="OpenResKit.DomainModel.WasteContainer_MapPosition" ToRole="WasteContainer_MapPosition_Target" FromRole="WasteContainer_MapPosition_Source" />
+        <NavigationProperty Name="WasteTypes" Relationship="OpenResKit.DomainModel.WasteContainer_WasteTypes" ToRole="WasteContainer_WasteTypes_Target" FromRole="WasteContainer_WasteTypes_Source" />
+      </EntityType>
+      <EntityType Name="WasteType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="AvvId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="PositionRelatedElement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty Name="Position" Relationship="OpenResKit.DomainModel.PositionRelatedElement_Position" ToRole="PositionRelatedElement_Position_Target" FromRole="PositionRelatedElement_Position_Source" />
+        <NavigationProperty Name="Measure" Relationship="OpenResKit.DomainModel.PositionRelatedElement_Measure" ToRole="PositionRelatedElement_Measure_Target" FromRole="PositionRelatedElement_Measure_Source" />
+      </EntityType>
+      <EntityType Name="Unit">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Coefficient" Type="Edm.Double" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Dimension" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Symbol" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="ReferencedUnit" Relationship="OpenResKit.DomainModel.Unit_ReferencedUnit" ToRole="Unit_ReferencedUnit_Target" FromRole="Unit_ReferencedUnit_Source" />
+      </EntityType>
+      <EntityType Name="Disposer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="EMail" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Street" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="AdditionalInformation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ZipCode" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="City" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Documents" Relationship="OpenResKit.DomainModel.Disposer_Documents" ToRole="Disposer_Documents_Target" FromRole="Disposer_Documents_Source" />
+        <NavigationProperty Name="Containers" Relationship="OpenResKit.DomainModel.Disposer_Containers" ToRole="Disposer_Containers_Target" FromRole="Disposer_Containers_Source" />
+      </EntityType>
+      <EntityType Name="WasteCollection">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="DesiredState" Type="Edm.Double" Nullable="false" />
+        <Property Name="ActualState" Type="Edm.Double" Nullable="false" />
+        <Property Name="DesiredPrice" Type="Edm.Double" Nullable="false" />
+        <Property Name="ActualPrice" Type="Edm.Double" Nullable="false" />
+        <Property Name="ScheduledDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="GenerationDate" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="Disposer" Relationship="OpenResKit.DomainModel.WasteCollection_Disposer" ToRole="WasteCollection_Disposer_Target" FromRole="WasteCollection_Disposer_Source" />
+        <NavigationProperty Name="Container" Relationship="OpenResKit.DomainModel.WasteCollection_Container" ToRole="WasteCollection_Container_Target" FromRole="WasteCollection_Container_Source" />
+      </EntityType>
+      <EntityType Name="ContainerRelatedElement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty Name="Container" Relationship="OpenResKit.DomainModel.ContainerRelatedElement_Container" ToRole="ContainerRelatedElement_Container_Target" FromRole="ContainerRelatedElement_Container_Source" />
+        <NavigationProperty Name="Measure" Relationship="OpenResKit.DomainModel.ContainerRelatedElement_Measure" ToRole="ContainerRelatedElement_Measure_Target" FromRole="ContainerRelatedElement_Measure_Source" />
+      </EntityType>
+      <Association Name="Plant_PlantImageSource">
+        <End Type="OpenResKit.DomainModel.PlantImageSource" Role="Plant_PlantImageSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Plant" Role="Plant_PlantImageSource_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Plant_AttachedDocuments">
+        <End Type="OpenResKit.DomainModel.Document" Role="Plant_AttachedDocuments_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Plant" Role="Plant_AttachedDocuments_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Plant_Permissions">
+        <End Type="OpenResKit.DomainModel.Permission" Role="Plant_Permissions_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Plant" Role="Plant_Permissions_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Plant_Substances">
+        <End Type="OpenResKit.DomainModel.Plant" Role="Plant_Substances_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Substance" Role="Plant_Substances_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Document_DocumentSource">
+        <End Type="OpenResKit.DomainModel.DocumentSource" Role="Document_DocumentSource_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Document" Role="Document_DocumentSource_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Permission_AttachedDocuments">
+        <End Type="OpenResKit.DomainModel.Document" Role="Permission_AttachedDocuments_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Permission" Role="Permission_AttachedDocuments_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Permission_AuxillaryConditions">
+        <End Type="OpenResKit.DomainModel.AuxillaryCondition" Role="Permission_AuxillaryConditions_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Permission" Role="Permission_AuxillaryConditions_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="AuxillaryCondition_ConditionInspections">
+        <End Type="OpenResKit.DomainModel.AuxillaryCondition" Role="AuxillaryCondition_ConditionInspections_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ConditionInspection" Role="AuxillaryCondition_ConditionInspections_Target" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="AuxillaryCondition_ConditionInspections_Source">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="AuxillaryCondition_ConditionInspections_Target">
+            <PropertyRef Name="AuxillaryConditionId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="ConditionInspection_Measures">
+        <End Type="OpenResKit.DomainModel.ConditionInspection" Role="ConditionInspection_Measures_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Approval_Measure" Role="ConditionInspection_Measures_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Employee_Groups">
+        <End Type="OpenResKit.DomainModel.Employee" Role="Employee_Groups_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.EmployeeGroup" Role="Employee_Groups_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Series_SeriesColor">
+        <End Type="OpenResKit.DomainModel.Series" Role="Series_SeriesColor_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.SeriesColor" Role="Series_SeriesColor_Target" Multiplicity="1" />
+        <ReferentialConstraint>
+          <Principal Role="Series_SeriesColor_Source">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="Series_SeriesColor_Target">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Series_WeekDays">
+        <End Type="OpenResKit.DomainModel.Series" Role="Series_WeekDays_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.DayOfWeek" Role="Series_WeekDays_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CarbonFootprint_Positions">
+        <End Type="OpenResKit.DomainModel.CarbonFootprint" Role="CarbonFootprint_Positions_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.CarbonFootprintPosition" Role="CarbonFootprint_Positions_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CarbonFootprintPosition_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.CarbonFootprintPosition" Role="CarbonFootprintPosition_ResponsibleSubject_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="CarbonFootprintPosition_ResponsibleSubject_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="AirportBasedFlight_Airports">
+        <End Type="OpenResKit.DomainModel.AirportBasedFlight" Role="AirportBasedFlight_Airports_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.AirportPosition" Role="AirportBasedFlight_Airports_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Action_Person">
+        <End Type="OpenResKit.DomainModel.Action" Role="Action_Person_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Person" Role="Action_Person_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Assessment_EvaluatingPerson">
+        <End Type="OpenResKit.DomainModel.Assessment" Role="Assessment_EvaluatingPerson_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Person" Role="Assessment_EvaluatingPerson_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Assessment_Threats">
+        <End Type="OpenResKit.DomainModel.Assessment" Role="Assessment_Threats_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Threat" Role="Assessment_Threats_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Threat_Actions">
+        <End Type="OpenResKit.DomainModel.Action" Role="Threat_Actions_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_Actions_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Threat_Activity">
+        <End Type="OpenResKit.DomainModel.Activity" Role="Threat_Activity_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_Activity_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Threat_Dangerpoint">
+        <End Type="OpenResKit.DomainModel.Dangerpoint" Role="Threat_Dangerpoint_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_Dangerpoint_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Threat_GFactor">
+        <End Type="OpenResKit.DomainModel.GFactor" Role="Threat_GFactor_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_GFactor_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Threat_Pictures">
+        <End Type="OpenResKit.DomainModel.Picture" Role="Threat_Pictures_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_Pictures_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Threat_ProtectionGoals">
+        <End Type="OpenResKit.DomainModel.ProtectionGoal" Role="Threat_ProtectionGoals_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Threat" Role="Threat_ProtectionGoals_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="GFactor_Dangerpoints">
+        <End Type="OpenResKit.DomainModel.Dangerpoint" Role="GFactor_Dangerpoints_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.GFactor" Role="GFactor_Dangerpoints_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="GFactor_Questions">
+        <End Type="OpenResKit.DomainModel.GFactor" Role="GFactor_Questions_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Question" Role="GFactor_Questions_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Category_GFactors">
+        <End Type="OpenResKit.DomainModel.Category" Role="Category_GFactors_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.GFactor" Role="Category_GFactors_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_Persons">
+        <End Type="OpenResKit.DomainModel.Company" Role="Company_Persons_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Person" Role="Company_Persons_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Company_Workplaces">
+        <End Type="OpenResKit.DomainModel.Company" Role="Company_Workplaces_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Workplace" Role="Company_Workplaces_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Workplace_Activities">
+        <End Type="OpenResKit.DomainModel.Activity" Role="Workplace_Activities_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Workplace" Role="Workplace_Activities_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Workplace_Assessments">
+        <End Type="OpenResKit.DomainModel.Assessment" Role="Workplace_Assessments_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Workplace" Role="Workplace_Assessments_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Workplace_SurveyType">
+        <End Type="OpenResKit.DomainModel.SurveyType" Role="Workplace_SurveyType_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Workplace" Role="Workplace_SurveyType_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="SurveyType_Categories">
+        <End Type="OpenResKit.DomainModel.Category" Role="SurveyType_Categories_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.SurveyType" Role="SurveyType_Categories_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="SurveyType_SurveyTypeDocx">
+        <End Type="OpenResKit.DomainModel.Document" Role="SurveyType_SurveyTypeDocx_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SurveyType" Role="SurveyType_SurveyTypeDocx_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="WorkplaceCategory_Category">
+        <End Type="OpenResKit.DomainModel.Category" Role="WorkplaceCategory_Category_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.WorkplaceCategory" Role="WorkplaceCategory_Category_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="WorkplaceCategory_Workplace">
+        <End Type="OpenResKit.DomainModel.Workplace" Role="WorkplaceCategory_Workplace_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.WorkplaceCategory" Role="WorkplaceCategory_Workplace_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="DiscardItem_InspectionAttribute">
+        <End Type="OpenResKit.DomainModel.DiscardItem" Role="DiscardItem_InspectionAttribute_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.InspectionAttribute" Role="DiscardItem_InspectionAttribute_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="InspectionAttribute_DiscardImageSource">
+        <End Type="OpenResKit.DomainModel.DiscardImageSource" Role="InspectionAttribute_DiscardImageSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.InspectionAttribute" Role="InspectionAttribute_DiscardImageSource_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Inspection_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.Inspection" Role="Inspection_ResponsibleSubject_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="Inspection_ResponsibleSubject_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Inspection_ProductionItem">
+        <End Type="OpenResKit.DomainModel.Inspection" Role="Inspection_ProductionItem_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ProductionItem" Role="Inspection_ProductionItem_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Inspection_DiscardItems">
+        <End Type="OpenResKit.DomainModel.DiscardItem" Role="Inspection_DiscardItems_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Inspection" Role="Inspection_DiscardItems_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="ProductionItem_Customer">
+        <End Type="OpenResKit.DomainModel.Customer" Role="ProductionItem_Customer_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ProductionItem" Role="ProductionItem_Customer_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ProductionItem_InspectionAttributes">
+        <End Type="OpenResKit.DomainModel.InspectionAttribute" Role="ProductionItem_InspectionAttributes_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ProductionItem" Role="ProductionItem_InspectionAttributes_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Consumer_Readings">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Readings_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Reading" Role="Consumer_Readings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Consumer_Room">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Room_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Consumer_Room_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Consumer_Distributor">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Distributor_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Consumer_Distributor_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Consumer_ConsumerGroup">
+        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="Consumer_ConsumerGroup_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_ConsumerGroup_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Consumer_ConsumerType">
+        <End Type="OpenResKit.DomainModel.ConsumerType" Role="Consumer_ConsumerType_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_ConsumerType_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Room_RoomInformation">
+        <End Type="OpenResKit.DomainModel.RoomUsage" Role="Room_RoomInformation_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_RoomInformation_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Room_Flooring">
+        <End Type="OpenResKit.DomainModel.Flooring" Role="Room_Flooring_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_Flooring_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Room_CleaningInterval">
+        <End Type="OpenResKit.DomainModel.Cleaning" Role="Room_CleaningInterval_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Room_CleaningInterval_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Readings">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Readings_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Reading" Role="Distributor_Readings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Room">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Room_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Room" Role="Distributor_Room_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="ConsumerGroup_ConsumerTypes">
+        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_ConsumerTypes_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ConsumerType" Role="ConsumerGroup_ConsumerTypes_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="SubMeasure_ResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ReleatedMeasure">
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="SubMeasure_ReleatedMeasure_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ReleatedMeasure_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Idea_Measures">
+        <End Type="OpenResKit.DomainModel.Idea" Role="Idea_Measures_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Measure" Role="Idea_Measures_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Measure_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_ResponsibleSubject_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="Measure_ResponsibleSubject_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Measure_MeasureImageSource">
+        <End Type="OpenResKit.DomainModel.MeasureImageSource" Role="Measure_MeasureImageSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_MeasureImageSource_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Measure_AttachedDocuments">
+        <End Type="OpenResKit.DomainModel.Document" Role="Measure_AttachedDocuments_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_AttachedDocuments_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="EnergyMeasure_Consumer">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="EnergyMeasure_Consumer_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_Consumer_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="EnergyMeasure_ConsumptionActual">
+        <End Type="OpenResKit.DomainModel.Reading" Role="EnergyMeasure_ConsumptionActual_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_ConsumptionActual_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="EnergyMeasure_ConsumptionNormative">
+        <End Type="OpenResKit.DomainModel.Reading" Role="EnergyMeasure_ConsumptionNormative_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.EnergyMeasure" Role="EnergyMeasure_ConsumptionNormative_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="InvestmentPlan_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.InvestmentPlan" Role="InvestmentPlan_ResponsibleSubject_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="InvestmentPlan_ResponsibleSubject_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="InvestmentPlan_Comparisons">
+        <End Type="OpenResKit.DomainModel.Comparison" Role="InvestmentPlan_Comparisons_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.InvestmentPlan" Role="InvestmentPlan_Comparisons_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="InvestmentRelatedElement_Comparison">
+        <End Type="OpenResKit.DomainModel.Comparison" Role="InvestmentRelatedElement_Comparison_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.InvestmentRelatedElement" Role="InvestmentRelatedElement_Comparison_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="InvestmentRelatedElement_Measure">
+        <End Type="OpenResKit.DomainModel.InvestmentRelatedElement" Role="InvestmentRelatedElement_Measure_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="InvestmentRelatedElement_Measure_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Catalog_Measures">
+        <End Type="OpenResKit.DomainModel.Catalog" Role="Catalog_Measures_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Measure" Role="Catalog_Measures_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Meter_MapPosition">
+        <End Type="OpenResKit.DomainModel.MapPosition" Role="Meter_MapPosition_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Meter" Role="Meter_MapPosition_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="MapPosition_Map">
+        <End Type="OpenResKit.DomainModel.Map" Role="MapPosition_Map_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.MapPosition" Role="MapPosition_Map_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Map_MapSource">
+        <End Type="OpenResKit.DomainModel.MapSource" Role="Map_MapSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Map" Role="Map_MapSource_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="MeterRelatedElement_Measure">
+        <End Type="OpenResKit.DomainModel.Measure" Role="MeterRelatedElement_Measure_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.MeterRelatedElement" Role="MeterRelatedElement_Measure_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="MeterRelatedElement_Meter">
+        <End Type="OpenResKit.DomainModel.Meter" Role="MeterRelatedElement_Meter_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.MeterRelatedElement" Role="MeterRelatedElement_Meter_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="NoiseMeasurement_Method">
+        <End Type="OpenResKit.DomainModel.MeasuringMethod" Role="NoiseMeasurement_Method_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.NoiseMeasurement" Role="NoiseMeasurement_Method_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="NoiseMeasurement_MeasuringPoint">
+        <End Type="OpenResKit.DomainModel.MeasuringPoint" Role="NoiseMeasurement_MeasuringPoint_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.NoiseMeasurement" Role="NoiseMeasurement_MeasuringPoint_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="MeasuringPoint_Position">
+        <End Type="OpenResKit.DomainModel.MeasuringPoint" Role="MeasuringPoint_Position_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.NoiseMapPosition" Role="MeasuringPoint_Position_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="NoiseMapPosition_NoiseMap">
+        <End Type="OpenResKit.DomainModel.NoiseMap" Role="NoiseMapPosition_NoiseMap_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.NoiseMapPosition" Role="NoiseMapPosition_NoiseMap_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="NoiseMap_File">
+        <End Type="OpenResKit.DomainModel.File" Role="NoiseMap_File_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.NoiseMap" Role="NoiseMap_File_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="ScheduledTask_AppointmentResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="ScheduledTask_AppointmentResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_AppointmentResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_DueDate">
+        <End Type="OpenResKit.DomainModel.Appointment" Role="ScheduledTask_DueDate_Target" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_DueDate_Source" Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal Role="ScheduledTask_DueDate_Target">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="ScheduledTask_DueDate_Source">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="ScheduledTask_EntryDate">
+        <End Type="OpenResKit.DomainModel.Appointment" Role="ScheduledTask_EntryDate_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_EntryDate_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_EntryResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="ScheduledTask_EntryResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_EntryResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_RelatedSeries">
+        <End Type="OpenResKit.DomainModel.Series" Role="ScheduledTask_RelatedSeries_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_RelatedSeries_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Approval_Inspection_ConditionInspections">
+        <End Type="OpenResKit.DomainModel.Approval_Inspection" Role="Approval_Inspection_ConditionInspections_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ConditionInspection" Role="Approval_Inspection_ConditionInspections_Target" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Approval_Inspection_ConditionInspections_Source">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="Approval_Inspection_ConditionInspections_Target">
+            <PropertyRef Name="InspectionId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="MeterReading_ReadingMeter">
+        <End Type="OpenResKit.DomainModel.MeterReading" Role="MeterReading_ReadingMeter_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Meter" Role="MeterReading_ReadingMeter_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="FillLevelReading_ReadingContainer">
+        <End Type="OpenResKit.DomainModel.FillLevelReading" Role="FillLevelReading_ReadingContainer_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="FillLevelReading_ReadingContainer_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="WasteContainer_MapPosition">
+        <End Type="OpenResKit.DomainModel.MapPosition" Role="WasteContainer_MapPosition_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="WasteContainer_MapPosition_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="WasteContainer_WasteTypes">
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="WasteContainer_WasteTypes_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.WasteType" Role="WasteContainer_WasteTypes_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="PositionRelatedElement_Position">
+        <End Type="OpenResKit.DomainModel.CarbonFootprintPosition" Role="PositionRelatedElement_Position_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.PositionRelatedElement" Role="PositionRelatedElement_Position_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="PositionRelatedElement_Measure">
+        <End Type="OpenResKit.DomainModel.Measure" Role="PositionRelatedElement_Measure_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.PositionRelatedElement" Role="PositionRelatedElement_Measure_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Unit_ReferencedUnit">
+        <End Type="OpenResKit.DomainModel.Unit" Role="Unit_ReferencedUnit_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Unit" Role="Unit_ReferencedUnit_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Disposer_Documents">
+        <End Type="OpenResKit.DomainModel.Disposer" Role="Disposer_Documents_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Document" Role="Disposer_Documents_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Disposer_Containers">
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="Disposer_Containers_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Disposer" Role="Disposer_Containers_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="WasteCollection_Disposer">
+        <End Type="OpenResKit.DomainModel.Disposer" Role="WasteCollection_Disposer_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.WasteCollection" Role="WasteCollection_Disposer_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="WasteCollection_Container">
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="WasteCollection_Container_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.WasteCollection" Role="WasteCollection_Container_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ContainerRelatedElement_Container">
+        <End Type="OpenResKit.DomainModel.WasteContainer" Role="ContainerRelatedElement_Container_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ContainerRelatedElement" Role="ContainerRelatedElement_Container_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ContainerRelatedElement_Measure">
+        <End Type="OpenResKit.DomainModel.ContainerRelatedElement" Role="ContainerRelatedElement_Measure_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="ContainerRelatedElement_Measure_Target" Multiplicity="0..1" />
+      </Association>
+      <EntityContainer Name="DomainModelContext" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Plants" EntityType="OpenResKit.DomainModel.Plant" />
+        <EntitySet Name="PlantImageSources" EntityType="OpenResKit.DomainModel.PlantImageSource" />
+        <EntitySet Name="Documents" EntityType="OpenResKit.DomainModel.Document" />
+        <EntitySet Name="DocumentSources" EntityType="OpenResKit.DomainModel.DocumentSource" />
+        <EntitySet Name="Permissions" EntityType="OpenResKit.DomainModel.Permission" />
+        <EntitySet Name="AuxillaryConditions" EntityType="OpenResKit.DomainModel.AuxillaryCondition" />
+        <EntitySet Name="ConditionInspections" EntityType="OpenResKit.DomainModel.ConditionInspection" />
+        <EntitySet Name="ResponsibleSubjects" EntityType="OpenResKit.DomainModel.ResponsibleSubject" />
+        <EntitySet Name="MeasureImageSources" EntityType="OpenResKit.DomainModel.MeasureImageSource" />
+        <EntitySet Name="Substances" EntityType="OpenResKit.DomainModel.Substance" />
+        <EntitySet Name="Appointments" EntityType="OpenResKit.DomainModel.Appointment" />
+        <EntitySet Name="Series" EntityType="OpenResKit.DomainModel.Series" />
+        <EntitySet Name="SeriesColors" EntityType="OpenResKit.DomainModel.SeriesColor" />
+        <EntitySet Name="DayOfWeeks" EntityType="OpenResKit.DomainModel.DayOfWeek" />
+        <EntitySet Name="CarbonFootprints" EntityType="OpenResKit.DomainModel.CarbonFootprint" />
+        <EntitySet Name="CarbonFootprintPositions" EntityType="OpenResKit.DomainModel.CarbonFootprintPosition" />
+        <EntitySet Name="AirportPositions" EntityType="OpenResKit.DomainModel.AirportPosition" />
+        <EntitySet Name="Actions" EntityType="OpenResKit.DomainModel.Action" />
+        <EntitySet Name="People" EntityType="OpenResKit.DomainModel.Person" />
+        <EntitySet Name="Assessments" EntityType="OpenResKit.DomainModel.Assessment" />
+        <EntitySet Name="Threats" EntityType="OpenResKit.DomainModel.Threat" />
+        <EntitySet Name="Activities" EntityType="OpenResKit.DomainModel.Activity" />
+        <EntitySet Name="Dangerpoints" EntityType="OpenResKit.DomainModel.Dangerpoint" />
+        <EntitySet Name="GFactors" EntityType="OpenResKit.DomainModel.GFactor" />
+        <EntitySet Name="Questions" EntityType="OpenResKit.DomainModel.Question" />
+        <EntitySet Name="Pictures" EntityType="OpenResKit.DomainModel.Picture" />
+        <EntitySet Name="ProtectionGoals" EntityType="OpenResKit.DomainModel.ProtectionGoal" />
+        <EntitySet Name="Categories" EntityType="OpenResKit.DomainModel.Category" />
+        <EntitySet Name="Companies" EntityType="OpenResKit.DomainModel.Company" />
+        <EntitySet Name="Workplaces" EntityType="OpenResKit.DomainModel.Workplace" />
+        <EntitySet Name="SurveyTypes" EntityType="OpenResKit.DomainModel.SurveyType" />
+        <EntitySet Name="WorkplaceCategories" EntityType="OpenResKit.DomainModel.WorkplaceCategory" />
+        <EntitySet Name="DiscardItems" EntityType="OpenResKit.DomainModel.DiscardItem" />
+        <EntitySet Name="InspectionAttributes" EntityType="OpenResKit.DomainModel.InspectionAttribute" />
+        <EntitySet Name="DiscardImageSources" EntityType="OpenResKit.DomainModel.DiscardImageSource" />
+        <EntitySet Name="Inspections" EntityType="OpenResKit.DomainModel.Inspection" />
+        <EntitySet Name="ProductionItems" EntityType="OpenResKit.DomainModel.ProductionItem" />
+        <EntitySet Name="Customers" EntityType="OpenResKit.DomainModel.Customer" />
+        <EntitySet Name="Consumers" EntityType="OpenResKit.DomainModel.Consumer" />
+        <EntitySet Name="Readings" EntityType="OpenResKit.DomainModel.Reading" />
+        <EntitySet Name="Rooms" EntityType="OpenResKit.DomainModel.Room" />
+        <EntitySet Name="RoomUsages" EntityType="OpenResKit.DomainModel.RoomUsage" />
+        <EntitySet Name="Floorings" EntityType="OpenResKit.DomainModel.Flooring" />
+        <EntitySet Name="Cleanings" EntityType="OpenResKit.DomainModel.Cleaning" />
+        <EntitySet Name="Distributors" EntityType="OpenResKit.DomainModel.Distributor" />
+        <EntitySet Name="ConsumerGroups" EntityType="OpenResKit.DomainModel.ConsumerGroup" />
+        <EntitySet Name="ConsumerTypes" EntityType="OpenResKit.DomainModel.ConsumerType" />
+        <EntitySet Name="SubMeasures" EntityType="OpenResKit.DomainModel.SubMeasure" />
+        <EntitySet Name="Ideas" EntityType="OpenResKit.DomainModel.Idea" />
+        <EntitySet Name="Measures" EntityType="OpenResKit.DomainModel.Measure" />
+        <EntitySet Name="Calculations" EntityType="OpenResKit.DomainModel.Calculation" />
+        <EntitySet Name="InvestmentRelatedElements" EntityType="OpenResKit.DomainModel.InvestmentRelatedElement" />
+        <EntitySet Name="Catalogs" EntityType="OpenResKit.DomainModel.Catalog" />
+        <EntitySet Name="Meters" EntityType="OpenResKit.DomainModel.Meter" />
+        <EntitySet Name="MapPositions" EntityType="OpenResKit.DomainModel.MapPosition" />
+        <EntitySet Name="Maps" EntityType="OpenResKit.DomainModel.Map" />
+        <EntitySet Name="MapSources" EntityType="OpenResKit.DomainModel.MapSource" />
+        <EntitySet Name="MeterRelatedElements" EntityType="OpenResKit.DomainModel.MeterRelatedElement" />
+        <EntitySet Name="NoiseMeasurements" EntityType="OpenResKit.DomainModel.NoiseMeasurement" />
+        <EntitySet Name="MeasuringMethods" EntityType="OpenResKit.DomainModel.MeasuringMethod" />
+        <EntitySet Name="MeasuringPoints" EntityType="OpenResKit.DomainModel.MeasuringPoint" />
+        <EntitySet Name="NoiseMapPositions" EntityType="OpenResKit.DomainModel.NoiseMapPosition" />
+        <EntitySet Name="NoiseMaps" EntityType="OpenResKit.DomainModel.NoiseMap" />
+        <EntitySet Name="Files" EntityType="OpenResKit.DomainModel.File" />
+        <EntitySet Name="ScheduledTasks" EntityType="OpenResKit.DomainModel.ScheduledTask" />
+        <EntitySet Name="WasteContainers" EntityType="OpenResKit.DomainModel.WasteContainer" />
+        <EntitySet Name="WasteTypes" EntityType="OpenResKit.DomainModel.WasteType" />
+        <EntitySet Name="PositionRelatedElements" EntityType="OpenResKit.DomainModel.PositionRelatedElement" />
+        <EntitySet Name="Units" EntityType="OpenResKit.DomainModel.Unit" />
+        <EntitySet Name="Disposers" EntityType="OpenResKit.DomainModel.Disposer" />
+        <EntitySet Name="WasteCollections" EntityType="OpenResKit.DomainModel.WasteCollection" />
+        <EntitySet Name="ContainerRelatedElements" EntityType="OpenResKit.DomainModel.ContainerRelatedElement" />
+        <AssociationSet Name="Plant_PlantImageSource" Association="OpenResKit.DomainModel.Plant_PlantImageSource">
+          <End Role="Plant_PlantImageSource_Source" EntitySet="Plants" />
+          <End Role="Plant_PlantImageSource_Target" EntitySet="PlantImageSources" />
+        </AssociationSet>
+        <AssociationSet Name="Plant_AttachedDocuments" Association="OpenResKit.DomainModel.Plant_AttachedDocuments">
+          <End Role="Plant_AttachedDocuments_Source" EntitySet="Plants" />
+          <End Role="Plant_AttachedDocuments_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="Plant_Permissions" Association="OpenResKit.DomainModel.Plant_Permissions">
+          <End Role="Plant_Permissions_Source" EntitySet="Plants" />
+          <End Role="Plant_Permissions_Target" EntitySet="Permissions" />
+        </AssociationSet>
+        <AssociationSet Name="Plant_Substances" Association="OpenResKit.DomainModel.Plant_Substances">
+          <End Role="Plant_Substances_Source" EntitySet="Plants" />
+          <End Role="Plant_Substances_Target" EntitySet="Substances" />
+        </AssociationSet>
+        <AssociationSet Name="Document_DocumentSource" Association="OpenResKit.DomainModel.Document_DocumentSource">
+          <End Role="Document_DocumentSource_Source" EntitySet="Documents" />
+          <End Role="Document_DocumentSource_Target" EntitySet="DocumentSources" />
+        </AssociationSet>
+        <AssociationSet Name="Permission_AttachedDocuments" Association="OpenResKit.DomainModel.Permission_AttachedDocuments">
+          <End Role="Permission_AttachedDocuments_Source" EntitySet="Permissions" />
+          <End Role="Permission_AttachedDocuments_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="Permission_AuxillaryConditions" Association="OpenResKit.DomainModel.Permission_AuxillaryConditions">
+          <End Role="Permission_AuxillaryConditions_Source" EntitySet="Permissions" />
+          <End Role="Permission_AuxillaryConditions_Target" EntitySet="AuxillaryConditions" />
+        </AssociationSet>
+        <AssociationSet Name="AuxillaryCondition_ConditionInspections" Association="OpenResKit.DomainModel.AuxillaryCondition_ConditionInspections">
+          <End Role="AuxillaryCondition_ConditionInspections_Source" EntitySet="AuxillaryConditions" />
+          <End Role="AuxillaryCondition_ConditionInspections_Target" EntitySet="ConditionInspections" />
+        </AssociationSet>
+        <AssociationSet Name="ConditionInspection_Measures" Association="OpenResKit.DomainModel.ConditionInspection_Measures">
+          <End Role="ConditionInspection_Measures_Source" EntitySet="ConditionInspections" />
+          <End Role="ConditionInspection_Measures_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Employee_Groups" Association="OpenResKit.DomainModel.Employee_Groups">
+          <End Role="Employee_Groups_Source" EntitySet="ResponsibleSubjects" />
+          <End Role="Employee_Groups_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Series_SeriesColor" Association="OpenResKit.DomainModel.Series_SeriesColor">
+          <End Role="Series_SeriesColor_Source" EntitySet="Series" />
+          <End Role="Series_SeriesColor_Target" EntitySet="SeriesColors" />
+        </AssociationSet>
+        <AssociationSet Name="Series_WeekDays" Association="OpenResKit.DomainModel.Series_WeekDays">
+          <End Role="Series_WeekDays_Source" EntitySet="Series" />
+          <End Role="Series_WeekDays_Target" EntitySet="DayOfWeeks" />
+        </AssociationSet>
+        <AssociationSet Name="CarbonFootprint_Positions" Association="OpenResKit.DomainModel.CarbonFootprint_Positions">
+          <End Role="CarbonFootprint_Positions_Source" EntitySet="CarbonFootprints" />
+          <End Role="CarbonFootprint_Positions_Target" EntitySet="CarbonFootprintPositions" />
+        </AssociationSet>
+        <AssociationSet Name="AirportBasedFlight_Airports" Association="OpenResKit.DomainModel.AirportBasedFlight_Airports">
+          <End Role="AirportBasedFlight_Airports_Source" EntitySet="CarbonFootprintPositions" />
+          <End Role="AirportBasedFlight_Airports_Target" EntitySet="AirportPositions" />
+        </AssociationSet>
+        <AssociationSet Name="CarbonFootprintPosition_ResponsibleSubject" Association="OpenResKit.DomainModel.CarbonFootprintPosition_ResponsibleSubject">
+          <End Role="CarbonFootprintPosition_ResponsibleSubject_Source" EntitySet="CarbonFootprintPositions" />
+          <End Role="CarbonFootprintPosition_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Action_Person" Association="OpenResKit.DomainModel.Action_Person">
+          <End Role="Action_Person_Source" EntitySet="Actions" />
+          <End Role="Action_Person_Target" EntitySet="People" />
+        </AssociationSet>
+        <AssociationSet Name="Assessment_EvaluatingPerson" Association="OpenResKit.DomainModel.Assessment_EvaluatingPerson">
+          <End Role="Assessment_EvaluatingPerson_Source" EntitySet="Assessments" />
+          <End Role="Assessment_EvaluatingPerson_Target" EntitySet="People" />
+        </AssociationSet>
+        <AssociationSet Name="Assessment_Threats" Association="OpenResKit.DomainModel.Assessment_Threats">
+          <End Role="Assessment_Threats_Source" EntitySet="Assessments" />
+          <End Role="Assessment_Threats_Target" EntitySet="Threats" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_Actions" Association="OpenResKit.DomainModel.Threat_Actions">
+          <End Role="Threat_Actions_Source" EntitySet="Threats" />
+          <End Role="Threat_Actions_Target" EntitySet="Actions" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_Activity" Association="OpenResKit.DomainModel.Threat_Activity">
+          <End Role="Threat_Activity_Source" EntitySet="Threats" />
+          <End Role="Threat_Activity_Target" EntitySet="Activities" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_Dangerpoint" Association="OpenResKit.DomainModel.Threat_Dangerpoint">
+          <End Role="Threat_Dangerpoint_Source" EntitySet="Threats" />
+          <End Role="Threat_Dangerpoint_Target" EntitySet="Dangerpoints" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_GFactor" Association="OpenResKit.DomainModel.Threat_GFactor">
+          <End Role="Threat_GFactor_Source" EntitySet="Threats" />
+          <End Role="Threat_GFactor_Target" EntitySet="GFactors" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_Pictures" Association="OpenResKit.DomainModel.Threat_Pictures">
+          <End Role="Threat_Pictures_Source" EntitySet="Threats" />
+          <End Role="Threat_Pictures_Target" EntitySet="Pictures" />
+        </AssociationSet>
+        <AssociationSet Name="Threat_ProtectionGoals" Association="OpenResKit.DomainModel.Threat_ProtectionGoals">
+          <End Role="Threat_ProtectionGoals_Source" EntitySet="Threats" />
+          <End Role="Threat_ProtectionGoals_Target" EntitySet="ProtectionGoals" />
+        </AssociationSet>
+        <AssociationSet Name="GFactor_Dangerpoints" Association="OpenResKit.DomainModel.GFactor_Dangerpoints">
+          <End Role="GFactor_Dangerpoints_Source" EntitySet="GFactors" />
+          <End Role="GFactor_Dangerpoints_Target" EntitySet="Dangerpoints" />
+        </AssociationSet>
+        <AssociationSet Name="GFactor_Questions" Association="OpenResKit.DomainModel.GFactor_Questions">
+          <End Role="GFactor_Questions_Source" EntitySet="GFactors" />
+          <End Role="GFactor_Questions_Target" EntitySet="Questions" />
+        </AssociationSet>
+        <AssociationSet Name="Category_GFactors" Association="OpenResKit.DomainModel.Category_GFactors">
+          <End Role="Category_GFactors_Source" EntitySet="Categories" />
+          <End Role="Category_GFactors_Target" EntitySet="GFactors" />
+        </AssociationSet>
+        <AssociationSet Name="Company_Persons" Association="OpenResKit.DomainModel.Company_Persons">
+          <End Role="Company_Persons_Source" EntitySet="Companies" />
+          <End Role="Company_Persons_Target" EntitySet="People" />
+        </AssociationSet>
+        <AssociationSet Name="Company_Workplaces" Association="OpenResKit.DomainModel.Company_Workplaces">
+          <End Role="Company_Workplaces_Source" EntitySet="Companies" />
+          <End Role="Company_Workplaces_Target" EntitySet="Workplaces" />
+        </AssociationSet>
+        <AssociationSet Name="Workplace_Activities" Association="OpenResKit.DomainModel.Workplace_Activities">
+          <End Role="Workplace_Activities_Source" EntitySet="Workplaces" />
+          <End Role="Workplace_Activities_Target" EntitySet="Activities" />
+        </AssociationSet>
+        <AssociationSet Name="Workplace_Assessments" Association="OpenResKit.DomainModel.Workplace_Assessments">
+          <End Role="Workplace_Assessments_Source" EntitySet="Workplaces" />
+          <End Role="Workplace_Assessments_Target" EntitySet="Assessments" />
+        </AssociationSet>
+        <AssociationSet Name="Workplace_SurveyType" Association="OpenResKit.DomainModel.Workplace_SurveyType">
+          <End Role="Workplace_SurveyType_Source" EntitySet="Workplaces" />
+          <End Role="Workplace_SurveyType_Target" EntitySet="SurveyTypes" />
+        </AssociationSet>
+        <AssociationSet Name="SurveyType_Categories" Association="OpenResKit.DomainModel.SurveyType_Categories">
+          <End Role="SurveyType_Categories_Source" EntitySet="SurveyTypes" />
+          <End Role="SurveyType_Categories_Target" EntitySet="Categories" />
+        </AssociationSet>
+        <AssociationSet Name="SurveyType_SurveyTypeDocx" Association="OpenResKit.DomainModel.SurveyType_SurveyTypeDocx">
+          <End Role="SurveyType_SurveyTypeDocx_Source" EntitySet="SurveyTypes" />
+          <End Role="SurveyType_SurveyTypeDocx_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="WorkplaceCategory_Category" Association="OpenResKit.DomainModel.WorkplaceCategory_Category">
+          <End Role="WorkplaceCategory_Category_Source" EntitySet="WorkplaceCategories" />
+          <End Role="WorkplaceCategory_Category_Target" EntitySet="Categories" />
+        </AssociationSet>
+        <AssociationSet Name="WorkplaceCategory_Workplace" Association="OpenResKit.DomainModel.WorkplaceCategory_Workplace">
+          <End Role="WorkplaceCategory_Workplace_Source" EntitySet="WorkplaceCategories" />
+          <End Role="WorkplaceCategory_Workplace_Target" EntitySet="Workplaces" />
+        </AssociationSet>
+        <AssociationSet Name="DiscardItem_InspectionAttribute" Association="OpenResKit.DomainModel.DiscardItem_InspectionAttribute">
+          <End Role="DiscardItem_InspectionAttribute_Source" EntitySet="DiscardItems" />
+          <End Role="DiscardItem_InspectionAttribute_Target" EntitySet="InspectionAttributes" />
+        </AssociationSet>
+        <AssociationSet Name="InspectionAttribute_DiscardImageSource" Association="OpenResKit.DomainModel.InspectionAttribute_DiscardImageSource">
+          <End Role="InspectionAttribute_DiscardImageSource_Source" EntitySet="InspectionAttributes" />
+          <End Role="InspectionAttribute_DiscardImageSource_Target" EntitySet="DiscardImageSources" />
+        </AssociationSet>
+        <AssociationSet Name="Inspection_ResponsibleSubject" Association="OpenResKit.DomainModel.Inspection_ResponsibleSubject">
+          <End Role="Inspection_ResponsibleSubject_Source" EntitySet="Inspections" />
+          <End Role="Inspection_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Inspection_ProductionItem" Association="OpenResKit.DomainModel.Inspection_ProductionItem">
+          <End Role="Inspection_ProductionItem_Source" EntitySet="Inspections" />
+          <End Role="Inspection_ProductionItem_Target" EntitySet="ProductionItems" />
+        </AssociationSet>
+        <AssociationSet Name="Inspection_DiscardItems" Association="OpenResKit.DomainModel.Inspection_DiscardItems">
+          <End Role="Inspection_DiscardItems_Source" EntitySet="Inspections" />
+          <End Role="Inspection_DiscardItems_Target" EntitySet="DiscardItems" />
+        </AssociationSet>
+        <AssociationSet Name="ProductionItem_Customer" Association="OpenResKit.DomainModel.ProductionItem_Customer">
+          <End Role="ProductionItem_Customer_Source" EntitySet="ProductionItems" />
+          <End Role="ProductionItem_Customer_Target" EntitySet="Customers" />
+        </AssociationSet>
+        <AssociationSet Name="ProductionItem_InspectionAttributes" Association="OpenResKit.DomainModel.ProductionItem_InspectionAttributes">
+          <End Role="ProductionItem_InspectionAttributes_Source" EntitySet="ProductionItems" />
+          <End Role="ProductionItem_InspectionAttributes_Target" EntitySet="InspectionAttributes" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Readings" Association="OpenResKit.DomainModel.Consumer_Readings">
+          <End Role="Consumer_Readings_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Room" Association="OpenResKit.DomainModel.Consumer_Room">
+          <End Role="Consumer_Room_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Room_Target" EntitySet="Rooms" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Distributor" Association="OpenResKit.DomainModel.Consumer_Distributor">
+          <End Role="Consumer_Distributor_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Distributor_Target" EntitySet="Distributors" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_ConsumerGroup" Association="OpenResKit.DomainModel.Consumer_ConsumerGroup">
+          <End Role="Consumer_ConsumerGroup_Source" EntitySet="Consumers" />
+          <End Role="Consumer_ConsumerGroup_Target" EntitySet="ConsumerGroups" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_ConsumerType" Association="OpenResKit.DomainModel.Consumer_ConsumerType">
+          <End Role="Consumer_ConsumerType_Source" EntitySet="Consumers" />
+          <End Role="Consumer_ConsumerType_Target" EntitySet="ConsumerTypes" />
+        </AssociationSet>
+        <AssociationSet Name="Room_RoomInformation" Association="OpenResKit.DomainModel.Room_RoomInformation">
+          <End Role="Room_RoomInformation_Source" EntitySet="Rooms" />
+          <End Role="Room_RoomInformation_Target" EntitySet="RoomUsages" />
+        </AssociationSet>
+        <AssociationSet Name="Room_Flooring" Association="OpenResKit.DomainModel.Room_Flooring">
+          <End Role="Room_Flooring_Source" EntitySet="Rooms" />
+          <End Role="Room_Flooring_Target" EntitySet="Floorings" />
+        </AssociationSet>
+        <AssociationSet Name="Room_CleaningInterval" Association="OpenResKit.DomainModel.Room_CleaningInterval">
+          <End Role="Room_CleaningInterval_Source" EntitySet="Rooms" />
+          <End Role="Room_CleaningInterval_Target" EntitySet="Cleanings" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Readings" Association="OpenResKit.DomainModel.Distributor_Readings">
+          <End Role="Distributor_Readings_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Room" Association="OpenResKit.DomainModel.Distributor_Room">
+          <End Role="Distributor_Room_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Room_Target" EntitySet="Rooms" />
+        </AssociationSet>
+        <AssociationSet Name="ConsumerGroup_ConsumerTypes" Association="OpenResKit.DomainModel.ConsumerGroup_ConsumerTypes">
+          <End Role="ConsumerGroup_ConsumerTypes_Source" EntitySet="ConsumerGroups" />
+          <End Role="ConsumerGroup_ConsumerTypes_Target" EntitySet="ConsumerTypes" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ResponsibleSubject" Association="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject">
+          <End Role="SubMeasure_ResponsibleSubject_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ReleatedMeasure" Association="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure">
+          <End Role="SubMeasure_ReleatedMeasure_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ReleatedMeasure_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Idea_Measures" Association="OpenResKit.DomainModel.Idea_Measures">
+          <End Role="Idea_Measures_Source" EntitySet="Ideas" />
+          <End Role="Idea_Measures_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="EnergyMeasure_Consumer" Association="OpenResKit.DomainModel.EnergyMeasure_Consumer">
+          <End Role="EnergyMeasure_Consumer_Source" EntitySet="Measures" />
+          <End Role="EnergyMeasure_Consumer_Target" EntitySet="Consumers" />
+        </AssociationSet>
+        <AssociationSet Name="EnergyMeasure_ConsumptionActual" Association="OpenResKit.DomainModel.EnergyMeasure_ConsumptionActual">
+          <End Role="EnergyMeasure_ConsumptionActual_Source" EntitySet="Measures" />
+          <End Role="EnergyMeasure_ConsumptionActual_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="EnergyMeasure_ConsumptionNormative" Association="OpenResKit.DomainModel.EnergyMeasure_ConsumptionNormative">
+          <End Role="EnergyMeasure_ConsumptionNormative_Source" EntitySet="Measures" />
+          <End Role="EnergyMeasure_ConsumptionNormative_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_ResponsibleSubject" Association="OpenResKit.DomainModel.Measure_ResponsibleSubject">
+          <End Role="Measure_ResponsibleSubject_Source" EntitySet="Measures" />
+          <End Role="Measure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_MeasureImageSource" Association="OpenResKit.DomainModel.Measure_MeasureImageSource">
+          <End Role="Measure_MeasureImageSource_Source" EntitySet="Measures" />
+          <End Role="Measure_MeasureImageSource_Target" EntitySet="MeasureImageSources" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_AttachedDocuments" Association="OpenResKit.DomainModel.Measure_AttachedDocuments">
+          <End Role="Measure_AttachedDocuments_Source" EntitySet="Measures" />
+          <End Role="Measure_AttachedDocuments_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="InvestmentPlan_ResponsibleSubject" Association="OpenResKit.DomainModel.InvestmentPlan_ResponsibleSubject">
+          <End Role="InvestmentPlan_ResponsibleSubject_Source" EntitySet="Calculations" />
+          <End Role="InvestmentPlan_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="InvestmentPlan_Comparisons" Association="OpenResKit.DomainModel.InvestmentPlan_Comparisons">
+          <End Role="InvestmentPlan_Comparisons_Source" EntitySet="Calculations" />
+          <End Role="InvestmentPlan_Comparisons_Target" EntitySet="Calculations" />
+        </AssociationSet>
+        <AssociationSet Name="InvestmentRelatedElement_Comparison" Association="OpenResKit.DomainModel.InvestmentRelatedElement_Comparison">
+          <End Role="InvestmentRelatedElement_Comparison_Source" EntitySet="InvestmentRelatedElements" />
+          <End Role="InvestmentRelatedElement_Comparison_Target" EntitySet="Calculations" />
+        </AssociationSet>
+        <AssociationSet Name="InvestmentRelatedElement_Measure" Association="OpenResKit.DomainModel.InvestmentRelatedElement_Measure">
+          <End Role="InvestmentRelatedElement_Measure_Source" EntitySet="InvestmentRelatedElements" />
+          <End Role="InvestmentRelatedElement_Measure_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Catalog_Measures" Association="OpenResKit.DomainModel.Catalog_Measures">
+          <End Role="Catalog_Measures_Source" EntitySet="Catalogs" />
+          <End Role="Catalog_Measures_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Meter_MapPosition" Association="OpenResKit.DomainModel.Meter_MapPosition">
+          <End Role="Meter_MapPosition_Source" EntitySet="Meters" />
+          <End Role="Meter_MapPosition_Target" EntitySet="MapPositions" />
+        </AssociationSet>
+        <AssociationSet Name="MapPosition_Map" Association="OpenResKit.DomainModel.MapPosition_Map">
+          <End Role="MapPosition_Map_Source" EntitySet="MapPositions" />
+          <End Role="MapPosition_Map_Target" EntitySet="Maps" />
+        </AssociationSet>
+        <AssociationSet Name="Map_MapSource" Association="OpenResKit.DomainModel.Map_MapSource">
+          <End Role="Map_MapSource_Source" EntitySet="Maps" />
+          <End Role="Map_MapSource_Target" EntitySet="MapSources" />
+        </AssociationSet>
+        <AssociationSet Name="MeterRelatedElement_Measure" Association="OpenResKit.DomainModel.MeterRelatedElement_Measure">
+          <End Role="MeterRelatedElement_Measure_Source" EntitySet="MeterRelatedElements" />
+          <End Role="MeterRelatedElement_Measure_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="MeterRelatedElement_Meter" Association="OpenResKit.DomainModel.MeterRelatedElement_Meter">
+          <End Role="MeterRelatedElement_Meter_Source" EntitySet="MeterRelatedElements" />
+          <End Role="MeterRelatedElement_Meter_Target" EntitySet="Meters" />
+        </AssociationSet>
+        <AssociationSet Name="NoiseMeasurement_Method" Association="OpenResKit.DomainModel.NoiseMeasurement_Method">
+          <End Role="NoiseMeasurement_Method_Source" EntitySet="NoiseMeasurements" />
+          <End Role="NoiseMeasurement_Method_Target" EntitySet="MeasuringMethods" />
+        </AssociationSet>
+        <AssociationSet Name="NoiseMeasurement_MeasuringPoint" Association="OpenResKit.DomainModel.NoiseMeasurement_MeasuringPoint">
+          <End Role="NoiseMeasurement_MeasuringPoint_Source" EntitySet="NoiseMeasurements" />
+          <End Role="NoiseMeasurement_MeasuringPoint_Target" EntitySet="MeasuringPoints" />
+        </AssociationSet>
+        <AssociationSet Name="MeasuringPoint_Position" Association="OpenResKit.DomainModel.MeasuringPoint_Position">
+          <End Role="MeasuringPoint_Position_Source" EntitySet="MeasuringPoints" />
+          <End Role="MeasuringPoint_Position_Target" EntitySet="NoiseMapPositions" />
+        </AssociationSet>
+        <AssociationSet Name="NoiseMapPosition_NoiseMap" Association="OpenResKit.DomainModel.NoiseMapPosition_NoiseMap">
+          <End Role="NoiseMapPosition_NoiseMap_Source" EntitySet="NoiseMapPositions" />
+          <End Role="NoiseMapPosition_NoiseMap_Target" EntitySet="NoiseMaps" />
+        </AssociationSet>
+        <AssociationSet Name="NoiseMap_File" Association="OpenResKit.DomainModel.NoiseMap_File">
+          <End Role="NoiseMap_File_Source" EntitySet="NoiseMaps" />
+          <End Role="NoiseMap_File_Target" EntitySet="Files" />
+        </AssociationSet>
+        <AssociationSet Name="Approval_Inspection_ConditionInspections" Association="OpenResKit.DomainModel.Approval_Inspection_ConditionInspections">
+          <End Role="Approval_Inspection_ConditionInspections_Source" EntitySet="ScheduledTasks" />
+          <End Role="Approval_Inspection_ConditionInspections_Target" EntitySet="ConditionInspections" />
+        </AssociationSet>
+        <AssociationSet Name="MeterReading_ReadingMeter" Association="OpenResKit.DomainModel.MeterReading_ReadingMeter">
+          <End Role="MeterReading_ReadingMeter_Source" EntitySet="ScheduledTasks" />
+          <End Role="MeterReading_ReadingMeter_Target" EntitySet="Meters" />
+        </AssociationSet>
+        <AssociationSet Name="FillLevelReading_ReadingContainer" Association="OpenResKit.DomainModel.FillLevelReading_ReadingContainer">
+          <End Role="FillLevelReading_ReadingContainer_Source" EntitySet="ScheduledTasks" />
+          <End Role="FillLevelReading_ReadingContainer_Target" EntitySet="WasteContainers" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_AppointmentResponsibleSubject" Association="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject">
+          <End Role="ScheduledTask_AppointmentResponsibleSubject_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_AppointmentResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_DueDate" Association="OpenResKit.DomainModel.ScheduledTask_DueDate">
+          <End Role="ScheduledTask_DueDate_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_DueDate_Target" EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_EntryDate" Association="OpenResKit.DomainModel.ScheduledTask_EntryDate">
+          <End Role="ScheduledTask_EntryDate_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_EntryDate_Target" EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_EntryResponsibleSubject" Association="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject">
+          <End Role="ScheduledTask_EntryResponsibleSubject_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_EntryResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_RelatedSeries" Association="OpenResKit.DomainModel.ScheduledTask_RelatedSeries">
+          <End Role="ScheduledTask_RelatedSeries_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_RelatedSeries_Target" EntitySet="Series" />
+        </AssociationSet>
+        <AssociationSet Name="WasteContainer_MapPosition" Association="OpenResKit.DomainModel.WasteContainer_MapPosition">
+          <End Role="WasteContainer_MapPosition_Source" EntitySet="WasteContainers" />
+          <End Role="WasteContainer_MapPosition_Target" EntitySet="MapPositions" />
+        </AssociationSet>
+        <AssociationSet Name="WasteContainer_WasteTypes" Association="OpenResKit.DomainModel.WasteContainer_WasteTypes">
+          <End Role="WasteContainer_WasteTypes_Source" EntitySet="WasteContainers" />
+          <End Role="WasteContainer_WasteTypes_Target" EntitySet="WasteTypes" />
+        </AssociationSet>
+        <AssociationSet Name="PositionRelatedElement_Position" Association="OpenResKit.DomainModel.PositionRelatedElement_Position">
+          <End Role="PositionRelatedElement_Position_Source" EntitySet="PositionRelatedElements" />
+          <End Role="PositionRelatedElement_Position_Target" EntitySet="CarbonFootprintPositions" />
+        </AssociationSet>
+        <AssociationSet Name="PositionRelatedElement_Measure" Association="OpenResKit.DomainModel.PositionRelatedElement_Measure">
+          <End Role="PositionRelatedElement_Measure_Source" EntitySet="PositionRelatedElements" />
+          <End Role="PositionRelatedElement_Measure_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Unit_ReferencedUnit" Association="OpenResKit.DomainModel.Unit_ReferencedUnit">
+          <End Role="Unit_ReferencedUnit_Source" EntitySet="Units" />
+          <End Role="Unit_ReferencedUnit_Target" EntitySet="Units" />
+        </AssociationSet>
+        <AssociationSet Name="Disposer_Documents" Association="OpenResKit.DomainModel.Disposer_Documents">
+          <End Role="Disposer_Documents_Source" EntitySet="Disposers" />
+          <End Role="Disposer_Documents_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="Disposer_Containers" Association="OpenResKit.DomainModel.Disposer_Containers">
+          <End Role="Disposer_Containers_Source" EntitySet="Disposers" />
+          <End Role="Disposer_Containers_Target" EntitySet="WasteContainers" />
+        </AssociationSet>
+        <AssociationSet Name="WasteCollection_Disposer" Association="OpenResKit.DomainModel.WasteCollection_Disposer">
+          <End Role="WasteCollection_Disposer_Source" EntitySet="WasteCollections" />
+          <End Role="WasteCollection_Disposer_Target" EntitySet="Disposers" />
+        </AssociationSet>
+        <AssociationSet Name="WasteCollection_Container" Association="OpenResKit.DomainModel.WasteCollection_Container">
+          <End Role="WasteCollection_Container_Source" EntitySet="WasteCollections" />
+          <End Role="WasteCollection_Container_Target" EntitySet="WasteContainers" />
+        </AssociationSet>
+        <AssociationSet Name="ContainerRelatedElement_Container" Association="OpenResKit.DomainModel.ContainerRelatedElement_Container">
+          <End Role="ContainerRelatedElement_Container_Source" EntitySet="ContainerRelatedElements" />
+          <End Role="ContainerRelatedElement_Container_Target" EntitySet="WasteContainers" />
+        </AssociationSet>
+        <AssociationSet Name="ContainerRelatedElement_Measure" Association="OpenResKit.DomainModel.ContainerRelatedElement_Measure">
+          <End Role="ContainerRelatedElement_Measure_Source" EntitySet="ContainerRelatedElements" />
+          <End Role="ContainerRelatedElement_Measure_Target" EntitySet="Measures" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

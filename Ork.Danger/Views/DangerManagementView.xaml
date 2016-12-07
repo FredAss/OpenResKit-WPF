@@ -1,0 +1,116 @@
+﻿<UserControl
+  x:Class="Ork.Danger.Views.DangerManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  mc:Ignorable="d"
+  d:DesignHeight="1000"
+  d:DesignWidth="1000"
+  cal:Bind.Model="Ork.Danger.ViewModels.DangerManagementViewModel">
+
+  <UserControl.Resources>
+
+    <ResourceDictionary>
+
+      <converters:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <ScrollViewer
+    Margin="12"
+    HorizontalScrollBarVisibility="Auto"
+    VerticalScrollBarVisibility="Auto">
+    <Grid>
+      <Grid
+        Name="WorkplaceData"
+        Background="{StaticResource WorkspaceBackgroundColorBrush}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.Margin>
+          <MultiBinding
+            Converter="{StaticResource PinnedToThickness}">
+            <Binding
+              ElementName="CompanyFlyout" />
+            <Binding
+              ElementName="WorkplaceData" />
+            <Binding
+              ElementName="CompanyFlyout"
+              Path="Pinned"
+              Mode="OneWay" />
+          </MultiBinding>
+        </Grid.Margin>
+
+        <ContentControl
+          Name="ActiveItem"
+          Grid.Column="0"
+          Grid.Row="1" />
+      </Grid>
+
+      <global:Flyout
+        Name="CompanyFlyout"
+        HorizontalAlignment="Left"
+        Pinned="True"
+        Background="{StaticResource WindowBackgroundColorBrush}">
+        <StackPanel
+          Orientation="Vertical">
+
+          <AdornerDecorator>
+            <xctk:AutoSelectTextBox
+             
+              Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+              <controls:WatermarkService.Watermark>
+                <TextBlock
+                  Foreground="{StaticResource TextForegroundColorBrush}"
+                  Text="Arbeitsplätze filtern..." />
+              </controls:WatermarkService.Watermark>
+
+            </xctk:AutoSelectTextBox>
+          </AdornerDecorator>
+
+          <ListBox
+            Name="ListBoxCompany"
+            ItemsSource="{Binding FilteredWorkplacesByCompany}"
+            SelectedItem="{Binding SelectedWorkplaceViewModel}"
+            Style="{StaticResource FlyoutListBoxStyle}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel
+                  Orientation="Vertical">
+                  <TextBlock
+                    Text="{Binding Name}" />
+                  <TextBlock
+                    Text="{Binding NameInCompany}" />
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+
+          </ListBox>
+
+        </StackPanel>
+      </global:Flyout>
+
+      <ContentControl
+        x:Name="Dialogs"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch" />
+    </Grid>
+  </ScrollViewer>
+</UserControl>

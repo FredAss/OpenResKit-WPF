@@ -1,0 +1,266 @@
+<UserControl
+  x:Class="Ork.Waste.Views.ReadingPlanningView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  
+  xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  xmlns:converters2="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:converters="clr-namespace:Ork.Waste.Converters"
+  xmlns:calendar="clr-namespace:Ork.Calendar.Controls;assembly=Ork.Calendar"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:micro="http://www.caliburnproject.org"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="200"
+  d:DesignWidth="600">
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <converters2:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <converters:IntToReadingGroupConverter
+        x:Key="IntToReadingGroupConverter" />
+
+      <converters2:BoolToVisibilityReversableConverter
+        x:Key="BoolToVisibilityReversableConverter" />
+      <CollectionViewSource
+        x:Key="GroupedReadings"
+        Source="{Binding FilteredReadings}">
+
+        <CollectionViewSource.SortDescriptions>
+
+          <componentModel:SortDescription
+            PropertyName="DateIndicator"
+            Direction="Ascending" />
+          <componentModel:SortDescription
+            PropertyName="OrderDate"
+            Direction="Ascending" />
+        </CollectionViewSource.SortDescriptions>
+
+        <CollectionViewSource.GroupDescriptions>
+
+          <PropertyGroupDescription
+            PropertyName="DateIndicator"
+            Converter="{StaticResource IntToReadingGroupConverter}" />
+
+        </CollectionViewSource.GroupDescriptions>
+
+      </CollectionViewSource>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid>
+    <calendar:Calendar
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+      Name="Calendar"
+      SelectedCalendarEntry="{Binding SelectedReading.CalendarEntry}"
+      ItemsSource="{Binding CalendarEntries, Mode=OneWay}">
+      <calendar:Calendar.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="CalendarFlyout" />
+          <Binding
+            ElementName="Calendar" />
+          <Binding
+            ElementName="CalendarFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </calendar:Calendar.Margin>
+    </calendar:Calendar>
+
+    <global:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="CalendarFlyout"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <AdornerDecorator
+          Grid.Row="0">
+
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ReadingSearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+            <global:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Waste:Translate:FilterReadings}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </global:WatermarkService.Watermark>
+
+          </xctk:AutoSelectTextBox>
+
+        </AdornerDecorator>
+
+        <ListBox
+          Margin="12 0 0 12"
+          ItemsSource="{Binding Source={StaticResource GroupedReadings}}"
+          SelectedItem="{Binding SelectedReading, Mode=TwoWay}"
+          Grid.Row="1"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+          <ListBox.GroupStyle>
+            <GroupStyle>
+              <GroupStyle.ContainerStyle>
+                <Style
+                  TargetType="{x:Type GroupItem}">
+                  <Setter
+                    Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate
+                        TargetType="{x:Type GroupItem}">
+                        <Grid>
+                          <Expander
+                            IsExpanded="True">
+                            <Expander.Header>
+                              <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding Name}"
+                                FontSize="18"
+                                Margin="0 12 0 6" />
+                            </Expander.Header>
+                            <Expander.Content>
+                              <ItemsPresenter />
+                            </Expander.Content>
+                          </Expander>
+                        </Grid>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </GroupStyle.ContainerStyle>
+            </GroupStyle>
+          </ListBox.GroupStyle>
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Margin="0 3 0 3"
+                micro:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+                <Grid.ToolTip>
+                  <ToolTip
+                    Visibility="{Binding IsAllDay, Converter={StaticResource BoolToVisibilityReversableConverter}, ConverterParameter=false}"
+                    Content="{Binding DueDateRange}" />
+                </Grid.ToolTip>
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                  Grid.Column="0"
+                  Margin="0 0 4 0"
+                  Background="Transparent">
+
+                  <StackPanel
+                    Orientation="Horizontal">
+                    <Border
+                      Background="{Binding SeriesColor}"
+                      Width="12"
+                      Height="12"
+                      Margin="0 0 6 0" />
+                    <TextBlock
+                      Style="{DynamicResource TextBlockStyle}"
+                      FontSize="16"
+                      Text="{Binding RelatedSeriesName}"
+                      TextTrimming="CharacterEllipsis"
+                      Margin="0 0 0 4" />
+                  </StackPanel>
+
+                  <StackPanel
+                    Visibility="{Binding IsAllDay, Converter={StaticResource BoolToVisibilityReversableConverter}, ConverterParameter=false}"
+                    Margin="0 0 0 4"
+                    Orientation="Vertical">
+
+                    <TextBlock
+                      Style="{DynamicResource TextBlockStyle}"
+                      FontSize="12"
+                      Text="{Binding DueDate}"
+                      TextTrimming="CharacterEllipsis" />
+
+                    <Label
+                      Content="{Binding DueDateTimeRange}" />
+                  </StackPanel>
+
+                  <StackPanel
+                    Visibility="{Binding IsAllDay, Converter={StaticResource BoolToVisibilityReversableConverter}, ConverterParameter=true}"
+                    Margin="0 0 0 4"
+                    Orientation="Vertical">
+                    <Label
+                      Content="{Binding DueDateShort}" />
+                    <Label
+                      Content="{lex:Loc WholeDay}" />
+                  </StackPanel>
+
+                  <TextBlock
+                    Style="{DynamicResource TextBlockStyle}"
+                    FontSize="10"
+                    Text="{Binding ContainerName}"
+                    TextTrimming="CharacterEllipsis"
+                    Margin="0 0 0 4" />
+
+                </StackPanel>
+
+                <StackPanel
+                  Grid.Column="1"
+                  Orientation="Vertical"
+                  VerticalAlignment="Center"
+                  Margin="4 0 0 0">
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    micro:Message.Attach="OpenEditDialog($dataContext)"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc Edit}"
+                    Margin="0 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconPencil}" />
+
+                  </Button>
+                </StackPanel>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <Button
+          Grid.Row="2"
+          HorizontalAlignment="Right"
+          micro:Message.Attach="OpenAddDialog"
+          Content="{lex:Loc Add}" />
+
+      </Grid>
+    </global:Flyout>
+
+    <ContentControl
+      Grid.RowSpan="1"
+      Grid.ColumnSpan="1"
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+  </Grid>
+</UserControl>

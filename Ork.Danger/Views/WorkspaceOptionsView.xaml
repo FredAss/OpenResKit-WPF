@@ -1,0 +1,112 @@
+﻿<UserControl
+    x:Class="Ork.Danger.Views.WorkspaceOptionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="380"
+    d:DesignHeight="50"
+    mc:Ignorable="d">
+
+  <StackPanel
+        Height="50"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom"
+        Orientation="Horizontal">
+    <Button
+          Width="50"
+          Height="50"
+          Margin="5 0"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+          IsEnabled="{Binding AcceptIsEnabled}"
+          cal:Message.Attach="AcceptObject($dataContext)">
+            <Button.ToolTip>
+                <TextBlock
+                   Text="Speichern" />
+            </Button.ToolTip>
+      <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_save}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+    </Button>
+        <Button
+          Width="50"
+          Height="50"
+                    Margin="5 0"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+            IsEnabled="{Binding CopyIsEnabled}"
+            cal:Message.Attach="CopyObject($dataContext)">
+            <Button.ToolTip>
+                <TextBlock
+                 
+                    Text="Kopieren" />
+            </Button.ToolTip>
+      <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_page_duplicate}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+        </Button>
+
+        <Button
+          Width="50"
+          Height="50"
+                    Margin="5 0"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+            IsEnabled="{Binding RemoveIsEnabled}"
+            cal:Message.Attach="RemoveObject($dataContext)">
+            <Button.ToolTip>
+                <TextBlock
+                 
+                    Text="Löschen" />
+            </Button.ToolTip>
+      <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_delete}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+
+        </Button>
+        <Button
+          Width="50"
+          Height="50"
+                    Margin="5 0"
+          Style="{DynamicResource MetroCircleButtonStyle}"
+            IsEnabled="{Binding CancelIsEnabled}"
+            cal:Message.Attach="CancelObject($dataContext)">
+            <Button.ToolTip>
+                <TextBlock
+                    Text="Abbrechen" />
+            </Button.ToolTip>
+      <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+        <Rectangle.OpacityMask>
+          <VisualBrush
+                Stretch="Fill"
+                Visual="{DynamicResource appbar_cancel}" />
+        </Rectangle.OpacityMask>
+      </Rectangle>
+        </Button>
+
+
+    </StackPanel>
+</UserControl>

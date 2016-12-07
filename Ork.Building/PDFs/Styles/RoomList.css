@@ -1,0 +1,16 @@
+﻿body
+{
+}
+
+th {
+    font-weight: 500;
+    border-bottom: 5px solid black;
+}
+
+td {
+    border-bottom: 1px solid black;
+}
+
+.logo {
+    width: 200pt;
+}

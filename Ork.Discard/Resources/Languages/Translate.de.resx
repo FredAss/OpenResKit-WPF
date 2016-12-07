@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="AddInspectionAttribute" xml:space="preserve">
+    <value>Prüfmerkmal hinzufügen...</value>
+  </data>
+  <data name="AllCustomers" xml:space="preserve">
+    <value>Alle Kunden</value>
+  </data>
+  <data name="AddCustomer" xml:space="preserve">
+    <value>Kunde hinzufügen...</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ChangeIndex" xml:space="preserve">
+    <value>Änderungs-Index</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Kunde</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="EditInspectionAttributes" xml:space="preserve">
+    <value>Prüfmerkmale bearbeiten</value>
+  </data>
+  <data name="FinishedItem" xml:space="preserve">
+    <value>F-Teil</value>
+  </data>
+  <data name="HalfFinishedItem" xml:space="preserve">
+    <value>H-Teil</value>
+  </data>
+  <data name="InspectionAttribute" xml:space="preserve">
+    <value>Prüfmerkmale</value>
+  </data>
+  <data name="ItemCategory" xml:space="preserve">
+    <value>Teilekategorie</value>
+  </data>
+  <data name="ItemDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="ItemName" xml:space="preserve">
+    <value>Produktionsteil</value>
+  </data>
+  <data name="ItemNumber" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>Keine Angabe</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Sonstiges</value>
+  </data>
+  <data name="ReferenceNumber1" xml:space="preserve">
+    <value>Referenznummer 1</value>
+  </data>
+  <data name="ReferenceNumber2" xml:space="preserve">
+    <value>Referenznummer 2</value>
+  </data>
+  <data name="SearchTextProductionItems" xml:space="preserve">
+    <value>Produktionsteil suchen...</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sicher?</value>
+  </data>
+  <data name="TitleProductionItemAddViewModel" xml:space="preserve">
+    <value>Produktionsteil hinzufügen...</value>
+  </data>
+  <data name="TitleProductionItemEditViewModel" xml:space="preserve">
+    <value>Produktionsteil bearbeiten...</value>
+  </data>
+  <data name="TitleProductionItemManagementViewModel" xml:space="preserve">
+    <value>Produktionsteile</value>
+  </data>
+  <data name="ToolNumber" xml:space="preserve">
+    <value>Werkzeugnummer</value>
+  </data>
+  <data name="EditCustomer" xml:space="preserve">
+    <value>Kunde bearbeiten...</value>
+  </data>
+  <data name="Controller" xml:space="preserve">
+    <value>Prüfer</value>
+  </data>
+  <data name="Inspection" xml:space="preserve">
+    <value>Prüfung</value>
+  </data>
+  <data name="InspectionDate" xml:space="preserve">
+    <value>Prüfungsdatum</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Stichprobe</value>
+  </data>
+  <data name="InspectionShift" xml:space="preserve">
+    <value>Prüfungsschicht</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Gesamtmenge</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="InspectionType" xml:space="preserve">
+    <value>Prüfungsart</value>
+  </data>
+  <data name="ProductionDate" xml:space="preserve">
+    <value>Fertigungsdatum</value>
+  </data>
+  <data name="ProductionShift" xml:space="preserve">
+    <value>Fertigungsschicht</value>
+  </data>
+  <data name="ChooseProductionItem" xml:space="preserve">
+    <value>Produktionsteil</value>
+  </data>
+  <data name="InspectionName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Gesamtmenge</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Einheit</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>Externe Reklamation</value>
+  </data>
+  <data name="Intern" xml:space="preserve">
+    <value>Interne BA</value>
+  </data>
+  <data name="Shift1" xml:space="preserve">
+    <value>Schicht 1</value>
+  </data>
+  <data name="Shift2" xml:space="preserve">
+    <value>Schicht 2</value>
+  </data>
+  <data name="Shift3" xml:space="preserve">
+    <value>Schicht 3</value>
+  </data>
+  <data name="Shift4" xml:space="preserve">
+    <value>Schicht 4</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AddProductionItem" xml:space="preserve">
+    <value>Produktionsteil hinzufügen...</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Rücklieferung</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
+  <data name="NotFinished" xml:space="preserve">
+    <value>Nicht Abgeschlossen</value>
+  </data>
+  <data name="CustomerDeleteFailed" xml:space="preserve">
+    <value>Kunde löschen nicht möglich. Es sind Abhängigkeiten vorhanden.</value>
+  </data>
+  <data name="DBError" xml:space="preserve">
+    <value>Datenbankoperation fehlgeschlagen</value>
+  </data>
+  <data name="InspectionDeleteFailed" xml:space="preserve">
+    <value>Prüfung löschen nicht möglich. Es sind Abhängigkeiten vorhanden.</value>
+  </data>
+  <data name="ProductionItemDeleteFailed" xml:space="preserve">
+    <value>Produktionsteil löschen nicht möglich. Es sind Abhängigkeiten vorhanden.</value>
+  </data>
+  <data name="SampleSize" xml:space="preserve">
+    <value>Stichprobenumfang</value>
+  </data>
+  <data name="TitleAddInspection" xml:space="preserve">
+    <value>Prüfung hinzufügen...</value>
+  </data>
+  <data name="TitleEditInspection" xml:space="preserve">
+    <value>Prüfung bearbeiten...</value>
+  </data>
+  <data name="FilterResponsibleSubjects" xml:space="preserve">
+    <value>Prüfer filtern...</value>
+  </data>
+  <data name="SetPicture" xml:space="preserve">
+    <value>Bild setzen</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>Auswertung</value>
+  </data>
+  <data name="AllInspections" xml:space="preserve">
+    <value>Alle Prüfungen</value>
+  </data>
+  <data name="SingleInspection" xml:space="preserve">
+    <value>Einzelne Prüfung</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Bilanz</value>
+  </data>
+  <data name="TotalDiscardItems" xml:space="preserve">
+    <value>Fehlteile</value>
+  </data>
+  <data name="RateSingle" xml:space="preserve">
+    <value>Fehlteilequote Prüfung: </value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Fehlteilequote</value>
+  </data>
+  <data name="RatioSingle" xml:space="preserve">
+    <value>Verhältnis Prüfmerkmale: </value>
+  </data>
+  <data name="RatioTotal" xml:space="preserve">
+    <value>Verhältnis Prüfmerkmale gesamt</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wert: </value>
+  </data>
+</root>

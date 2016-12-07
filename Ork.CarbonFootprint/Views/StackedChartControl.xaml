@@ -1,0 +1,59 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.Views.StackedChartControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="400">
+
+  <UserControl.Resources>
+
+    <ResourceDictionary>
+
+      <ResourceDictionary.MergedDictionaries>
+
+        <!--<ResourceDictionary
+          Source="../Resources/ChartStyle.xaml" />-->
+
+        <ResourceDictionary>
+
+          <!--<Style
+            TargetType="controls:BindableStackedColumnSeries">
+
+            <Setter
+              Property="Background"
+              Value="Transparent" />
+            <Setter
+              Property="BorderBrush"
+              Value="Transparent" />
+            <Setter
+              Property="BorderThickness"
+              Value="0" />
+            <Setter
+              Property="IsTabStop"
+              Value="False" />
+
+          </Style>-->
+
+        </ResourceDictionary>
+
+      </ResourceDictionary.MergedDictionaries>
+
+    </ResourceDictionary>
+
+  </UserControl.Resources>
+
+  <!--<toolkit:Chart
+    Style="{DynamicResource ChartStyle}"
+    VerticalAlignment="Stretch"
+    HorizontalAlignment="Stretch">
+
+    <controls:BindableStackedColumnSeries
+      ItemsSource="{Binding}" />
+
+  </toolkit:Chart>-->
+
+</UserControl>

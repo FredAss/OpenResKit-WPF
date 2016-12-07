@@ -1,0 +1,219 @@
+﻿<UserControl
+  x:Class="Ork.Map.AdjustableSizeMap"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+  xmlns:Converters="clr-namespace:Ork.Map.Converters"
+  xmlns:Map="clr-namespace:Ork.Map"
+  MouseWheel="AdjustableSizeMapMouseWheel"
+  PreviewMouseWheel="AdjustableSizeMapPreviewMouseWheel"
+  PreviewKeyDown="AdjustableSizeMapPreviewKeyDown"
+  PreviewKeyUp="AdjustableSizeMapPreviewKeyUp"
+  SizeChanged="OnSizeChanged"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+
+    <Converters:ZoomLevelConverter
+      x:Key="ZoomLevelConverter" />
+
+    <Converters:FrameSizeCutConverter
+      x:Key="CutConverter" />
+
+    <Converters:Zoomed
+      x:Key="Zoomed" />
+
+    <sys:Double
+      x:Key="DefaultMarkerSize">
+      20
+    </sys:Double>
+
+    <Style
+      TargetType="{x:Type Ellipse}"
+      x:Key="DefaultMarkerStyle">
+      <Setter
+        Property="Fill"
+        Value="Green" />
+
+      <Style.Triggers>
+        <DataTrigger
+          Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+          Value="True">
+          <Setter
+            Property="Fill"
+            Value="Red" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+
+    <ControlTemplate
+      x:Key="DefaultItemTemplate"
+      TargetType="ContentControl">
+
+      <Ellipse
+        Stroke="Black"
+        StrokeThickness="2"
+        Width="{StaticResource DefaultMarkerSize}"
+        Height="{StaticResource DefaultMarkerSize}"
+        Style="{DynamicResource DefaultMarkerStyle}" />
+
+    </ControlTemplate>
+
+    <Style
+      TargetType="{x:Type ListBoxItem}"
+      x:Key="ContainerStyle">
+      <Setter
+        Property="IsEnabled"
+        Value="False" />
+      <Setter
+        Property="Background"
+        Value="Transparent" />
+
+      <Style.Triggers>
+        <Trigger
+          Property="IsSelected"
+          Value="True">
+          <Setter
+            Property="Background"
+            Value="Red" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+
+  </UserControl.Resources>
+
+  <ScrollViewer
+    Grid.Row="0"
+    Name="ScrollViewerAdjustableSizeMap"
+    Background="LightGray"
+    PreviewMouseWheel="ScrollViewerAdjustableSizeMapPreviewMouseWheel"
+    PreviewMouseLeftButtonDown="ScrollViewerAdjustableSizeMapPreviewMouseLeftButtonDown"
+    MouseMove="ScrollViewerAdjustableSizeMapMouseMove"
+    PreviewMouseLeftButtonUp="ScrollViewerAdjustableSizeMapPreviewMouseLeftButtonUp"
+    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+    ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+    <Grid
+      MinHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Map:AdjustableSizeMap}, Path=ActualHeight, Converter={StaticResource CutConverter}}"
+      MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Map:AdjustableSizeMap}, Path=ActualWidth, Converter={StaticResource CutConverter}}"
+      Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Map:AdjustableSizeMap}, Path=MapHeight, Converter={StaticResource CutConverter}}"
+      Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Map:AdjustableSizeMap}, Path=MapWidth, Converter={StaticResource CutConverter}}">
+
+      <Grid.MaxHeight>
+        <MultiBinding
+          Converter="{StaticResource ZoomLevelConverter}">
+          <Binding
+            RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+            Path="MapHeight" />
+          <Binding
+            RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+            Path="MaxZoomLevel" />
+        </MultiBinding>
+      </Grid.MaxHeight>
+      <Grid.MaxWidth>
+        <MultiBinding
+          Converter="{StaticResource ZoomLevelConverter}">
+          <Binding
+            RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+            Path="MapWidth" />
+          <Binding
+            RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+            Path="MaxZoomLevel" />
+        </MultiBinding>
+      </Grid.MaxWidth>
+
+      <Image
+        x:Name="Map"
+        Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}, Path=MapSource}"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top">
+
+        <Image.Width>
+          <MultiBinding
+            Converter="{StaticResource Zoomed}">
+            <Binding
+              RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+              Path="MapSource.Width" />
+            <Binding
+              RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+              Path="Zoom" />
+          </MultiBinding>
+        </Image.Width>
+
+      </Image>
+
+      <ListBox
+        x:Name="CanvasAdjustableSizeMap"
+        ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}, Path=ItemsSource}"
+        Background="Transparent"
+        SelectedValue="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}, Path=SelectedItem}"
+        ItemContainerStyle="{DynamicResource ContainerStyle}"
+        PreviewMouseDoubleClick="CanvasAdjustableSizeMapPreviewMouseDoubleClick">
+        <ListBox.ItemTemplate>
+
+          <DataTemplate>
+            <Canvas>
+
+              <ContentControl
+                Name="Marker"
+                Template="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}, Path=ItemTemplate, TargetNullValue={StaticResource DefaultItemTemplate}}">
+
+                <Canvas.Left>
+                  <MultiBinding
+                    Converter="{StaticResource Zoomed}"
+                    Mode="TwoWay">
+                    <Binding
+                      Path="X"
+                      Mode="TwoWay" />
+                    <Binding
+                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+                      Path="Zoom"
+                      Mode="OneWay" />
+                  </MultiBinding>
+                </Canvas.Left>
+
+                <Canvas.Top>
+                  <MultiBinding
+                    Converter="{StaticResource Zoomed}"
+                    Mode="TwoWay">
+                    <Binding
+                      Path="Y"
+                      Mode="TwoWay" />
+                    <Binding
+                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:AdjustableSizeMap}}"
+                      Path="Zoom"
+                      Mode="OneWay" />
+                  </MultiBinding>
+                </Canvas.Top>
+
+              </ContentControl>
+            </Canvas>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+
+        <!--TODO the canvas itemspanel does not work as expected: all items need thier own canvas atm. fix!-->
+        <!--<ItemsControl.ItemsPanel>
+
+					<ItemsPanelTemplate>
+
+						<Canvas
+							Width="Auto"
+							Height="Auto"
+							Background="Transparent">
+						</Canvas>
+
+					</ItemsPanelTemplate>
+
+				</ItemsControl.ItemsPanel>-->
+
+      </ListBox>
+
+    </Grid>
+
+  </ScrollViewer>
+
+</UserControl>

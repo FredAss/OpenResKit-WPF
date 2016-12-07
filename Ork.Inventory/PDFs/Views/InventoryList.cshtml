@@ -1,0 +1,41 @@
+﻿@model Ork.Inventory.PDFs.Models.InventoryListViewModel
+
+<!-- Header -->
+<div width="595pt">
+    <h1>@Model.PdfTitle</h1>
+    <div style="position: absolute; right: 0; top: 0;">
+        <img class="logo" src="@Model.Base64Logo" />
+    </div>
+</div>
+<table style="border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 99pt">
+        <col style="width: 142pt">
+        <col style="width: 85pt">
+        <col style="width: 184pt">
+        <col style="width: 85pt">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>@Model.TitleName</th>
+        <th>@Model.TitleDescription</th>
+        <th>@Model.TitleInventoryId</th>
+        <th>@Model.TitleRoom</th>
+        <th>@Model.TitleInventoryType</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var roomViewModel in Model.Inventories)
+    {
+        <tr class="">
+            <td>@roomViewModel.Name</td>
+            <td>@roomViewModel.Description</td>
+            <td>@roomViewModel.InventoryId</td>
+            <td>@roomViewModel.RoomName</td>
+            <td>@roomViewModel.TypeName</td>
+        </tr>
+    }
+
+    </tbody>
+</table>

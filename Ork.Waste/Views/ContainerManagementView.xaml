@@ -1,0 +1,402 @@
+<UserControl
+  x:Class="Ork.Waste.Views.ContainerManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:converters="clr-namespace:Ork.Waste.Converters"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:frameworkConverters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:controls="clr-namespace:Ork.Map.Controls;assembly=Ork.Map"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="500">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+
+      <frameworkConverters:IntToButtonVisibilityConverter
+        x:Key="IntToButtonVisibilityConverter" />
+
+      <converters:IntToContainerGroupConverter
+        x:Key="IntToContainerGroupConverter" />
+
+      <frameworkConverters:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <ToolTip
+        x:Key="ContainerToolTip">
+
+        <StackPanel>
+
+          <TextBlock
+            Text="{Binding Name, Mode=OneWay}" />
+
+          <ItemsControl
+            ItemsSource="{Binding SelectedAvvWasteTypes}">
+
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+
+                <StackPanel
+                  HorizontalAlignment="Stretch"
+                  Orientation="Horizontal">
+
+                  <TextBlock
+                    FontWeight="Bold"
+                    Text="{Binding Number}" />
+
+                  <TextBlock
+                    Text="{Binding Name}"
+                    Margin="4 0 0 0" />
+
+                </StackPanel>
+
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+          </ItemsControl>
+
+        </StackPanel>
+
+      </ToolTip>
+
+      <CollectionViewSource
+        x:Key="GroupedContainers"
+        Source="{Binding FilteredContainers}">
+
+        <CollectionViewSource.SortDescriptions>
+
+          <componentModel:SortDescription
+            PropertyName="MapIndicator"
+            Direction="Ascending" />
+
+        </CollectionViewSource.SortDescriptions>
+
+        <CollectionViewSource.GroupDescriptions>
+
+          <PropertyGroupDescription
+            PropertyName="MapIndicator"
+            Converter="{StaticResource IntToContainerGroupConverter}" />
+
+        </CollectionViewSource.GroupDescriptions>
+
+      </CollectionViewSource>
+
+      <BooleanToVisibilityConverter
+        x:Key="BoolToVisibility" />
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid
+    Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+
+    <!--Map Editor-->
+    <controls:MapPositionEditor
+      Name="MapEditor"
+      cal:Message.Attach="[Event MapDoubleClicked]=[Action MoveContainer($eventArgs)];
+      [Event MouseRightButtonUp]=[Action CancelPositionSetting]"
+      MapBackground="{DynamicResource WorkspaceBackgroundColorBrush}"
+      MapSource="{Binding SelectedMap.Map}"
+      MapItemsSource="{Binding ContainerPositionsOnSelectedMap}">
+      <controls:MapPositionEditor.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="ContainerFlyout" />
+          <Binding
+            ElementName="MapEditor" />
+          <Binding
+            ElementName="ContainerFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </controls:MapPositionEditor.Margin>
+    </controls:MapPositionEditor>
+
+    <TextBlock
+      Background="{DynamicResource WindowBackgroundColorBrush}"
+      Opacity="0.9"
+      Margin="6"
+      Padding="6"
+      Visibility="{Binding PositionSettingActivated, Converter={StaticResource BoolToVisibility}}"
+      VerticalAlignment="Top"
+      Text="{lex:Loc Ork.Waste:Translate:SetPositionExplanation}"
+      HorizontalAlignment="Center"
+      Foreground="{DynamicResource TextForegroundColorBrush}"
+      FontFamily="Segoe UI"
+      FontWeight="14" />
+
+    <global:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="ContainerFlyout"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Tag="{lex:Loc FilterContainers}"
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+            <global:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Waste:Translate:FilterContainers}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </global:WatermarkService.Watermark>
+
+          </xctk:AutoSelectTextBox>
+
+        </AdornerDecorator>
+
+        <ListBox
+          x:Name="ListBoxContainer"
+          ItemsSource="{Binding Source={StaticResource GroupedContainers}}"
+          SelectedItem="{Binding SelectedContainer, Mode=TwoWay}"
+          Grid.Row="1"
+          Margin="12 0 0 12"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+          <ListBox.GroupStyle>
+            <GroupStyle>
+              <GroupStyle.ContainerStyle>
+                <Style
+                  TargetType="{x:Type GroupItem}">
+                  <Setter
+                    Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate
+                        TargetType="{x:Type GroupItem}">
+                        <Grid>
+                          <Expander
+                            IsExpanded="True">
+                            <Expander.Header>
+                              <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding Name}"
+                                FontSize="18"
+                                Margin="0 12 0 6" />
+                            </Expander.Header>
+                            <Expander.Content>
+                              <ItemsPresenter />
+                            </Expander.Content>
+                          </Expander>
+                        </Grid>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </GroupStyle.ContainerStyle>
+            </GroupStyle>
+          </ListBox.GroupStyle>
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Margin="0 3 0 3"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                  Grid.Column="0"
+                  Margin="0 0 4 0"
+                  Background="Transparent"
+                  ToolTip="{StaticResource ContainerToolTip}">
+
+                  <TextBlock
+                    Style="{DynamicResource TextBlockStyle}"
+                    FontSize="16"
+                    Text="{Binding Name}"
+                    TextTrimming="CharacterEllipsis"
+                    Margin="0 0 0 4" />
+
+                  <Grid
+                    HorizontalAlignment="Stretch">
+
+                    <StackPanel
+                      Orientation="Horizontal"
+                      Width="Auto"
+                      HorizontalAlignment="Left">
+
+                      <Path
+                        Style="{DynamicResource IconBarcode}"
+                        Margin="0 0 6 0" />
+
+                      <TextBlock
+                        Style="{DynamicResource TextBlockStyle}"
+                        Text="{Binding Barcode}"
+                        TextTrimming="CharacterEllipsis"
+                        ToolTip="{Binding Barcode}" />
+
+                    </StackPanel>
+
+                    <TextBlock
+                      Style="{DynamicResource TextBlockStyle}"
+                      Width="Auto"
+                      HorizontalAlignment="Right"
+                      TextTrimming="CharacterEllipsis">
+                      <TextBlock
+                        Text="{Binding Size}" />
+                      <Run
+                        Text="{lex:Loc m3}" />
+                    </TextBlock>
+
+                  </Grid>
+
+                </StackPanel>
+
+                <StackPanel
+                  Grid.Column="1"
+                  Orientation="Vertical"
+                  VerticalAlignment="Center"
+                  Margin="4 0 0 0">
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="OpenContainerEditDialog($dataContext)"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc Ork.Waste:Translate:Edit}"
+                    Margin="0 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconPencil}" />
+
+                  </Button>
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="ChangeSelectedMap($dataContext)"
+                    Visibility="{Binding MapIndicator, Converter={StaticResource IntToButtonVisibilityConverter}}"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc Ork.Waste:Translate:ChangeToMap}"
+                    Margin="0 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconNext}" />
+
+                  </Button>
+
+                </StackPanel>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <Button
+          HorizontalAlignment="Right"
+          Grid.Row="2"
+          cal:Message.Attach="OpenContainerAddDialog"
+          Content="{lex:Loc Ork.Waste:Translate:Add}" />
+
+      </Grid>
+    </global:Flyout>
+
+    <ComboBox
+      Style="{DynamicResource ComboBoxWithAddButonStyle}"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Top"
+      Width="200"
+      Margin="12"
+      ItemsSource="{Binding Maps}"
+      SelectedIndex="0"
+      SelectedItem="{Binding SelectedMap, Mode=TwoWay}"
+      cal:Message.Attach="[Event Click]=[Action AddMap]"
+      global:CommandExtensions.Command="{Binding AddNewMap}">
+
+      <ComboBox.ItemTemplateSelector>
+        <global:ComboBoxItemTemplateSelector>
+
+          <global:ComboBoxItemTemplateSelector.SelectedTemplate>
+            <DataTemplate>
+              <TextBlock
+                Text="{Binding Name}" />
+            </DataTemplate>
+          </global:ComboBoxItemTemplateSelector.SelectedTemplate>
+
+          <global:ComboBoxItemTemplateSelector.DropDownTemplate>
+            <DataTemplate>
+              <Grid>
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition
+                    Width="145" />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  FontFamily="Segoe UI"
+                  FontSize="14"
+                  Text="{Binding Name}" />
+
+                <Button
+                  Style="{DynamicResource UnstyledButtonStyle}"
+                  cal:Message.Attach="OpenMapEditDialog($dataContext)"
+                  cal:Action.TargetWithoutContext="{Binding ElementName=ListBoxContainer, Path=DataContext}"
+                  Grid.Column="1"
+                  Grid.Row="0"
+                  Cursor="Hand"
+                  ToolTipService.ToolTip="{lex:Loc Edit}"
+                  Margin="2">
+
+                  <Path
+                    Style="{DynamicResource IconPencil}" />
+
+                </Button>
+
+                <Image
+                  Grid.Column="0"
+                  Grid.Row="1"
+                  Source="{Binding Map}"
+                  Stretch="Fill" />
+
+              </Grid>
+            </DataTemplate>
+          </global:ComboBoxItemTemplateSelector.DropDownTemplate>
+
+        </global:ComboBoxItemTemplateSelector>
+      </ComboBox.ItemTemplateSelector>
+
+    </ComboBox>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+
+  </Grid>
+
+</UserControl>

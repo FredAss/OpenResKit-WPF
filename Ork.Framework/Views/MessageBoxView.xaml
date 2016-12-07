@@ -1,0 +1,52 @@
+﻿<UserControl
+  x:Class="Ork.Framework.Views.MessageBoxView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  MaxWidth="375"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Framework"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <BooleanToVisibilityConverter
+        x:Key="BooleanToVisibility" />
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <StackPanel>
+    <TextBlock
+      x:Name="Message"
+      Foreground="{DynamicResource TextForegroundColorBrush}"
+      TextWrapping="Wrap" />
+    <StackPanel
+      Margin="0 12 0 0"
+      HorizontalAlignment="Right"
+      Orientation="Horizontal">
+      <Button
+        x:Name="Ok"
+        Margin="0 0 0 0"
+        Visibility="{Binding OkVisible, Converter={StaticResource BooleanToVisibility}}"
+        Content="{lex:LocExtension Ok}" />
+      <Button
+        x:Name="Yes"
+        Margin="6 0 0 0"
+        Visibility="{Binding YesVisible, Converter={StaticResource BooleanToVisibility}}"
+        Content="{lex:LocExtension Yes}" />
+      <Button
+        x:Name="No"
+        Margin="6 0 0 0"
+        Visibility="{Binding NoVisible, Converter={StaticResource BooleanToVisibility}}"
+        Content="{lex:LocExtension No}" />
+      <Button
+        x:Name="Cancel"
+        Margin="6 0 0 0"
+        Visibility="{Binding CancelVisible, Converter={StaticResource BooleanToVisibility}}"
+        Content="{lex:LocExtension Cancel}" />
+    </StackPanel>
+  </StackPanel>
+
+</UserControl>

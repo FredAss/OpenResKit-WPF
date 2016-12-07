@@ -1,0 +1,240 @@
+<UserControl
+  IsEnabled="{Binding IsEditable}"
+  x:Class="Ork.Meter.Views.SeriesCycleView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:converters1="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Meter"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <Style
+        x:Key="DatePickerCalendarStyle"
+        TargetType="{x:Type Calendar}"
+        BasedOn="{StaticResource {x:Type Calendar}}" />
+
+
+      <converters1:ReverseBoolConverter
+        x:Key="ReverseBoolConverter" />
+
+      <!--<Binding="{Binding ElementName=Turnus, Path=SelectedItem.Content}"
+            Value="Täglich">-->
+
+      <Style
+        TargetType="TextBlock"
+        x:Key="PeriodSelector"
+        BasedOn="{StaticResource TextBlockStyle}">
+        <Style.Triggers>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="0">
+            <Setter
+              Property="Text"
+              Value="{Binding CycleDescription}" />
+          </DataTrigger>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="1">
+            <Setter
+              Property="Text"
+              Value="{Binding CycleDescription}" />
+          </DataTrigger>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="2">
+            <Setter
+              Property="Text"
+              Value="{Binding CycleDescription}" />
+          </DataTrigger>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="3">
+            <Setter
+              Property="Text"
+              Value="{Binding CycleDescription}" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style
+        TargetType="StackPanel"
+        x:Key="ShowWeekDaySelectionStyle">
+        <Setter
+          Property="Visibility"
+          Value="Collapsed" />
+        <Style.Triggers>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="1">
+            <Setter
+              Property="Visibility"
+              Value="Visible" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style
+        TargetType="StackPanel"
+        x:Key="ShowMonthlyRepetitionTypeStlye">
+        <Setter
+          Property="Visibility"
+          Value="Collapsed" />
+        <Style.Triggers>
+          <DataTrigger
+            Binding="{Binding ElementName=Turnus, Path=SelectedIndex}"
+            Value="2">
+            <Setter
+              Property="Visibility"
+              Value="Visible" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Border
+    BorderThickness="1,0,0,0"
+    BorderBrush="{DynamicResource TextForegroundColorBrush}">
+    <Grid
+      Margin="12 0 0 0">
+      <StackPanel>
+        <TextBlock
+          Text="{lex:Loc RepetitionInterval}" />
+        <ComboBox
+          SelectedIndex="{Binding Cycle, Mode=TwoWay}"
+          Style="{DynamicResource ComboBoxStyle}"
+          x:Name="Turnus"
+          Margin="10,0,0,0">
+          <ComboBoxItem
+            Content="{lex:Loc Daily}" />
+          <ComboBoxItem
+            Content="{lex:Loc Weekly}" />
+          <ComboBoxItem
+            Content="{lex:Loc Monthly}" />
+          <ComboBoxItem
+            Content="{lex:Loc Yearly}" />
+        </ComboBox>
+
+        <TextBlock
+          Margin="0 10 0 0"
+          Text="{lex:Loc RepeatEvery}" />
+        <StackPanel
+          Orientation="Horizontal">
+          <ComboBox
+            Width="50"
+            x:Name="Interval"
+            SelectedItem="{Binding RecurrenceInterval, Mode=TwoWay}"
+            ItemsSource="{Binding Days}"
+            Style="{DynamicResource ComboBoxStyle}"
+            Margin="10,0,4,0" />
+
+          <TextBlock
+            Style="{StaticResource PeriodSelector}" />
+          <!-- Der Text wird vom Style gesetzt-->
+        </StackPanel>
+
+        <StackPanel
+          Style="{StaticResource ShowWeekDaySelectionStyle}">
+          <TextBlock
+            Margin="0 10 0 0"
+            Text="{lex:Loc RepeatAT}" />
+          <ItemsControl
+            Margin="10,0,0,0"
+            ItemsSource="{Binding WeekDayList}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel
+                  Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <CheckBox
+                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                  Content="{Binding DayOfWeekString}"
+                  Margin="0 0 2 0" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+
+        <StackPanel
+          Style="{StaticResource ShowMonthlyRepetitionTypeStlye}">
+          <TextBlock
+            Margin="0 10 0 0"
+            Text="{lex:Loc RepeatAT}" />
+          <StackPanel
+            Margin="10,0,0,0"
+            Orientation="Horizontal">
+            <RadioButton
+              IsChecked="{Binding IsWeekdayRecurrence, Mode=TwoWay, Converter={StaticResource ReverseBoolConverter}}"
+              Content="{lex:Loc DayOfMonth}" />
+            <RadioButton
+              IsChecked="{Binding IsWeekdayRecurrence, Mode=TwoWay}"
+              Content="{lex:Loc Weekday}" />
+          </StackPanel>
+        </StackPanel>
+
+        <TextBlock
+          Margin="0 10 0 0"
+          Text="{lex:Loc Beginning}" />
+        <Label
+          Margin="10,0,0,0"
+          Content="{Binding SeriesBeginDate}"
+          ContentStringFormat="ddddd, d MMMM yyyy HH:mm" />
+
+        <TextBlock
+          Margin="0 10 0 0"
+          Text="{lex:Loc Ending}" />
+
+        <RadioButton
+          x:Name="RadioButtonFirst"
+          IsChecked="{Binding EndsWithDate, Mode=TwoWay, Converter={StaticResource ReverseBoolConverter}}"
+          Margin="10,0,0,5"
+          VerticalContentAlignment="Center">
+          <StackPanel
+            Orientation="Horizontal">
+            <TextBlock
+              Text="{lex:Loc After}" />
+            <TextBox
+              Style="{DynamicResource EntryControl}"
+              GotFocus="NumberOfRecurrences_OnGotFocus"
+              Text="{Binding NumberOfRecurrences, Mode=TwoWay}"
+              Width="40"
+              Margin="3 0 3 0" />
+            <TextBlock
+              Text="{lex:Loc Dates}" />
+          </StackPanel>
+
+        </RadioButton>
+
+        <RadioButton
+          x:Name="RadioButtonSecond"
+          IsChecked="{Binding EndsWithDate, Mode=TwoWay}"
+          VerticalContentAlignment="Center"
+          Margin="10,0,0,0">
+          <StackPanel
+            Orientation="Horizontal">
+            <TextBlock
+              Text="{lex:Loc At}" />
+            <DatePicker
+              GotMouseCapture="RepeatUntilDate_OnGotMouseCapture"
+              SelectedDate="{Binding RepeatUntilDate,Mode=TwoWay}"
+              Margin="3 0 0 0" />
+          </StackPanel>
+        </RadioButton>
+
+      </StackPanel>
+    </Grid>
+  </Border>
+
+</UserControl>

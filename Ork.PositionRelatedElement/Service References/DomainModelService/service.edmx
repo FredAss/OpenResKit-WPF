@@ -1,0 +1,861 @@
+﻿<edmx:Edmx
+  Version="1.0"
+  xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices
+    m:DataServiceVersion="1.0"
+    m:MaxDataServiceVersion="3.0"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema
+      Namespace="OpenResKit.DomainModel"
+      xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType
+        Name="CarbonFootprint">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="SiteLocation"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Employees"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="Calculation"
+          Type="Edm.Double"
+          Nullable="false" />
+        <NavigationProperty
+          Name="Positions"
+          Relationship="OpenResKit.DomainModel.CarbonFootprint_Positions"
+          ToRole="CarbonFootprint_Positions_Target"
+          FromRole="CarbonFootprint_Positions_Source" />
+      </EntityType>
+      <EntityType
+        Name="CarbonFootprintPosition"
+        Abstract="true">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Start"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="Finish"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="IconId"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Tag"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Calculation"
+          Type="Edm.Double"
+          Nullable="false" />
+        <NavigationProperty
+          Name="ResponsibleSubject"
+          Relationship="OpenResKit.DomainModel.CarbonFootprintPosition_ResponsibleSubject"
+          ToRole="CarbonFootprintPosition_ResponsibleSubject_Target"
+          FromRole="CarbonFootprintPosition_ResponsibleSubject_Source" />
+      </EntityType>
+      <EntityType
+        Name="AirportBasedFlight"
+        BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <NavigationProperty
+          Name="Airports"
+          Relationship="OpenResKit.DomainModel.AirportBasedFlight_Airports"
+          ToRole="AirportBasedFlight_Airports_Target"
+          FromRole="AirportBasedFlight_Airports_Source" />
+      </EntityType>
+      <EntityType
+        Name="Car"
+        BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property
+          Name="CarbonProduction"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="Consumption"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="Kilometrage"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="m_Fuel"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="FullyQualifiedCar"
+        BaseType="OpenResKit.DomainModel.Car">
+        <Property
+          Name="CarId"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="GeoLocatedCar"
+        BaseType="OpenResKit.DomainModel.FullyQualifiedCar">
+        <Property
+          Name="StartName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="StartLatitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="StartLongitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="DestinationName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="DestinationLatitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="DestinationLongitude"
+          Type="Edm.Double"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="PublicTransport"
+        BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property
+          Name="Kilometrage"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="m_TransportType"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="GeoLocatedPublicTransport"
+        BaseType="OpenResKit.DomainModel.PublicTransport">
+        <Property
+          Name="StartName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="StartLatitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="StartLongitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="DestinationName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="DestinationLatitude"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="DestinationLongitude"
+          Type="Edm.Double"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="EnergyConsumption"
+        BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property
+          Name="Consumption"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="m_EnergySource"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="CarbonProduction"
+          Type="Edm.Double"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="MachineEnergyConsumption"
+        BaseType="OpenResKit.DomainModel.EnergyConsumption">
+        <Property
+          Name="HoursInStandbyState"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="HoursInProcessingState"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="ConsumptionPerHourForStandby"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="ConsumptionPerHourForProcessing"
+          Type="Edm.Double"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="Flight"
+        BaseType="OpenResKit.DomainModel.CarbonFootprintPosition">
+        <Property
+          Name="RadiativeForcing"
+          Type="Edm.Boolean"
+          Nullable="false" />
+        <Property
+          Name="Kilometrage"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="m_FlightType"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="ResponsibleSubject"
+        Abstract="true">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+      </EntityType>
+      <EntityType
+        Name="Employee"
+        BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property
+          Name="FirstName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="LastName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="UserName"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Number"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <NavigationProperty
+          Name="Groups"
+          Relationship="OpenResKit.DomainModel.Employee_Groups"
+          ToRole="Employee_Groups_Target"
+          FromRole="Employee_Groups_Source" />
+      </EntityType>
+      <EntityType
+        Name="EmployeeGroup"
+        BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+      </EntityType>
+      <EntityType
+        Name="AirportPosition">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Order"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="AirportID"
+          Type="Edm.Int32"
+          Nullable="false" />
+      </EntityType>
+      <EntityType
+        Name="Measure">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Evaluation"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="EntryDate"
+          Type="Edm.DateTime" />
+        <Property
+          Name="DueDate"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="CreationDate"
+          Type="Edm.DateTime"
+          Nullable="false" />
+        <Property
+          Name="Status"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="Priority"
+          Type="Edm.Int32"
+          Nullable="false" />
+        <Property
+          Name="EvaluationRating"
+          Type="Edm.Double"
+          Nullable="false" />
+        <NavigationProperty
+          Name="ResponsibleSubject"
+          Relationship="OpenResKit.DomainModel.Measure_ResponsibleSubject"
+          ToRole="Measure_ResponsibleSubject_Target"
+          FromRole="Measure_ResponsibleSubject_Source" />
+        <NavigationProperty
+          Name="MeasureImageSource"
+          Relationship="OpenResKit.DomainModel.Measure_MeasureImageSource"
+          ToRole="Measure_MeasureImageSource_Target"
+          FromRole="Measure_MeasureImageSource_Source" />
+        <NavigationProperty
+          Name="AttachedDocuments"
+          Relationship="OpenResKit.DomainModel.Measure_AttachedDocuments"
+          ToRole="Measure_AttachedDocuments_Target"
+          FromRole="Measure_AttachedDocuments_Source" />
+      </EntityType>
+      <EntityType
+        Name="MeasureImageSource">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="BinarySource"
+          Type="Edm.Binary"
+          MaxLength="Max"
+          FixedLength="false" />
+      </EntityType>
+      <EntityType
+        Name="Document">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <NavigationProperty
+          Name="DocumentSource"
+          Relationship="OpenResKit.DomainModel.Document_DocumentSource"
+          ToRole="Document_DocumentSource_Target"
+          FromRole="Document_DocumentSource_Source" />
+      </EntityType>
+      <EntityType
+        Name="DocumentSource">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="BinarySource"
+          Type="Edm.Binary"
+          MaxLength="Max"
+          FixedLength="false" />
+      </EntityType>
+      <EntityType
+        Name="Catalog">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <Property
+          Name="Description"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+        <NavigationProperty
+          Name="Measures"
+          Relationship="OpenResKit.DomainModel.Catalog_Measures"
+          ToRole="Catalog_Measures_Target"
+          FromRole="Catalog_Measures_Source" />
+      </EntityType>
+      <EntityType
+        Name="Map">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="MapSource"
+          Type="Edm.Binary"
+          MaxLength="Max"
+          FixedLength="false" />
+        <Property
+          Name="Name"
+          Type="Edm.String"
+          MaxLength="Max"
+          FixedLength="false"
+          Unicode="true" />
+      </EntityType>
+      <EntityType
+        Name="MapPosition">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property
+          Name="XPosition"
+          Type="Edm.Double"
+          Nullable="false" />
+        <Property
+          Name="YPosition"
+          Type="Edm.Double"
+          Nullable="false" />
+        <NavigationProperty
+          Name="Map"
+          Relationship="OpenResKit.DomainModel.MapPosition_Map"
+          ToRole="MapPosition_Map_Target"
+          FromRole="MapPosition_Map_Source" />
+      </EntityType>
+      <EntityType
+        Name="PositionRelatedElement">
+        <Key>
+          <PropertyRef
+            Name="Id" />
+        </Key>
+        <Property
+          Name="Id"
+          Type="Edm.Int32"
+          Nullable="false"
+          p6:StoreGeneratedPattern="Identity"
+          xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <NavigationProperty
+          Name="Position"
+          Relationship="OpenResKit.DomainModel.PositionRelatedElement_Position"
+          ToRole="PositionRelatedElement_Position_Target"
+          FromRole="PositionRelatedElement_Position_Source" />
+        <NavigationProperty
+          Name="Measure"
+          Relationship="OpenResKit.DomainModel.PositionRelatedElement_Measure"
+          ToRole="PositionRelatedElement_Measure_Target"
+          FromRole="PositionRelatedElement_Measure_Source" />
+      </EntityType>
+      <Association
+        Name="CarbonFootprint_Positions">
+        <End
+          Type="OpenResKit.DomainModel.CarbonFootprint"
+          Role="CarbonFootprint_Positions_Source"
+          Multiplicity="0..1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.CarbonFootprintPosition"
+          Role="CarbonFootprint_Positions_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="CarbonFootprintPosition_ResponsibleSubject">
+        <End
+          Type="OpenResKit.DomainModel.CarbonFootprintPosition"
+          Role="CarbonFootprintPosition_ResponsibleSubject_Source"
+          Multiplicity="*" />
+        <End
+          Type="OpenResKit.DomainModel.ResponsibleSubject"
+          Role="CarbonFootprintPosition_ResponsibleSubject_Target"
+          Multiplicity="0..1" />
+      </Association>
+      <Association
+        Name="AirportBasedFlight_Airports">
+        <End
+          Type="OpenResKit.DomainModel.AirportBasedFlight"
+          Role="AirportBasedFlight_Airports_Source"
+          Multiplicity="0..1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.AirportPosition"
+          Role="AirportBasedFlight_Airports_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="Employee_Groups">
+        <End
+          Type="OpenResKit.DomainModel.Employee"
+          Role="Employee_Groups_Source"
+          Multiplicity="*" />
+        <End
+          Type="OpenResKit.DomainModel.EmployeeGroup"
+          Role="Employee_Groups_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="Measure_ResponsibleSubject">
+        <End
+          Type="OpenResKit.DomainModel.Measure"
+          Role="Measure_ResponsibleSubject_Source"
+          Multiplicity="*" />
+        <End
+          Type="OpenResKit.DomainModel.ResponsibleSubject"
+          Role="Measure_ResponsibleSubject_Target"
+          Multiplicity="0..1" />
+      </Association>
+      <Association
+        Name="Measure_MeasureImageSource">
+        <End
+          Type="OpenResKit.DomainModel.MeasureImageSource"
+          Role="Measure_MeasureImageSource_Target"
+          Multiplicity="0..1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+        <End
+          Type="OpenResKit.DomainModel.Measure"
+          Role="Measure_MeasureImageSource_Source"
+          Multiplicity="0..1" />
+      </Association>
+      <Association
+        Name="Measure_AttachedDocuments">
+        <End
+          Type="OpenResKit.DomainModel.Document"
+          Role="Measure_AttachedDocuments_Target"
+          Multiplicity="*" />
+        <End
+          Type="OpenResKit.DomainModel.Measure"
+          Role="Measure_AttachedDocuments_Source"
+          Multiplicity="0..1">
+          <OnDelete
+            Action="Cascade" />
+        </End>
+      </Association>
+      <Association
+        Name="Document_DocumentSource">
+        <End
+          Type="OpenResKit.DomainModel.DocumentSource"
+          Role="Document_DocumentSource_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.Document"
+          Role="Document_DocumentSource_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="Catalog_Measures">
+        <End
+          Type="OpenResKit.DomainModel.Catalog"
+          Role="Catalog_Measures_Source"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.Measure"
+          Role="Catalog_Measures_Target"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="MapPosition_Map">
+        <End
+          Type="OpenResKit.DomainModel.Map"
+          Role="MapPosition_Map_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.MapPosition"
+          Role="MapPosition_Map_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="PositionRelatedElement_Position">
+        <End
+          Type="OpenResKit.DomainModel.CarbonFootprintPosition"
+          Role="PositionRelatedElement_Position_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.PositionRelatedElement"
+          Role="PositionRelatedElement_Position_Source"
+          Multiplicity="*" />
+      </Association>
+      <Association
+        Name="PositionRelatedElement_Measure">
+        <End
+          Type="OpenResKit.DomainModel.Measure"
+          Role="PositionRelatedElement_Measure_Target"
+          Multiplicity="0..1" />
+        <End
+          Type="OpenResKit.DomainModel.PositionRelatedElement"
+          Role="PositionRelatedElement_Measure_Source"
+          Multiplicity="*" />
+      </Association>
+      <EntityContainer
+        Name="DomainModelContext"
+        m:IsDefaultEntityContainer="true">
+        <EntitySet
+          Name="CarbonFootprints"
+          EntityType="OpenResKit.DomainModel.CarbonFootprint" />
+        <EntitySet
+          Name="CarbonFootprintPositions"
+          EntityType="OpenResKit.DomainModel.CarbonFootprintPosition" />
+        <EntitySet
+          Name="ResponsibleSubjects"
+          EntityType="OpenResKit.DomainModel.ResponsibleSubject" />
+        <EntitySet
+          Name="MeasureImageSources"
+          EntityType="OpenResKit.DomainModel.MeasureImageSource" />
+        <EntitySet
+          Name="Documents"
+          EntityType="OpenResKit.DomainModel.Document" />
+        <EntitySet
+          Name="DocumentSources"
+          EntityType="OpenResKit.DomainModel.DocumentSource" />
+        <EntitySet
+          Name="AirportPositions"
+          EntityType="OpenResKit.DomainModel.AirportPosition" />
+        <EntitySet
+          Name="Measures"
+          EntityType="OpenResKit.DomainModel.Measure" />
+        <EntitySet
+          Name="Catalogs"
+          EntityType="OpenResKit.DomainModel.Catalog" />
+        <EntitySet
+          Name="Maps"
+          EntityType="OpenResKit.DomainModel.Map" />
+        <EntitySet
+          Name="MapPositions"
+          EntityType="OpenResKit.DomainModel.MapPosition" />
+        <EntitySet
+          Name="PositionRelatedElements"
+          EntityType="OpenResKit.DomainModel.PositionRelatedElement" />
+        <AssociationSet
+          Name="CarbonFootprint_Positions"
+          Association="OpenResKit.DomainModel.CarbonFootprint_Positions">
+          <End
+            Role="CarbonFootprint_Positions_Source"
+            EntitySet="CarbonFootprints" />
+          <End
+            Role="CarbonFootprint_Positions_Target"
+            EntitySet="CarbonFootprintPositions" />
+        </AssociationSet>
+        <AssociationSet
+          Name="AirportBasedFlight_Airports"
+          Association="OpenResKit.DomainModel.AirportBasedFlight_Airports">
+          <End
+            Role="AirportBasedFlight_Airports_Source"
+            EntitySet="CarbonFootprintPositions" />
+          <End
+            Role="AirportBasedFlight_Airports_Target"
+            EntitySet="AirportPositions" />
+        </AssociationSet>
+        <AssociationSet
+          Name="CarbonFootprintPosition_ResponsibleSubject"
+          Association="OpenResKit.DomainModel.CarbonFootprintPosition_ResponsibleSubject">
+          <End
+            Role="CarbonFootprintPosition_ResponsibleSubject_Source"
+            EntitySet="CarbonFootprintPositions" />
+          <End
+            Role="CarbonFootprintPosition_ResponsibleSubject_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="Employee_Groups"
+          Association="OpenResKit.DomainModel.Employee_Groups">
+          <End
+            Role="Employee_Groups_Source"
+            EntitySet="ResponsibleSubjects" />
+          <End
+            Role="Employee_Groups_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="Measure_ResponsibleSubject"
+          Association="OpenResKit.DomainModel.Measure_ResponsibleSubject">
+          <End
+            Role="Measure_ResponsibleSubject_Source"
+            EntitySet="Measures" />
+          <End
+            Role="Measure_ResponsibleSubject_Target"
+            EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet
+          Name="Catalog_Measures"
+          Association="OpenResKit.DomainModel.Catalog_Measures">
+          <End
+            Role="Catalog_Measures_Source"
+            EntitySet="Catalogs" />
+          <End
+            Role="Catalog_Measures_Target"
+            EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet
+          Name="MapPosition_Map"
+          Association="OpenResKit.DomainModel.MapPosition_Map">
+          <End
+            Role="MapPosition_Map_Source"
+            EntitySet="MapPositions" />
+          <End
+            Role="MapPosition_Map_Target"
+            EntitySet="Maps" />
+        </AssociationSet>
+        <AssociationSet
+          Name="PositionRelatedElement_Position"
+          Association="OpenResKit.DomainModel.PositionRelatedElement_Position">
+          <End
+            Role="PositionRelatedElement_Position_Source"
+            EntitySet="PositionRelatedElements" />
+          <End
+            Role="PositionRelatedElement_Position_Target"
+            EntitySet="CarbonFootprintPositions" />
+        </AssociationSet>
+        <AssociationSet
+          Name="PositionRelatedElement_Measure"
+          Association="OpenResKit.DomainModel.PositionRelatedElement_Measure">
+          <End
+            Role="PositionRelatedElement_Measure_Source"
+            EntitySet="PositionRelatedElements" />
+          <End
+            Role="PositionRelatedElement_Measure_Target"
+            EntitySet="Measures" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

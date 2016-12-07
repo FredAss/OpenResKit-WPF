@@ -1,0 +1,21 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="OpenResKit.DomainModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Task">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Location" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Image" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+        <Property Name="ReportDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DueDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="IsTaskFixed" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
+      <EntityContainer Name="DomainModelContext" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Tasks" EntityType="OpenResKit.DomainModel.Task" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

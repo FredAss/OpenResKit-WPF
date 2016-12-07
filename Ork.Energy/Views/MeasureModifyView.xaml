@@ -1,0 +1,637 @@
+﻿<UserControl
+  x:Class="Ork.Energy.Views.MeasureModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:controls1="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Energy"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="1000"
+  d:DesignWidth="1000">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <converters:EnumLanguageConverter
+        x:Key="EnumLanguageConverter" />
+
+      <converters:FileExtensionStyleConverter
+        x:Key="StyleConverter" />
+
+      <Style
+        TargetType="TextBlock">
+        <Setter
+          Property="FontWeight"
+          Value="DemiBold" />
+
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition
+        Width="520" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+
+    <StackPanel
+      Grid.Column="0">
+      <TextBlock
+        Text="Name der Maßnahme"
+        Margin="0 0 0 3" />
+      <TextBox
+        Text="{Binding Name}"
+        Margin="0 0 0 3" />
+      <TextBlock
+        Text="{lex:Loc Description}"
+        Margin="0 0 0 3" />
+      <TextBox
+        VerticalScrollBarVisibility="Auto"
+        Text="{Binding Description}"
+        Height="80"
+        TextWrapping="Wrap"
+        AcceptsReturn="True"
+        Margin="0 0 0 3" />
+      <TextBlock
+        Text="Betrachtete Verbraucher"
+        Margin="0 0 0 3" />
+
+      <ComboBox
+        ItemsSource="{Binding Consumers}"
+        SelectedItem="{Binding Consumer}"
+        Margin="0 0 0 3">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock>
+
+              <Run />
+              <Run
+                Text="{Binding Name}" />
+              <Run
+                Text=" : " />
+              <Run
+                Text="{Binding Distributor.Name}" />
+              <TextBlock.ToolTip>
+                <TextBlock
+                  Text="{Binding Path=Distributor.Name}" />
+              </TextBlock.ToolTip>
+            </TextBlock>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+
+      <UniformGrid
+        Columns="2">
+        <TextBlock
+          Margin="0 0 0 3">
+          <Run
+            Text="Raum: " />
+          <Run
+            Text="{Binding Room, Mode=OneWay}" />
+        </TextBlock>
+        <TextBlock
+          Margin="0 0 0 3">
+          <Run
+            Text="Gebäude: " />
+          <Run
+            Text="{Binding Building, Mode=OneWay}" />
+        </TextBlock>
+      </UniformGrid>
+
+      <Separator
+        Margin="0 4" />
+      <Grid
+        Margin="0 0 0 3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+          Grid.Column="0"
+          Margin=" 0 0 10 0">
+          <TextBlock
+            Text="Kenngröße (Einheit EnPI)"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding Kenn}" />
+        </StackPanel>
+        <StackPanel
+          Grid.Column="1"
+          Margin="0 0 0 0">
+          <TextBlock
+            Text="Verwendetes Messgerät"
+            Margin="0 0 0 3" />
+
+          <TextBox
+            Text="{Binding MeterDevice}"
+            ToolTip="Für die Messung verwendetes Messgerät" />
+        </StackPanel>
+      </Grid>
+
+      <TextBlock
+        Margin="0 0 0 3"
+        Text="Verweis" />
+      <TextBox
+        Margin="0 0 0 3"
+        Text="{Binding ReferenceTo}"
+        ToolTip="z.B. ISO 50001" />
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+          Grid.Column="0"
+          Margin=" 0 0 10 0">
+          <TextBlock
+            Margin="0 0 0 3"
+            Text="Nötige Investition (in Euro)" />
+          <TextBox
+            Text="{Binding CostsNeeded}"
+            Margin="0 0 0 3"
+            ToolTip="Investitionskosten für die Umsetzung der Maßnahme" />
+          <TextBlock
+            Text="Ausfallkosten"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding FailureCosts}"
+            Margin="0 0 0 3"
+            ToolTip="Ausfallkosten die während der Durchführung der Maßnahme entstehen" />
+          <UniformGrid
+            Rows="3">
+            <TextBlock
+              Margin="0 0 2 3">
+              <Run
+                Text="Amortisationszeit: "
+                FontWeight="DemiBold" />
+              <Run
+                Text="{Binding AmortisationTime, Mode=OneWay}" />
+              <Run
+                Text=" Jahre"
+                FontWeight="DemiBold" />
+            </TextBlock>
+            <TextBlock
+              Margin="0,0,2,0">
+              <Run
+                Text="Kalkulierte Einsparung: "
+                FontWeight="DemiBold" />
+              <Run
+                Text="{Binding CalculatedMoneySaving, Mode=OneWay}" />
+              <Run
+                Text="(€)"
+                FontWeight="DemiBold" />
+            </TextBlock>
+            <TextBlock
+              Margin="0,0,2,0">
+              <Run
+                Text="Tatsächliche Einsparung: "
+                FontWeight="DemiBold" />
+              <Run
+                Text="{Binding ActualMoneySaving, Mode=OneWay}" />
+              <Run
+                Text="(€)"
+                FontWeight="DemiBold" />
+            </TextBlock>
+          </UniformGrid>
+        </StackPanel>
+        <StackPanel
+          Grid.Column="1">
+          <TextBlock
+            Margin="0 0 0 3"
+            FontWeight="DemiBold"
+            Text="Kosten in €/Jahr vor Maßnahmeneinführung" />
+          <TextBox
+            Margin="0 0 0 3"
+            Text="{Binding CurrentSpending}" />
+          <TextBlock
+            Text="Prognostizierte Kosten in €/Jahr"
+            FontWeight="DemiBold"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding CalculatedSpending}"
+            Margin="0 0 0 3" />
+          <TextBlock
+            Text="Kosten in €/Jahr nach Maßnahmenabschluss"
+            FontWeight="DemiBold"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding ActualSpending}"
+            Margin="0 0 0 3" />
+        </StackPanel>
+      </Grid>
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+          Grid.Column="0"
+          Margin=" 0 20 10 0">
+          <TextBlock
+            Margin="0 0 0 3">
+            <Run
+              Text="Herstellerangabe Verbrauch: "
+              FontWeight="DemiBold" />
+            <Run
+              Text="{Binding PowerOutput, Mode=OneWay}" />
+            <Run
+              Text=" kWh"
+              FontWeight="DemiBold" />
+          </TextBlock>
+          <TextBlock
+            Margin="0 0 0 3">
+            <Run
+              Text="Eingesparte CO2-Äquvalente: "
+              FontWeight="DemiBold" />
+            <Run
+              Text="{Binding SavedCO2, Mode=OneWay}" />
+          </TextBlock>
+          <TextBlock
+            Margin="0,0,0,3">
+            <Run
+              Text="Kalkulierte Einsparung: "
+              FontWeight="DemiBold" />
+            <Run
+              Text="{Binding CalculatedConsumptionSaving, Mode=OneWay}" />
+            <Run
+              Text="(kWh/a)"
+              FontWeight="DemiBold" />
+          </TextBlock>
+          <TextBlock>
+            <Run
+              Text="Tatsächliche Einsparung: "
+              FontWeight="DemiBold" />
+            <Run
+              Text="{Binding ActualConsumptionSaving, Mode=OneWay}" />
+            <Run
+              Text="(kWh/a)"
+              FontWeight="DemiBold" />
+          </TextBlock>
+        </StackPanel>
+        <StackPanel
+          Grid.Column="1">
+          <TextBlock
+            Margin="0 0 0 3"
+            FontWeight="DemiBold"
+            Text="Verbrauch in kWh/a vor Maßnahmeneinführung" />
+          <ComboBox
+            Margin="0 0 0 3"
+            controls:TextBoxHelper.ClearTextButton="True"
+            ItemsSource="{Binding AllRelatedReadings}"
+            SelectedItem="{Binding CurrentConsumptionReading}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock>
+                  <Run
+                    Text="{Binding CounterReading}" />
+                  <Run
+                    Text=" : " />
+                  <Run
+                    Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
+
+                  <TextBlock.ToolTip>
+                    <TextBlock
+                      Text="{Binding Path=MeasuringDevice}" />
+                  </TextBlock.ToolTip>
+                </TextBlock>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          <TextBlock
+            Text="Prognostizierter Verbrauch in kWh/a"
+            FontWeight="DemiBold"
+            Margin="0 0 0 3" />
+          <TextBox
+            Text="{Binding CalculatedConsumption}"
+            Margin="0 0 0 3" />
+          <TextBlock
+            Text="Verbrauch in kWh/a nach Maßnahmenabschluss"
+            FontWeight="DemiBold"
+            Margin="0 0 0 3" />
+          <ComboBox
+            SelectedItem="{Binding ActualConsumptionReading}"
+            ItemsSource="{Binding AllRelatedReadings}"
+            controls:TextBoxHelper.ClearTextButton="True"
+            Margin="0 0 0 3">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock>
+                  <Run
+                    Text="{Binding CounterReading}" />
+                  <Run
+                    Text=" : " />
+                  <Run
+                    Text="{Binding Path=ReadingDate, StringFormat=d, ConverterCulture=de-DE}" />
+                  <TextBlock.ToolTip>
+                    <TextBlock
+                      Text="{Binding Path=MeasuringDevice}" />
+                  </TextBlock.ToolTip>
+                </TextBlock>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+
+        </StackPanel>
+      </Grid>
+
+      <StackPanel>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition
+              Width="*" />
+            <ColumnDefinition
+              Width="*" />
+
+          </Grid.ColumnDefinitions>
+          <StackPanel
+            Grid.Column="0"
+            Margin="0,0,10,10">
+            <TextBlock
+              Text="Name der Untermaßnahme" />
+            <TextBox
+              TextWrapping="Wrap"
+              AcceptsReturn="True"
+              Text="{Binding NewSubMeasureName}" />
+          </StackPanel>
+          <Grid
+            Grid.Column="1">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition
+                Width="*" />
+              <ColumnDefinition
+                Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+              Grid.Column="0">
+              <TextBlock
+                Text="Verantwortlicher" />
+              <ComboBox
+                ItemsSource="{Binding AllResponsibleSubjects}"
+                SelectedItem="{Binding NewSubMeasureResponsibleSubject}"
+                DisplayMemberPath="Infotext" />
+            </StackPanel>
+            <Button
+              Grid.Column="1"
+              IsEnabled="{Binding SubMeasureAddAllowed}"
+              Width="50"
+              Height="50"
+              Margin="2"
+              VerticalAlignment="Bottom"
+              HorizontalAlignment="Left"
+              Style="{DynamicResource MetroCircleButtonStyle}"
+              cal:Message.Attach="AddSubMeasure($dataContext)"
+              ToolTip="Neue Untermaßnahme hinzufügen">
+              <Rectangle
+                Width="20"
+                Height="20"
+                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                <Rectangle.OpacityMask>
+                  <VisualBrush
+                    Stretch="Fill"
+                    Visual="{DynamicResource appbar_add}" />
+                </Rectangle.OpacityMask>
+              </Rectangle>
+            </Button>
+          </Grid>
+
+        </Grid>
+
+
+        <DataGrid
+          ItemsSource="{Binding SubMeasures}"
+          AutoGenerateColumns="False">
+          <DataGrid.Columns>
+            <DataGridTextColumn
+              Header="Name"
+              Binding="{Binding Name}" />
+            <DataGridTextColumn
+              Header="Verantwortlich"
+              Binding="{Binding ResponsibleSubject.Infotext, Mode=OneWay}" />
+            <DataGridCheckBoxColumn
+              Header="Abgeschlossen"
+              Binding="{Binding IsCompleted}" />
+
+
+            <DataGridTemplateColumn>
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock
+                    Margin="0 1 0 0"
+                    FontFamily="Marlett"
+                    Text="r"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    cal:Message.Attach="[Event MouseLeftButtonDown]=[Action RemoveSubMeasure($dataContext)]" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+          </DataGrid.Columns>
+        </DataGrid>
+      </StackPanel>
+
+
+    </StackPanel>
+
+    <!--Zweite Spalte !-->
+
+    <StackPanel
+      Grid.Column="1"
+      Margin="10 0 0 0"
+      Orientation="Vertical">
+      <TextBlock
+        Margin="0 0 0 3"
+        Text="{lex:Loc DueDate}" />
+
+      <DatePicker
+        Margin="0 0 0 3"
+        SelectedDate="{Binding DueDate}" />
+
+      <TextBlock
+        Margin="0 0 0 3"
+        Text="{lex:Loc ResponsibleSubject}" />
+
+      <StackPanel
+        Margin="0 0 0 3"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+        <AdornerDecorator>
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ResponsibleSubjectSearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+            <controls1:WatermarkService.Watermark>
+              <TextBlock
+                Foreground="{DynamicResource TextForegroundColorBrush}"
+                Text="{lex:Loc Ork.Energy:Translate:FilterResponsibleSubjects}" />
+            </controls1:WatermarkService.Watermark>
+
+          </xctk:AutoSelectTextBox>
+        </AdornerDecorator>
+
+        <ListBox
+          ItemsSource="{Binding FilteredResponsibleSubjects}"
+          SelectedItem="{Binding SelectedResponsibleSubject, Mode=TwoWay}"
+          Style="{DynamicResource FlyoutListBoxStyle}"
+          Margin="12 0 6 0"
+          Height="100">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Margin="0 3 0 3"
+                Background="Transparent">
+
+                <StackPanel>
+                  <TextBlock
+                    HorizontalAlignment="Left"
+                    TextTrimming="CharacterEllipsis"
+                    Text="{Binding Infotext}" />
+                </StackPanel>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+
+        </ListBox>
+
+      </StackPanel>
+      <TextBlock
+        Text="{lex:Loc Priorities}" />
+
+      <ComboBox
+        Margin="4"
+        ItemsSource="{Binding Priorities}"
+        SelectedIndex="{Binding Priority}">
+        <ComboBox.ItemTemplate>
+
+          <DataTemplate>
+            <Label
+              Content="{Binding Path=.,Mode=OneWay, Converter={StaticResource EnumLanguageConverter}}"
+              Height="Auto"
+              Margin="0"
+              VerticalAlignment="Center" />
+
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+      <TextBlock
+        Text="{lex:Loc Ork.Energy:Translate:Picture}"
+        Margin="0 0 0 3" />
+      <Image
+        cal:Message.Attach="[Event MouseLeftButtonDown]=[Action SetImage]; [Event MouseRightButtonDown]=[Action DeleteImage]"
+        Margin="4 10 4 10 "
+        Source="{Binding Image}"
+        Width="256"
+        MaxHeight="256"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        ToolTip="Klick um Bild hinzuzufügen.">
+        <Image.Style>
+          <Style>
+            <Style.Triggers>
+              <Trigger
+                Property="UIElement.IsMouseOver"
+                Value="True">
+                <Setter
+                  Property="UIElement.Opacity"
+                  Value="0.5" />
+                <Setter
+                  Property="FrameworkElement.Cursor"
+                  Value="Hand" />
+                <Setter
+                  Property="FrameworkElement.ToolTip"
+                  Value="{lex:Loc Ork.Energy:Translate:ClickToSet}" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </Image.Style>
+      </Image>
+      <TextBlock
+        Text="{lex:Loc Ork.Energy:Translate:Documents}" />
+      <ScrollViewer
+        VerticalScrollBarVisibility="Auto">
+
+        <ListBox
+          Width="256"
+          MaxHeight="256"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Top"
+          ItemsSource="{Binding AttachedDocuments}"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Margin="0 3 0 3"
+                Background="Transparent">
+
+                <StackPanel
+                  Orientation="Horizontal">
+                  <Path
+                    Style="{Binding Name, Converter={StaticResource StyleConverter}}" />
+                  <TextBlock
+                    Margin="2 0 0 0"
+                    Text="{Binding Name}" />
+                </StackPanel>
+
+                <StackPanel
+                  Orientation="Horizontal"
+                  HorizontalAlignment="Right">
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="OpenDocument($dataContext)">
+                    <Path
+                      ToolTip="{lex:Loc Ork.Energy:Translate:ViewDocument}"
+                      Margin="2"
+                      Style="{DynamicResource IconEye}" />
+                  </Button>
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="DeleteDocument($dataContext)">
+                    <Path
+                      ToolTip="{lex:Loc Ork.Energy:Translate:DeleteDocument}"
+                      Margin="2"
+                      Style="{DynamicResource IconDelete}" />
+                  </Button>
+
+                </StackPanel>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </ScrollViewer>
+      <Button
+        HorizontalAlignment="Right"
+        Style="{DynamicResource SmallButton}"
+        cal:Message.Attach="AddDocument"
+        Content="Dokument hinzufügen"
+        ToolTip="Dokument der Maßnahme anhängen"
+        Margin="0,195,18.8,0"
+        VerticalAlignment="Top"
+        Height="20"
+        Width="122" />
+
+
+    </StackPanel>
+
+
+  </Grid>
+
+</UserControl>

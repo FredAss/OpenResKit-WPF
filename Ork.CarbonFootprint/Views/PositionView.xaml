@@ -1,0 +1,112 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.Views.PositionView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  mc:Ignorable="d"
+  d:DesignHeight="350"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <Style
+        x:Key="DatePickerCalendarStyle"
+        TargetType="{x:Type Calendar}"
+        BasedOn="{StaticResource {x:Type Calendar}}" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <StackPanel>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc PositionName}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding Name, Mode=TwoWay}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc PositionDescription}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      TextWrapping="Wrap"
+      Text="{Binding Description, Mode=TwoWay}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Category}" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding Tag, Mode=TwoWay}" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc AccountingPeriod}" />
+
+    <Grid>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition
+          Width="Auto" />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        VerticalAlignment="Center"
+        Grid.Column="0"
+        Grid.Row="0"
+        Text="{lex:Loc From}"
+        Margin="10" />
+
+      <DatePicker
+        Grid.Column="1"
+        Grid.Row="0"
+        SelectedDate="{Binding Start, Mode=TwoWay}" />
+
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        VerticalAlignment="Center"
+        Grid.Column="0"
+        Grid.Row="1"
+        Text="{lex:Loc To}"
+        Margin="10" />
+
+      <DatePicker
+        Grid.Column="1"
+        Grid.Row="1"
+        SelectedDate="{Binding Finish, Mode=TwoWay}" />
+
+    </Grid>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Employee}" />
+
+    <ComboBox
+      Style="{DynamicResource ComboBoxStyle}"
+      ItemsSource="{Binding ResponsibleSubjects}"
+      SelectedValue="{Binding ResponsibleSubject, Mode=TwoWay}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock
+            Text="{Binding Name}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+  </StackPanel>
+
+</UserControl>

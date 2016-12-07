@@ -1,0 +1,110 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.Views.GeoLocatedPublicTransportView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+  xmlns:converter="clr-namespace:Ork.CarbonFootprint.Converter"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <converter:EnumToIntConverter
+      x:Key="EnumToIntConverter" />
+    <converter:EnumToIEnumerableConverter
+      x:Key="EnumToIEnumerableConverter" />
+  </UserControl.Resources>
+
+  <StackPanel>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Distance}" />
+
+    <Grid>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition
+          Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <TextBox
+        Grid.Column="0"
+        TextAlignment="Right"
+        IsReadOnly="True"
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding Kilometrage, Mode=OneWay}" />
+
+      <TextBlock
+        Grid.Column="1"
+        Text="km"
+        VerticalAlignment="Center"
+        Style="{DynamicResource LabelControl}" />
+
+    </Grid>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Transportation}" />
+
+    <ComboBox
+      IsReadOnly="True"
+      Style="{DynamicResource ComboBoxStyle}"
+      ItemsSource="{Binding TransportType, Mode=OneTime, Converter={StaticResource EnumToIEnumerableConverter}}"
+      SelectedIndex="{Binding TransportType, Mode=TwoWay, Converter={StaticResource EnumToIntConverter}}" />
+
+    <ToggleButton
+      Margin="0 30 0 0"
+      Name="MapButton"
+      IsChecked="{Binding ElementName=Popup, Path=IsOpen, Mode=TwoWay}"
+      Content="Karte" />
+
+    <Popup
+      IsOpen="False"
+      Name="Popup"
+      StaysOpen="False"
+      PlacementTarget="{Binding ElementName=MapButton}"
+      Placement="Top"
+      PopupAnimation="Fade"
+      HorizontalOffset="-310"
+      VerticalOffset="47">
+      <Grid>
+        <m:Map
+          CredentialsProvider="Ak3RGgQ3xTT3YFg6URN-BPIUfinjN3v0GxuGmAVctKPOhxXIO_U744Lht5NY7bjv"
+          Width="610"
+          Height="500"
+          Mode="Road"
+          Name="Map"
+          Center="{Binding CenterPoint, Mode=OneWay}"
+          IsEnabled="False"
+          ZoomLevel="10">
+          <m:Pushpin
+            Location="{Binding StartPoint, Mode=OneWay}"
+            ToolTip="{Binding StartName, Mode=OneWay}" />
+          <m:Pushpin
+            Location="{Binding DestinationPoint, Mode=OneWay}"
+            ToolTip="{Binding DestinationName, Mode=OneWay}" />
+        </m:Map>
+
+        <Slider
+          Background="Gray"
+          Height="100"
+          Margin="0 0 2 0"
+          Value="{Binding ElementName=Map,Path=ZoomLevel}"
+          Maximum="19"
+          Minimum="1"
+          TickFrequency="0.1"
+          Orientation="Vertical"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Center" />
+      </Grid>
+    </Popup>
+
+  </StackPanel>
+
+
+</UserControl>

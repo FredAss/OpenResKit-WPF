@@ -1,0 +1,277 @@
+﻿<UserControl
+  x:Class="Ork.Discard.Views.ProductionItemModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:cal="http://www.caliburnproject.org"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Discard"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <converters:EnumLanguageConverter
+        x:Key="EnumLanguageConverter" />
+
+    </ResourceDictionary>
+
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition
+        Width="380" />
+      <ColumnDefinition
+        Width="320" />
+    </Grid.ColumnDefinitions>
+    <StackPanel
+      Grid.Column="0"
+      Margin="0 0 4 0">
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        Text="{lex:Loc ItemName}" />
+      <TextBox
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding ItemName}" />
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        Text="{lex:Loc ItemNumber}" />
+      <TextBox
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding ItemNumber}" />
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        Text="{lex:Loc ItemDescription}" />
+
+      <TextBox
+        Height="100"
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding ItemDescription}"
+        TextWrapping="Wrap" />
+      <TextBlock
+        Style="{DynamicResource LabelControl}"
+        Text="{lex:Loc Material}" />
+
+      <TextBox
+        Style="{DynamicResource EntryControl}"
+        Text="{Binding Material}" />
+      <Separator
+        Margin="0 6 0 6" />
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="*" />
+          <ColumnDefinition
+            Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel
+          Grid.Row="0"
+          Grid.ColumnSpan="2">
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc ChangeIndex}" />
+          <TextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ChangeIndex}" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="0">
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc ToolNumber}" />
+          <TextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ToolNumber}" />
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc ReferenceNumber1}" />
+          <TextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ReferenceNumber1}" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="1"
+          Grid.Column="1">
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc ItemCategory}" />
+          <ComboBox
+            Name="ComboBoxItemCategory"
+            Style="{DynamicResource ComboBoxStyle}"
+            Margin="4"
+            ItemsSource="{Binding ItemCategories}"
+            SelectedIndex="{Binding ItemCategory}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <Label
+                  Content="{Binding Path=.,Mode=OneWay, Converter={StaticResource EnumLanguageConverter}}"
+                  Height="Auto"
+                  Margin="0"
+                  VerticalAlignment="Center" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc ReferenceNumber2}" />
+          <TextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding ReferenceNumber2}" />
+        </StackPanel>
+        <StackPanel
+          Grid.Row="2"
+          Grid.ColumnSpan="2">
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{lex:Loc Customer}" />
+          <TextBlock
+            Style="{DynamicResource LabelControl}"
+            Text="{Binding Customer.Name}" />
+        </StackPanel>
+      </Grid>
+    </StackPanel>
+    <Border
+      Grid.Column="1"
+      BorderThickness="1 0 0 0"
+      BorderBrush="{DynamicResource TextForegroundColorBrush}">
+      <StackPanel
+        Margin="6 0 0 0">
+        <TextBlock
+          Style="{DynamicResource LabelControl}"
+          Text="{lex:Loc InspectionAttribute }" />
+
+        <Grid
+          Margin="4"
+          Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+          <Grid.RowDefinitions>
+            <RowDefinition
+              Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition
+              Width="*" />
+            <ColumnDefinition
+              Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+
+          <AdornerDecorator
+            Grid.Row="0"
+            Grid.Column="0">
+
+
+            <TextBox
+              x:Name="InspectionAttributeInput"
+              Style="{DynamicResource EntryControl}"
+              Text="{Binding InspectionAttribute}"
+              cal:Message.Attach="[Event KeyDown] = [Action AddInspectionAttribute($eventArgs, $this)]">
+
+
+              <global:WatermarkService.Watermark>
+                <TextBlock
+                  Foreground="{DynamicResource TextForegroundColorBrush}"
+                  Text="{lex:Loc Ork.Discard:Translate:AddInspectionAttribute}" />
+              </global:WatermarkService.Watermark>
+            </TextBox>
+          </AdornerDecorator>
+          <Button
+            Grid.Column="1"
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Style="{DynamicResource SmallButton}"
+            VerticalAlignment="Center"
+            cal:Message.Attach="AddInspectionAttribute(InspectionAttributeInput.Text)"
+            Content="{lex:Loc Add}"
+            Margin="0 0 3 0" />
+
+
+          <ListBox
+            ItemsSource="{Binding InspectionAttributes}"
+            Style="{DynamicResource FlyoutListBoxStyle}"
+            Margin="4 0 4 0"
+            MaxHeight="360"
+            MinHeight="50"
+            Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+            Grid.Row="1"
+            Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                      Width="*" />
+                    <ColumnDefinition
+                      Width="Auto" />
+                    <ColumnDefinition
+                      Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock
+                    Style="{DynamicResource TextBlockStyle}"
+                    Text="{Binding Description}"
+                    Margin="0 0 0 4"
+                    Grid.Column="0"
+                    TextTrimming="CharacterEllipsis">
+                    <TextBlock.ToolTip>
+                      <Image
+                        MaxWidth="300"
+                        MaxHeight="300"
+                        Source="{Binding DiscardImageSource.BinarySource}" />
+                    </TextBlock.ToolTip>
+                  </TextBlock>
+
+                  <Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="SetPictureToInspectionAtribute($dataContext)"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc SetPicture}"
+                    Margin="0 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconPicture}" />
+
+                  </Button>
+
+                  <Button
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="DeleteInspectionAttribute($dataContext)"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc Delete}"
+                    Margin="2 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconDelete}" />
+
+                  </Button>
+                </Grid>
+
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+          </ListBox>
+        </Grid>
+
+
+      </StackPanel>
+    </Border>
+  </Grid>
+
+</UserControl>

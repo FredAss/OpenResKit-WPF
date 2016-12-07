@@ -1,0 +1,248 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="OpenResKit.DomainModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Building">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Address" Relationship="OpenResKit.DomainModel.Address_Buildings" ToRole="Address_Buildings_Source" FromRole="Address_Buildings_Target" />
+        <NavigationProperty Name="Rooms" Relationship="OpenResKit.DomainModel.Building_Rooms" ToRole="Building_Rooms_Target" FromRole="Building_Rooms_Source" />
+      </EntityType>
+      <EntityType Name="Address">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Street" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Zip" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="City" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Buildings" Relationship="OpenResKit.DomainModel.Address_Buildings" ToRole="Address_Buildings_Target" FromRole="Address_Buildings_Source" />
+      </EntityType>
+      <EntityType Name="BuildingRoom">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Area" Type="Edm.Double" Nullable="false" />
+        <Property Name="Height" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Building" Relationship="OpenResKit.DomainModel.Building_Rooms" ToRole="Building_Rooms_Source" FromRole="Building_Rooms_Target" />
+        <NavigationProperty Name="Inventories" Relationship="OpenResKit.DomainModel.BuildingRoom_Inventories" ToRole="BuildingRoom_Inventories_Target" FromRole="BuildingRoom_Inventories_Source" />
+      </EntityType>
+      <EntityType Name="Inventory">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="InventoryId" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Producer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="YearOfManufacture" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.BuildingRoom_Inventories" ToRole="BuildingRoom_Inventories_Source" FromRole="BuildingRoom_Inventories_Target" />
+        <NavigationProperty Name="InventoryType" Relationship="OpenResKit.DomainModel.InventoryType_Inventories" ToRole="InventoryType_Inventories_Source" FromRole="InventoryType_Inventories_Target" />
+      </EntityType>
+      <EntityType Name="InventoryType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Inventories" Relationship="OpenResKit.DomainModel.InventoryType_Inventories" ToRole="InventoryType_Inventories_Target" FromRole="InventoryType_Inventories_Source" />
+      </EntityType>
+      <EntityType Name="CollectivePartner">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="CollectiveAgreements" Relationship="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements" ToRole="CollectivePartner_CollectiveAgreements_Target" FromRole="CollectivePartner_CollectiveAgreements_Source" />
+      </EntityType>
+      <EntityType Name="CollectiveAgreement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="PricePerUnit" Type="Edm.Double" Nullable="false" />
+        <Property Name="ValidFrom" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ValidTo" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Unit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Category" Relationship="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements" ToRole="CollectiveCategory_CollectiveAgreements_Source" FromRole="CollectiveCategory_CollectiveAgreements_Target" />
+        <NavigationProperty Name="CollectivePartner" Relationship="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements" ToRole="CollectivePartner_CollectiveAgreements_Source" FromRole="CollectivePartner_CollectiveAgreements_Target" />
+      </EntityType>
+      <EntityType Name="CollectiveCategory">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="CollectiveAgreements" Relationship="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements" ToRole="CollectiveCategory_CollectiveAgreements_Target" FromRole="CollectiveCategory_CollectiveAgreements_Source" />
+        <NavigationProperty Name="Distributors" Relationship="OpenResKit.DomainModel.CollectiveCategory_Distributors" ToRole="CollectiveCategory_Distributors_Target" FromRole="CollectiveCategory_Distributors_Source" />
+      </EntityType>
+      <EntityType Name="Distributor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Distributor_Room" ToRole="Distributor_Room_Target" FromRole="Distributor_Room_Source" />
+        <NavigationProperty Name="Distributors" Relationship="OpenResKit.DomainModel.Distributor_Distributors" ToRole="Distributor_Distributors_Target" FromRole="Distributor_Distributors_Source" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Distributor_Readings" ToRole="Distributor_Readings_Target" FromRole="Distributor_Readings_Source" />
+        <NavigationProperty Name="Consumers" Relationship="OpenResKit.DomainModel.Distributor_Consumers" ToRole="Distributor_Consumers_Target" FromRole="Distributor_Consumers_Source" />
+      </EntityType>
+      <EntityType Name="Reading">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Value" Type="Edm.Double" Nullable="false" />
+        <Property Name="RelatedTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MeasuringDevice" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="Consumer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="Inventory" Relationship="OpenResKit.DomainModel.Consumer_Inventory" ToRole="Consumer_Inventory_Target" FromRole="Consumer_Inventory_Source" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Consumer_Readings" ToRole="Consumer_Readings_Target" FromRole="Consumer_Readings_Source" />
+      </EntityType>
+      <Association Name="Address_Buildings">
+        <End Type="OpenResKit.DomainModel.Address" Role="Address_Buildings_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Building" Role="Address_Buildings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Building_Rooms">
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="Building_Rooms_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Building" Role="Building_Rooms_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="BuildingRoom_Inventories">
+        <End Type="OpenResKit.DomainModel.Inventory" Role="BuildingRoom_Inventories_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="BuildingRoom_Inventories_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="InventoryType_Inventories">
+        <End Type="OpenResKit.DomainModel.InventoryType" Role="InventoryType_Inventories_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Inventory" Role="InventoryType_Inventories_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CollectivePartner_CollectiveAgreements">
+        <End Type="OpenResKit.DomainModel.CollectiveAgreement" Role="CollectivePartner_CollectiveAgreements_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.CollectivePartner" Role="CollectivePartner_CollectiveAgreements_Source" Multiplicity="1" />
+      </Association>
+      <Association Name="CollectiveCategory_CollectiveAgreements">
+        <End Type="OpenResKit.DomainModel.CollectiveCategory" Role="CollectiveCategory_CollectiveAgreements_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.CollectiveAgreement" Role="CollectiveCategory_CollectiveAgreements_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CollectiveCategory_Distributors">
+        <End Type="OpenResKit.DomainModel.CollectiveCategory" Role="CollectiveCategory_Distributors_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="CollectiveCategory_Distributors_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Room">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Room_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="Distributor_Room_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Distributor_Distributors">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Distributors_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Distributors_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Readings">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Readings_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Reading" Role="Distributor_Readings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Consumers">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Distributor_Consumers_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Consumers_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Consumer_Inventory">
+        <End Type="OpenResKit.DomainModel.Inventory" Role="Consumer_Inventory_Target" Multiplicity="1" />
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Inventory_Source" Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal Role="Consumer_Inventory_Target">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="Consumer_Inventory_Source">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Consumer_Readings">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Readings_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Reading" Role="Consumer_Readings_Target" Multiplicity="*" />
+      </Association>
+      <EntityContainer Name="DomainModelContext" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Buildings" EntityType="OpenResKit.DomainModel.Building" />
+        <EntitySet Name="Addresses" EntityType="OpenResKit.DomainModel.Address" />
+        <EntitySet Name="BuildingRooms" EntityType="OpenResKit.DomainModel.BuildingRoom" />
+        <EntitySet Name="Inventories" EntityType="OpenResKit.DomainModel.Inventory" />
+        <EntitySet Name="InventoryTypes" EntityType="OpenResKit.DomainModel.InventoryType" />
+        <EntitySet Name="CollectivePartners" EntityType="OpenResKit.DomainModel.CollectivePartner" />
+        <EntitySet Name="CollectiveAgreements" EntityType="OpenResKit.DomainModel.CollectiveAgreement" />
+        <EntitySet Name="CollectiveCategories" EntityType="OpenResKit.DomainModel.CollectiveCategory" />
+        <EntitySet Name="Distributors" EntityType="OpenResKit.DomainModel.Distributor" />
+        <EntitySet Name="Readings" EntityType="OpenResKit.DomainModel.Reading" />
+        <EntitySet Name="Consumers" EntityType="OpenResKit.DomainModel.Consumer" />
+        <AssociationSet Name="Address_Buildings" Association="OpenResKit.DomainModel.Address_Buildings">
+          <End Role="Address_Buildings_Target" EntitySet="Buildings" />
+          <End Role="Address_Buildings_Source" EntitySet="Addresses" />
+        </AssociationSet>
+        <AssociationSet Name="Building_Rooms" Association="OpenResKit.DomainModel.Building_Rooms">
+          <End Role="Building_Rooms_Source" EntitySet="Buildings" />
+          <End Role="Building_Rooms_Target" EntitySet="BuildingRooms" />
+        </AssociationSet>
+        <AssociationSet Name="BuildingRoom_Inventories" Association="OpenResKit.DomainModel.BuildingRoom_Inventories">
+          <End Role="BuildingRoom_Inventories_Source" EntitySet="BuildingRooms" />
+          <End Role="BuildingRoom_Inventories_Target" EntitySet="Inventories" />
+        </AssociationSet>
+        <AssociationSet Name="InventoryType_Inventories" Association="OpenResKit.DomainModel.InventoryType_Inventories">
+          <End Role="InventoryType_Inventories_Target" EntitySet="Inventories" />
+          <End Role="InventoryType_Inventories_Source" EntitySet="InventoryTypes" />
+        </AssociationSet>
+        <AssociationSet Name="CollectivePartner_CollectiveAgreements" Association="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements">
+          <End Role="CollectivePartner_CollectiveAgreements_Source" EntitySet="CollectivePartners" />
+          <End Role="CollectivePartner_CollectiveAgreements_Target" EntitySet="CollectiveAgreements" />
+        </AssociationSet>
+        <AssociationSet Name="CollectiveCategory_CollectiveAgreements" Association="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements">
+          <End Role="CollectiveCategory_CollectiveAgreements_Target" EntitySet="CollectiveAgreements" />
+          <End Role="CollectiveCategory_CollectiveAgreements_Source" EntitySet="CollectiveCategories" />
+        </AssociationSet>
+        <AssociationSet Name="CollectiveCategory_Distributors" Association="OpenResKit.DomainModel.CollectiveCategory_Distributors">
+          <End Role="CollectiveCategory_Distributors_Source" EntitySet="CollectiveCategories" />
+          <End Role="CollectiveCategory_Distributors_Target" EntitySet="Distributors" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Room" Association="OpenResKit.DomainModel.Distributor_Room">
+          <End Role="Distributor_Room_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Room_Target" EntitySet="BuildingRooms" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Distributors" Association="OpenResKit.DomainModel.Distributor_Distributors">
+          <End Role="Distributor_Distributors_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Distributors_Target" EntitySet="Distributors" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Readings" Association="OpenResKit.DomainModel.Distributor_Readings">
+          <End Role="Distributor_Readings_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Consumers" Association="OpenResKit.DomainModel.Distributor_Consumers">
+          <End Role="Distributor_Consumers_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Consumers_Target" EntitySet="Consumers" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Inventory" Association="OpenResKit.DomainModel.Consumer_Inventory">
+          <End Role="Consumer_Inventory_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Inventory_Target" EntitySet="Inventories" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Readings" Association="OpenResKit.DomainModel.Consumer_Readings">
+          <End Role="Consumer_Readings_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

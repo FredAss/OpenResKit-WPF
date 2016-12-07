@@ -1,0 +1,308 @@
+﻿<UserControl
+  x:Class="Ork.CarbonFootprint.CarbonFootprintView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:converter="clr-namespace:Ork.CarbonFootprint.Converter"
+  xmlns:controls="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:frameworkConverter="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:wpf="http://oxyplot.org/wpf"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.CarbonFootprint"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate">
+
+  <UserControl.Resources>
+
+    <converter:MetaDataToTranslationConverter
+      x:Key="MetaDataToTranslationConverter" />
+
+    <frameworkConverter:PinnedToThicknessConverter
+      x:Key="PinnedToThickness" />
+
+  </UserControl.Resources>
+
+  <Grid>
+
+    <Grid
+      Name="FootprintDescriptionView"
+      Background="{DynamicResource WorkspaceBackgroundColorBrush}">
+
+      <Grid.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="FootprintFlyout" />
+          <Binding
+            ElementName="FootprintDescriptionView" />
+          <Binding
+            ElementName="FootprintFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </Grid.Margin>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition
+          Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="Auto" />
+        <RowDefinition />
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+
+      <StackPanel
+        Grid.Column="0"
+        Grid.Row="0"
+        Orientation="Vertical">
+
+        <TextBlock
+          Style="{DynamicResource LabelControl}"
+          Text="{lex:Loc FootprintName}" />
+
+        <TextBox
+          Style="{DynamicResource EntryControl}"
+          Text="{Binding Name, Mode=TwoWay}" />
+
+        <TextBlock
+          Style="{DynamicResource LabelControl}"
+          Text="{lex:Loc FootprintDescription}" />
+
+        <TextBox
+          Style="{DynamicResource EntryControl}"
+          TextWrapping="Wrap"
+          Text="{Binding Description, Mode=TwoWay}" />
+
+      </StackPanel>
+
+      <TextBlock
+        HorizontalAlignment="Right"
+        VerticalAlignment="Top"
+        Margin="8"
+        Grid.Column="1"
+        Grid.Row="0">
+
+        <Run
+          FontSize="48"
+          Foreground="Gray"
+          Text="{Binding Calculation, Mode=OneWay}" />
+
+        <Run
+          FontSize="28"
+          Text="t" />
+
+        <Run
+          FontSize="20"
+          Foreground="Gray"
+          Text="CO₂" />
+      </TextBlock>
+
+      <wpf:Plot
+        Margin="0"
+        Grid.Column="0"
+        Grid.Row="1"
+        Grid.ColumnSpan="2"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding TagChartModel}" />
+
+      <wpf:Plot
+        Margin="0"
+        Grid.Column="0"
+        Grid.Row="2"
+        Grid.ColumnSpan="2"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding TypeChartModel}" />
+      
+      <wpf:Plot
+        Margin="0"
+        Grid.Column="0"
+        Grid.Row="3"
+        Grid.ColumnSpan="2"
+        Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+        Model="{Binding EmployeeChartModel}" />
+
+    </Grid>
+
+    <controls:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="FootprintFlyout"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+            <controls:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.CarbonFootprint:Translate:SearchTextCarbonFootprintsPositions}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </controls:WatermarkService.Watermark>
+          </xctk:AutoSelectTextBox>
+        </AdornerDecorator>
+
+        <ListBox
+          Grid.Column="0"
+          Grid.Row="1"
+          x:Name="Items"
+          Margin="0 0 0 12"
+          Style="{DynamicResource FlyoutListBoxStyle}"
+          ItemsSource="{Binding FilteredPositions}"
+          SelectedItem="{Binding SelectedPosition, Mode=TwoWay}">
+
+          <ListBox.ItemTemplate>
+
+            <DataTemplate>
+              <Grid
+                Margin="0 5 0 5"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                  Grid.Column="0">
+
+                  <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="{Binding Name}"
+                    HorizontalAlignment="Left" />
+
+                  <TextBlock>
+                    <TextBlock
+                      FontSize="16"
+                      Foreground="DarkGray"
+                      Text="{Binding Calculation, Mode=OneWay}" />
+                    <TextBlock
+                      FontSize="16"
+                      Foreground="White"
+                      Text="kg" />
+                    <TextBlock
+                      FontSize="14"
+                      Foreground="DarkGray"
+                      Text="CO₂" />
+                  </TextBlock>
+
+                  <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+
+                    <Rectangle
+                      Width="10"
+                      Height="10"
+                      Fill="{Binding TagColor.ColorBrush}" />
+
+                    <TextBlock
+                      Foreground="DarkGray"
+                      Margin="10 0 0 0"
+                      Text="{Binding Tag}" />
+
+                  </StackPanel>
+
+                </StackPanel>
+
+                <Button
+                  Grid.Column="1"
+                  Style="{DynamicResource UnstyledButtonStyle}"
+                  cal:Message.Attach="OpenPositionEditDialog($dataContext)"
+                  Cursor="Hand"
+                  ToolTipService.ToolTip="{lex:Loc Edit}"
+                  Margin="0 2 0 2">
+
+                  <Path
+                    Style="{DynamicResource IconPencil}" />
+
+                </Button>
+              </Grid>
+            </DataTemplate>
+
+          </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <Popup
+          Width="210"
+          IsOpen="{Binding IsCfpChoiceVisible}"
+          PlacementTarget="{Binding ElementName=Buttons}"
+          Placement="Top">
+
+          <ItemsControl
+            ItemsSource="{Binding PositionFactories}"
+            HorizontalAlignment="Stretch">
+
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button
+                  Width="200"
+                  cal:Message.Attach="OpenPositionAddDialog($dataContext)"
+                  cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
+                  Margin="5"
+                  Cursor="Hand"
+                  ToolTipService.ToolTip="{Binding Metadata.Description, Converter={StaticResource MetaDataToTranslationConverter}}"
+                  Content="{Binding Metadata.Name, Converter={StaticResource MetaDataToTranslationConverter}}" />
+
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </Popup>
+
+        <StackPanel
+          Grid.Row="2"
+          Orientation="Horizontal"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Center">
+
+          <Button
+            x:Name="Back"
+            Margin="0 0 12 0"
+            Cursor="Hand"
+            Content="{lex:Loc Back}" />
+
+          <ToggleButton
+            Name="Buttons"
+            Cursor="Hand"
+            IsChecked="{Binding IsCfpChoiceVisible, Mode=TwoWay}"
+            Content="{lex:Loc Add}" />
+
+        </StackPanel>
+
+      </Grid>
+
+    </controls:Flyout>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+
+  </Grid>
+
+</UserControl>

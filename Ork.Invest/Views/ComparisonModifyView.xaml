@@ -1,0 +1,250 @@
+﻿<UserControl
+  x:Class="Ork.Invest.Views.ComparisonModifyView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Invest"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition
+        Width="Auto" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition
+        Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc NameComparison}"
+      Grid.Column="0"
+      Grid.Row="0" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding NameComparison}"
+      Grid.Column="0"
+      Grid.Row="1" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc Lifetime}"
+      Grid.Row="2" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding LifetimeComparison}"
+      TextAlignment="Right"
+      Grid.Row="3" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="a"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="3" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Visibility="Hidden"
+      Grid.Row="4" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Visibility="Hidden"
+      Grid.Row="5" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc InvestmentSum}"
+      Grid.Row="6" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding InvestmentSumComparison}"
+      TextAlignment="Right"
+      Grid.Row="7" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="7" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc RecoveryValueToday}"
+      Grid.Row="8" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding RecoveryValueTodayComparison}"
+      TextAlignment="Right"
+      Grid.Row="9" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="9" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc RecoveryValueAfterLifetime}"
+      Grid.Row="10" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding RecoveryValueAfterLifetimeComparison}"
+      TextAlignment="Right"
+      Grid.Row="11" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="11" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc EnergyCostsAnnual}"
+      Grid.Row="12" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding EnergyCostsAnnualComparison}"
+      TextAlignment="Right"
+      Grid.Row="13" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€/a"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="13" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc EnergyCostsChangePA}"
+      Grid.Row="14" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding EnergyCostsChangePAComparison}"
+      TextAlignment="Right"
+      Grid.Row="15" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="%"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="15" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc OtherCostsPA}"
+      Grid.Row="16" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding OtherCostsPAComparison}"
+      TextAlignment="Right"
+      Grid.Row="17" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€/a"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="17" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Visibility="Hidden"
+      Grid.Row="18" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Visibility="Hidden"
+      Grid.Row="19" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="{lex:Loc OtherRevenuePA}"
+      Grid.Row="20" />
+
+    <TextBox
+      Style="{DynamicResource EntryControl}"
+      Text="{Binding OtherRevenuePAComparison}"
+      TextAlignment="Right"
+      Grid.Row="21" />
+
+    <TextBlock
+      Style="{DynamicResource LabelControl}"
+      Text="€/a"
+      VerticalAlignment="Center"
+      Grid.Column="1"
+      Grid.Row="21" />
+
+  </Grid>
+
+</UserControl>

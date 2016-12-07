@@ -1,0 +1,306 @@
+<UserControl
+  x:Class="Ork.Waste.Views.DisposerManagementView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:cal="http://www.caliburnproject.org"
+  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+  xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+  xmlns:frameworkConverters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Waste"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+  xmlns:views="clr-namespace:Ork.Waste.Views"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="500">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+
+      <frameworkConverters:PinnedToThicknessConverter
+        x:Key="PinnedToThickness" />
+
+      <Style
+        BasedOn="{StaticResource {x:Type toolkit:DataGrid}}"
+        TargetType="toolkit:DataGrid">
+
+        <Setter
+          Property="cal:Message.Attach"
+          Value="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+      </Style>
+
+      <Style
+        TargetType="{x:Type TabControl}">
+        <Setter
+          Property="OverridesDefaultStyle"
+          Value="True" />
+        <Setter
+          Property="SnapsToDevicePixels"
+          Value="True" />
+        <Setter
+          Property="Template">
+          <Setter.Value>
+            <ControlTemplate
+              TargetType="{x:Type TabControl}">
+              <Grid
+                KeyboardNavigation.TabNavigation="Local">
+                <Grid.RowDefinitions>
+                  <RowDefinition
+                    Height="Auto" />
+                  <RowDefinition
+                    Height="*" />
+                </Grid.RowDefinitions>
+                <TabPanel
+                  x:Name="HeaderPanel"
+                  Grid.Row="0"
+                  Panel.ZIndex="1"
+                  Margin="0,0,4,-1"
+                  IsItemsHost="True"
+                  KeyboardNavigation.TabIndex="1"
+                  Background="Transparent" />
+
+                <ContentPresenter
+                  Grid.Row="1"
+                  x:Name="PART_SelectedContentHost"
+                  Margin="4"
+                  ContentSource="SelectedContent" />
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid>
+    <TabControl
+      Name="DisposerTabControl">
+      <TabControl.Margin>
+        <MultiBinding
+          Converter="{StaticResource PinnedToThickness}">
+          <Binding
+            ElementName="DisposerFlyout" />
+          <Binding
+            ElementName="DisposerTabControl" />
+          <Binding
+            ElementName="DisposerFlyout"
+            Path="Pinned"
+            Mode="OneWay" />
+        </MultiBinding>
+      </TabControl.Margin>
+
+      <TabControl.Resources>
+        <Style
+          TargetType="TabItem">
+
+          <Setter
+            Property="HeaderTemplate">
+            <Setter.Value>
+              <DataTemplate
+                DataType="{x:Type TabItem}">
+                <TextBlock
+                  Name="TextBlock"
+                  Text="{TemplateBinding Content}"
+                  FontSize="24"
+                  Margin="15 0 15 0">
+                  <TextBlock.Style>
+                    <Style
+                      TargetType="TextBlock">
+                      <Setter
+                        Property="Foreground"
+                        Value="White" />
+                      <Style.Triggers>
+                        <Trigger
+                          Property="IsMouseOver"
+                          Value="True">
+                          <Setter
+                            Property="Foreground"
+                            Value="LightGray" />
+                          <Setter
+                            Property="Cursor"
+                            Value="Hand" />
+                        </Trigger>
+                      </Style.Triggers>
+                    </Style>
+                  </TextBlock.Style>
+                </TextBlock>
+              </DataTemplate>
+            </Setter.Value>
+          </Setter>
+
+          <Setter
+            Property="Template">
+            <Setter.Value>
+              <ControlTemplate
+                TargetType="TabItem">
+                <Grid
+                  Name="Panel">
+                  <ContentPresenter
+                    x:Name="ContentSite"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    ContentSource="Header"
+                    Margin="0" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                  <Trigger
+                    Property="IsSelected"
+                    Value="True">
+                    <Setter
+                      TargetName="Panel"
+                      Property="TextElement.FontWeight"
+                      Value="Regular" />
+                  </Trigger>
+                  <Trigger
+                    Property="IsSelected"
+                    Value="False">
+                    <Setter
+                      TargetName="Panel"
+                      Property="TextElement.FontWeight"
+                      Value="Thin" />
+                  </Trigger>
+                </ControlTemplate.Triggers>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </TabControl.Resources>
+
+      <TabItem
+        Header="{lex:Loc AddWasteCollection}">
+        <views:AddWasteCollectionView />
+      </TabItem>
+
+      <TabItem
+        Header="{lex:Loc FinishWasteCollection}">
+        <views:FinishWasteCollectionManagementView />
+      </TabItem>
+
+    </TabControl>
+
+    <global:Flyout
+      Pinned="True"
+      IsEnabled="{Binding FlyoutActivated}"
+      Name="DisposerFlyout"
+      HorizontalAlignment="Left">
+
+      <Grid
+        Margin="0 0 12 0">
+
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition
+            Height="Auto" />
+          <RowDefinition />
+          <RowDefinition
+            Height="Auto" />
+        </Grid.RowDefinitions>
+        <AdornerDecorator
+          Grid.Row="0">
+          <xctk:AutoSelectTextBox
+            Tag="{lex:Loc FilterDisposer}"
+            Style="{DynamicResource EntryControl}"
+            Text="{Binding SearchTextDisposer, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+            <global:WatermarkService.Watermark>
+              <TextBlock
+                Text="{lex:Loc Ork.Waste:Translate:FilterDisposer}"
+                Foreground="{DynamicResource TextForegroundColorBrush}" />
+            </global:WatermarkService.Watermark>
+
+          </xctk:AutoSelectTextBox>
+
+        </AdornerDecorator>
+
+
+        <Button
+          Grid.Row="1"
+          Style="{DynamicResource ButtonAsItem}"
+          cal:Message.Attach="ShowAllContainers"
+          Margin="14 0 0 2"
+          Padding="4 0 0 0"
+          Content="{lex:Loc Ork.Waste:Translate:AllDisposers}"
+          FontSize="16" />
+
+        <ListBox
+          x:Name="ListBoxDisposer"
+          ItemsSource="{Binding FilteredDisposers}"
+          SelectedItem="{Binding SelectedDisposer, Mode=TwoWay}"
+          Grid.Row="2"
+          Margin="12 0 0 12"
+          Style="{DynamicResource FlyoutListBoxStyle}">
+
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Margin="0 3 0 3"
+                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition
+                    Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                  Grid.Column="0"
+                  Margin="0 0 4 0"
+                  Background="Transparent">
+
+                  <TextBlock
+                    Style="{DynamicResource TextBlockStyle}"
+                    FontSize="16"
+                    Text="{Binding Name}"
+                    TextTrimming="CharacterEllipsis"
+                    Margin="0 0 0 4" />
+
+                </StackPanel>
+
+                <StackPanel
+                  Grid.Column="1"
+                  Orientation="Vertical"
+                  VerticalAlignment="Center"
+                  Margin="4 0 0 0">
+
+                  <Button
+                    Style="{DynamicResource UnstyledButtonStyle}"
+                    cal:Message.Attach="OpenDisposerEditDialog($dataContext)"
+                    Cursor="Hand"
+                    ToolTipService.ToolTip="{lex:Loc Ork.Waste:Translate:Edit}"
+                    Margin="0 2 0 2">
+
+                    <Path
+                      Style="{DynamicResource IconPencil}" />
+
+                  </Button>
+
+                </StackPanel>
+
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <Button
+          HorizontalAlignment="Right"
+          Grid.Row="3"
+          cal:Message.Attach="OpenDisposerAddDialog"
+          Content="{lex:Loc Ork.Waste:Translate:Add}" />
+
+      </Grid>
+    </global:Flyout>
+
+    <ContentControl
+      VerticalContentAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      x:Name="Dialogs" />
+
+  </Grid>
+
+</UserControl>

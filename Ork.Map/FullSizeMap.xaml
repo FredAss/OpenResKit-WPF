@@ -1,0 +1,124 @@
+﻿<UserControl
+  x:Class="Ork.Map.FullSizeMap"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:Converters="clr-namespace:Ork.Map.Converters"
+  xmlns:Map="clr-namespace:Ork.Map"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+  mc:Ignorable="d"
+  x:Name="this"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+
+    <Converters:KeepSizeConstantConverter
+      x:Key="KeepSizeConstant" />
+
+    <DataTemplate
+      x:Key="DefaultItemTemplateCustom">
+      <Canvas>
+        <Ellipse
+          Canvas.Left="{Binding Path=X}"
+          Canvas.Top="{Binding Path=Y}"
+          Fill="Red"
+          Stroke="Black"
+          StrokeThickness="2">
+
+          <Ellipse.Width>
+            <MultiBinding
+              Converter="{StaticResource KeepSizeConstant}"
+              ConverterParameter="20">
+
+              <Binding
+                RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:FullSizeMap}}"
+                Path="MapSource.Width" />
+
+              <Binding
+                ElementName="ViewBoxFullSizeMap"
+                Path="Width" />
+
+            </MultiBinding>
+          </Ellipse.Width>
+
+          <Ellipse.Height>
+            <MultiBinding
+              Converter="{StaticResource KeepSizeConstant}"
+              ConverterParameter="20">
+
+              <Binding
+                RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:FullSizeMap}}"
+                Path="MapSource.Height" />
+
+              <Binding
+                ElementName="ViewBoxFullSizeMap"
+                Path="Height" />
+
+            </MultiBinding>
+          </Ellipse.Height>
+
+        </Ellipse>
+      </Canvas>
+    </DataTemplate>
+
+    <Converters:Zoomed
+      x:Key="Zoomed" />
+
+    <sys:Double
+      x:Key="DefaultMarkerSize">
+      20
+    </sys:Double>
+
+    <Style
+      TargetType="{x:Type Ellipse}"
+      x:Key="DefaultMarkerStyle">
+      <Setter
+        Property="Fill"
+        Value="Green" />
+
+      <Style.Triggers>
+        <DataTrigger
+          Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+          Value="True">
+          <Setter
+            Property="Fill"
+            Value="Red" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+
+    <ControlTemplate
+      x:Key="DefaultItemTemplate"
+      TargetType="ContentControl">
+
+      <Ellipse
+        Stroke="Black"
+        StrokeThickness="2"
+        Width="{StaticResource DefaultMarkerSize}"
+        Height="{StaticResource DefaultMarkerSize}"
+        Style="{DynamicResource DefaultMarkerStyle}" />
+
+    </ControlTemplate>
+
+  </UserControl.Resources>
+
+  <Grid>
+
+    <Viewbox
+      Name="ViewBoxFullSizeMap"
+      Height="Auto"
+      Width="Auto">
+
+      <Grid>
+        <Image
+          Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Map:FullSizeMap}}, Path=MapSource}" />
+
+      </Grid>
+
+    </Viewbox>
+
+  </Grid>
+
+</UserControl>

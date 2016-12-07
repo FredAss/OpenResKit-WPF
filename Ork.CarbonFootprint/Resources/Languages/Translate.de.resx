@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountingPeriod" xml:space="preserve">
+    <value>Bilanzierungszeitraum</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="Airport" xml:space="preserve">
+    <value>Flughafen</value>
+  </data>
+  <data name="CarbonProduction" xml:space="preserve">
+    <value>CO2 Produktion</value>
+  </data>
+  <data name="CarDescription" xml:space="preserve">
+    <value>Fahrzeugbeschreibung</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie für Farbwahl</value>
+  </data>
+  <data name="Consumption" xml:space="preserve">
+    <value>Verbrauch</value>
+  </data>
+  <data name="ConsumptionWhenInStandby" xml:space="preserve">
+    <value>Verbrauch im Standby</value>
+  </data>
+  <data name="ConsumptionWhenOn" xml:space="preserve">
+    <value>Verbrauch im Betrieb</value>
+  </data>
+  <data name="Counterradiation" xml:space="preserve">
+    <value>Rückstrahlung</value>
+  </data>
+  <data name="DataGathering" xml:space="preserve">
+    <value>Datenerfassung</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Streckenlänge</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Mitarbeiter</value>
+  </data>
+  <data name="EnergySource" xml:space="preserve">
+    <value>Energiequelle</value>
+  </data>
+  <data name="FuelType" xml:space="preserve">
+    <value>Kraftstoffart</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Allgemeines</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Hersteller</value>
+  </data>
+  <data name="Modell" xml:space="preserve">
+    <value>Modell</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OperatingHours" xml:space="preserve">
+    <value>Betriebsstunden</value>
+  </data>
+  <data name="StandbyHours" xml:space="preserve">
+    <value>Standbystunden</value>
+  </data>
+  <data name="TrackLength" xml:space="preserve">
+    <value>Streckenlänge</value>
+  </data>
+  <data name="Transportation" xml:space="preserve">
+    <value>Verkehrsmittel</value>
+  </data>
+  <data name="TypeOfFlight" xml:space="preserve">
+    <value>Flugtyp</value>
+  </data>
+  <data name="UserSpecificConsumption" xml:space="preserve">
+    <value>Benutzerspezifischer Verbrauch</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="AirportBasedFlightDescription" xml:space="preserve">
+    <value>Einen neuen zielbasierten Flug erstellen.</value>
+  </data>
+  <data name="AirportBasedFlight" xml:space="preserve">
+    <value>Zielbasierter Flug</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="CarDrive" xml:space="preserve">
+    <value>Autofahrt</value>
+  </data>
+  <data name="CarDriveDescription" xml:space="preserve">
+    <value>Eine neue Autofahrt erstellen.</value>
+  </data>
+  <data name="EnergyConsumption" xml:space="preserve">
+    <value>Energieverbrauch</value>
+  </data>
+  <data name="EnergyConsumptionDescription" xml:space="preserve">
+    <value>Einen neuen Energieverbrauch erstellen.</value>
+  </data>
+  <data name="EnergyConsumptionPerMachine" xml:space="preserve">
+    <value>Maschinenverbrauch</value>
+  </data>
+  <data name="EnergyConsumptionPerMachineDescription" xml:space="preserve">
+    <value>Einen neuen Energieverbrauch pro Maschinen(-zustand) erstellen.</value>
+  </data>
+  <data name="Flight" xml:space="preserve">
+    <value>Flug</value>
+  </data>
+  <data name="FlightDescription" xml:space="preserve">
+    <value>Einen neuen Flug erstellen.</value>
+  </data>
+  <data name="FootprintDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="FootprintName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PositionDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="PositionName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PublicTransportation" xml:space="preserve">
+    <value>Öffentlicher Verkehr</value>
+  </data>
+  <data name="PublicTransportationDescription" xml:space="preserve">
+    <value>Ein neues öffentliches Verkehrsmittel erstellen.</value>
+  </data>
+  <data name="QuallifiedCar" xml:space="preserve">
+    <value>Herstellerfahrzeug</value>
+  </data>
+  <data name="QuallifiedCarDescription" xml:space="preserve">
+    <value>Ein neues spezifisches Auto erstellen.</value>
+  </data>
+  <data name="SearchTextCarbonFootprintsPositions" xml:space="preserve">
+    <value>Positionen durchsuchen...</value>
+  </data>
+  <data name="SearchTextCarbonFootprints" xml:space="preserve">
+    <value>Footprints durchsuchen...</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>Auswertung</value>
+  </data>
+  <data name="categoryAnalysis" xml:space="preserve">
+    <value>Kategoriebezogene Auswertung</value>
+  </data>
+  <data name="employeeAnalysis" xml:space="preserve">
+    <value>Mitarbeiterbezogene Auswertung</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Von </value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Bis </value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="PositionAdd" xml:space="preserve">
+    <value>Position hinzufügen...</value>
+  </data>
+  <data name="PositionEdit" xml:space="preserve">
+    <value>Position bearbeiten...</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sicher</value>
+  </data>
+  <data name="ColorPicker" xml:space="preserve">
+    <value>Farbwahl</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="positionAnalysis" xml:space="preserve">
+    <value>Typbezogene Auswertung</value>
+  </data>
+  <data name="GeoLocatedCar" xml:space="preserve">
+    <value>Fahrtenbuch-Auto</value>
+  </data>
+  <data name="GeoLocatedFlight" xml:space="preserve">
+    <value>Fahrtenbuch-Flug</value>
+  </data>
+  <data name="GeoLocatedPublicTransport" xml:space="preserve">
+    <value>Fahrtenbuch-Öffentlicher-Verkehr</value>
+  </data>
+</root>

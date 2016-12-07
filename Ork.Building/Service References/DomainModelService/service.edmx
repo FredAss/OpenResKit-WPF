@@ -1,0 +1,670 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="OpenResKit.DomainModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Building">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Address" Relationship="OpenResKit.DomainModel.Address_Buildings" ToRole="Address_Buildings_Source" FromRole="Address_Buildings_Target" />
+        <NavigationProperty Name="Rooms" Relationship="OpenResKit.DomainModel.Building_Rooms" ToRole="Building_Rooms_Target" FromRole="Building_Rooms_Source" />
+      </EntityType>
+      <EntityType Name="Address">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Street" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Zip" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="City" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Buildings" Relationship="OpenResKit.DomainModel.Address_Buildings" ToRole="Address_Buildings_Target" FromRole="Address_Buildings_Source" />
+      </EntityType>
+      <EntityType Name="BuildingRoom">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Area" Type="Edm.Double" Nullable="false" />
+        <Property Name="Height" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Building" Relationship="OpenResKit.DomainModel.Building_Rooms" ToRole="Building_Rooms_Source" FromRole="Building_Rooms_Target" />
+        <NavigationProperty Name="Inventories" Relationship="OpenResKit.DomainModel.BuildingRoom_Inventories" ToRole="BuildingRoom_Inventories_Target" FromRole="BuildingRoom_Inventories_Source" />
+      </EntityType>
+      <EntityType Name="Inventory">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="InventoryId" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Producer" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="YearOfManufacture" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.BuildingRoom_Inventories" ToRole="BuildingRoom_Inventories_Source" FromRole="BuildingRoom_Inventories_Target" />
+        <NavigationProperty Name="InventoryType" Relationship="OpenResKit.DomainModel.InventoryType_Inventories" ToRole="InventoryType_Inventories_Source" FromRole="InventoryType_Inventories_Target" />
+      </EntityType>
+      <EntityType Name="InventoryType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Inventories" Relationship="OpenResKit.DomainModel.InventoryType_Inventories" ToRole="InventoryType_Inventories_Target" FromRole="InventoryType_Inventories_Source" />
+      </EntityType>
+      <EntityType Name="Measure">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="RoomNumber" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Department" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="ConsumerUnit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Parameter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Meter" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Investment" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyShould" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyIs" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedMoneyAtm" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattAtm" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattShould" Type="Edm.Double" Nullable="false" />
+        <Property Name="SavedWattIs" Type="Edm.Double" Nullable="false" />
+        <Property Name="FailureMoney" Type="Edm.Double" Nullable="false" />
+        <Property Name="Reference" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Evaluation" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="EntryDate" Type="Edm.DateTime" />
+        <Property Name="DueDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="CreationDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Priority" Type="Edm.Int32" Nullable="false" />
+        <Property Name="EvaluationRating" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Consumer" Relationship="OpenResKit.DomainModel.Measure_Consumer" ToRole="Measure_Consumer_Target" FromRole="Measure_Consumer_Source" />
+        <NavigationProperty Name="ConsumptionActual" Relationship="OpenResKit.DomainModel.Measure_ConsumptionActual" ToRole="Measure_ConsumptionActual_Target" FromRole="Measure_ConsumptionActual_Source" />
+        <NavigationProperty Name="ConsumptionNormative" Relationship="OpenResKit.DomainModel.Measure_ConsumptionNormative" ToRole="Measure_ConsumptionNormative_Target" FromRole="Measure_ConsumptionNormative_Source" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.Measure_ResponsibleSubject" ToRole="Measure_ResponsibleSubject_Target" FromRole="Measure_ResponsibleSubject_Source" />
+        <NavigationProperty Name="MeasureImageSource" Relationship="OpenResKit.DomainModel.Measure_MeasureImageSource" ToRole="Measure_MeasureImageSource_Target" FromRole="Measure_MeasureImageSource_Source" />
+        <NavigationProperty Name="AttachedDocuments" Relationship="OpenResKit.DomainModel.Measure_AttachedDocuments" ToRole="Measure_AttachedDocuments_Target" FromRole="Measure_AttachedDocuments_Source" />
+      </EntityType>
+      <EntityType Name="Consumer">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PowerOutput" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Inventory" Relationship="OpenResKit.DomainModel.Consumer_Inventory" ToRole="Consumer_Inventory_Target" FromRole="Consumer_Inventory_Source" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Consumer_Readings" ToRole="Consumer_Readings_Target" FromRole="Consumer_Readings_Source" />
+      </EntityType>
+      <EntityType Name="Reading">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Value" Type="Edm.Double" Nullable="false" />
+        <Property Name="RelatedTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MeasuringDevice" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="ResponsibleSubject" Abstract="true">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+      </EntityType>
+      <EntityType Name="Employee" BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property Name="FirstName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="LastName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="UserName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Number" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Groups" Relationship="OpenResKit.DomainModel.Employee_Groups" ToRole="Employee_Groups_Target" FromRole="Employee_Groups_Source" />
+      </EntityType>
+      <EntityType Name="EmployeeGroup" BaseType="OpenResKit.DomainModel.ResponsibleSubject">
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="MeasureImageSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="Document">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="DocumentSource" Relationship="OpenResKit.DomainModel.Document_DocumentSource" ToRole="Document_DocumentSource_Target" FromRole="Document_DocumentSource_Source" />
+      </EntityType>
+      <EntityType Name="DocumentSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="ConsumerGroup">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="GroupName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="ConsumerTypes" Relationship="OpenResKit.DomainModel.ConsumerGroup_ConsumerTypes" ToRole="ConsumerGroup_ConsumerTypes_Target" FromRole="ConsumerGroup_ConsumerTypes_Source" />
+      </EntityType>
+      <EntityType Name="ConsumerType">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="TypeName" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+      </EntityType>
+      <EntityType Name="SubMeasure">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="ResponsibleSubject" Relationship="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject" ToRole="SubMeasure_ResponsibleSubject_Target" FromRole="SubMeasure_ResponsibleSubject_Source" />
+        <NavigationProperty Name="ReleatedMeasure" Relationship="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure" ToRole="SubMeasure_ReleatedMeasure_Target" FromRole="SubMeasure_ReleatedMeasure_Source" />
+      </EntityType>
+      <EntityType Name="Catalog">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Description" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Measures" Relationship="OpenResKit.DomainModel.Catalog_Measures" ToRole="Catalog_Measures_Target" FromRole="Catalog_Measures_Source" />
+      </EntityType>
+      <EntityType Name="CollectivePartner">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="CollectiveAgreements" Relationship="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements" ToRole="CollectivePartner_CollectiveAgreements_Target" FromRole="CollectivePartner_CollectiveAgreements_Source" />
+      </EntityType>
+      <EntityType Name="CollectiveAgreement">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="PricePerUnit" Type="Edm.Double" Nullable="false" />
+        <Property Name="ValidFrom" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ValidTo" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Unit" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Category" Relationship="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements" ToRole="CollectiveCategory_CollectiveAgreements_Source" FromRole="CollectiveCategory_CollectiveAgreements_Target" />
+        <NavigationProperty Name="CollectivePartner" Relationship="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements" ToRole="CollectivePartner_CollectiveAgreements_Source" FromRole="CollectivePartner_CollectiveAgreements_Target" />
+      </EntityType>
+      <EntityType Name="CollectiveCategory">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="CollectiveAgreements" Relationship="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements" ToRole="CollectiveCategory_CollectiveAgreements_Target" FromRole="CollectiveCategory_CollectiveAgreements_Source" />
+        <NavigationProperty Name="Distributors" Relationship="OpenResKit.DomainModel.CollectiveCategory_Distributors" ToRole="CollectiveCategory_Distributors_Target" FromRole="CollectiveCategory_Distributors_Source" />
+      </EntityType>
+      <EntityType Name="Distributor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="InternalId" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Room" Relationship="OpenResKit.DomainModel.Distributor_Room" ToRole="Distributor_Room_Target" FromRole="Distributor_Room_Source" />
+        <NavigationProperty Name="Distributors" Relationship="OpenResKit.DomainModel.Distributor_Distributors" ToRole="Distributor_Distributors_Target" FromRole="Distributor_Distributors_Source" />
+        <NavigationProperty Name="Readings" Relationship="OpenResKit.DomainModel.Distributor_Readings" ToRole="Distributor_Readings_Target" FromRole="Distributor_Readings_Source" />
+        <NavigationProperty Name="Consumers" Relationship="OpenResKit.DomainModel.Distributor_Consumers" ToRole="Distributor_Consumers_Target" FromRole="Distributor_Consumers_Source" />
+      </EntityType>
+      <EntityType Name="Appointment">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Begin" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="End" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="IsAllDay" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Series">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Begin" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Cycle" Type="Edm.Int32" Nullable="false" />
+        <Property Name="End" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndsWithDate" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsAllDay" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsWeekdayRecurrence" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="NumberOfRecurrences" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RecurrenceInterval" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Repeat" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RepeatUntilDate" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="SeriesColor" Relationship="OpenResKit.DomainModel.Series_SeriesColor" ToRole="Series_SeriesColor_Target" FromRole="Series_SeriesColor_Source" />
+        <NavigationProperty Name="WeekDays" Relationship="OpenResKit.DomainModel.Series_WeekDays" ToRole="Series_WeekDays_Target" FromRole="Series_WeekDays_Source" />
+      </EntityType>
+      <EntityType Name="SeriesColor">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="B" Type="Edm.Byte" Nullable="false" />
+        <Property Name="G" Type="Edm.Byte" Nullable="false" />
+        <Property Name="R" Type="Edm.Byte" Nullable="false" />
+      </EntityType>
+      <EntityType Name="DayOfWeek">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="WeekDay" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ScheduledTask">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Progress" Type="Edm.Single" Nullable="false" />
+        <NavigationProperty Name="AppointmentResponsibleSubject" Relationship="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject" ToRole="ScheduledTask_AppointmentResponsibleSubject_Target" FromRole="ScheduledTask_AppointmentResponsibleSubject_Source" />
+        <NavigationProperty Name="DueDate" Relationship="OpenResKit.DomainModel.ScheduledTask_DueDate" ToRole="ScheduledTask_DueDate_Target" FromRole="ScheduledTask_DueDate_Source" />
+        <NavigationProperty Name="EntryDate" Relationship="OpenResKit.DomainModel.ScheduledTask_EntryDate" ToRole="ScheduledTask_EntryDate_Target" FromRole="ScheduledTask_EntryDate_Source" />
+        <NavigationProperty Name="EntryResponsibleSubject" Relationship="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject" ToRole="ScheduledTask_EntryResponsibleSubject_Target" FromRole="ScheduledTask_EntryResponsibleSubject_Source" />
+        <NavigationProperty Name="RelatedSeries" Relationship="OpenResKit.DomainModel.ScheduledTask_RelatedSeries" ToRole="ScheduledTask_RelatedSeries_Target" FromRole="ScheduledTask_RelatedSeries_Source" />
+      </EntityType>
+      <EntityType Name="Map">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="MapSource" Relationship="OpenResKit.DomainModel.Map_MapSource" ToRole="Map_MapSource_Target" FromRole="Map_MapSource_Source" />
+      </EntityType>
+      <EntityType Name="MapSource">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="BinarySource" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="MapPosition">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="XPosition" Type="Edm.Double" Nullable="false" />
+        <Property Name="YPosition" Type="Edm.Double" Nullable="false" />
+        <NavigationProperty Name="Map" Relationship="OpenResKit.DomainModel.MapPosition_Map" ToRole="MapPosition_Map_Target" FromRole="MapPosition_Map_Source" />
+      </EntityType>
+      <Association Name="Address_Buildings">
+        <End Type="OpenResKit.DomainModel.Address" Role="Address_Buildings_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Building" Role="Address_Buildings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Building_Rooms">
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="Building_Rooms_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Building" Role="Building_Rooms_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="BuildingRoom_Inventories">
+        <End Type="OpenResKit.DomainModel.Inventory" Role="BuildingRoom_Inventories_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="BuildingRoom_Inventories_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="InventoryType_Inventories">
+        <End Type="OpenResKit.DomainModel.InventoryType" Role="InventoryType_Inventories_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Inventory" Role="InventoryType_Inventories_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Measure_Consumer">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Measure_Consumer_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_Consumer_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Measure_ConsumptionActual">
+        <End Type="OpenResKit.DomainModel.Reading" Role="Measure_ConsumptionActual_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_ConsumptionActual_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Measure_ConsumptionNormative">
+        <End Type="OpenResKit.DomainModel.Reading" Role="Measure_ConsumptionNormative_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_ConsumptionNormative_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Measure_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_ResponsibleSubject_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="Measure_ResponsibleSubject_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Measure_MeasureImageSource">
+        <End Type="OpenResKit.DomainModel.MeasureImageSource" Role="Measure_MeasureImageSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_MeasureImageSource_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Measure_AttachedDocuments">
+        <End Type="OpenResKit.DomainModel.Document" Role="Measure_AttachedDocuments_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Measure" Role="Measure_AttachedDocuments_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+      </Association>
+      <Association Name="Consumer_Inventory">
+        <End Type="OpenResKit.DomainModel.Inventory" Role="Consumer_Inventory_Target" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Inventory_Source" Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal Role="Consumer_Inventory_Target">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="Consumer_Inventory_Source">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Consumer_Readings">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Consumer_Readings_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Reading" Role="Consumer_Readings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Employee_Groups">
+        <End Type="OpenResKit.DomainModel.Employee" Role="Employee_Groups_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.EmployeeGroup" Role="Employee_Groups_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Document_DocumentSource">
+        <End Type="OpenResKit.DomainModel.DocumentSource" Role="Document_DocumentSource_Target" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Document" Role="Document_DocumentSource_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="ConsumerGroup_ConsumerTypes">
+        <End Type="OpenResKit.DomainModel.ConsumerGroup" Role="ConsumerGroup_ConsumerTypes_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ConsumerType" Role="ConsumerGroup_ConsumerTypes_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="SubMeasure_ResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="SubMeasure_ReleatedMeasure">
+        <End Type="OpenResKit.DomainModel.Measure" Role="SubMeasure_ReleatedMeasure_Target" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.SubMeasure" Role="SubMeasure_ReleatedMeasure_Source" Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal Role="SubMeasure_ReleatedMeasure_Target">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="SubMeasure_ReleatedMeasure_Source">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Catalog_Measures">
+        <End Type="OpenResKit.DomainModel.Catalog" Role="Catalog_Measures_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Measure" Role="Catalog_Measures_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CollectivePartner_CollectiveAgreements">
+        <End Type="OpenResKit.DomainModel.CollectiveAgreement" Role="CollectivePartner_CollectiveAgreements_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.CollectivePartner" Role="CollectivePartner_CollectiveAgreements_Source" Multiplicity="1" />
+      </Association>
+      <Association Name="CollectiveCategory_CollectiveAgreements">
+        <End Type="OpenResKit.DomainModel.CollectiveCategory" Role="CollectiveCategory_CollectiveAgreements_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.CollectiveAgreement" Role="CollectiveCategory_CollectiveAgreements_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="CollectiveCategory_Distributors">
+        <End Type="OpenResKit.DomainModel.CollectiveCategory" Role="CollectiveCategory_Distributors_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="CollectiveCategory_Distributors_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Room">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Room_Source" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.BuildingRoom" Role="Distributor_Room_Target" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Distributor_Distributors">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Distributors_Source" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Distributors_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Readings">
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Readings_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.Reading" Role="Distributor_Readings_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="Distributor_Consumers">
+        <End Type="OpenResKit.DomainModel.Consumer" Role="Distributor_Consumers_Target" Multiplicity="*" />
+        <End Type="OpenResKit.DomainModel.Distributor" Role="Distributor_Consumers_Source" Multiplicity="0..1" />
+      </Association>
+      <Association Name="Series_SeriesColor">
+        <End Type="OpenResKit.DomainModel.Series" Role="Series_SeriesColor_Source" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.SeriesColor" Role="Series_SeriesColor_Target" Multiplicity="1" />
+        <ReferentialConstraint>
+          <Principal Role="Series_SeriesColor_Source">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="Series_SeriesColor_Target">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Series_WeekDays">
+        <End Type="OpenResKit.DomainModel.Series" Role="Series_WeekDays_Source" Multiplicity="0..1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.DayOfWeek" Role="Series_WeekDays_Target" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_AppointmentResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="ScheduledTask_AppointmentResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_AppointmentResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_DueDate">
+        <End Type="OpenResKit.DomainModel.Appointment" Role="ScheduledTask_DueDate_Target" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_DueDate_Source" Multiplicity="0..1" />
+        <ReferentialConstraint>
+          <Principal Role="ScheduledTask_DueDate_Target">
+            <PropertyRef Name="Id" />
+          </Principal>
+          <Dependent Role="ScheduledTask_DueDate_Source">
+            <PropertyRef Name="Id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="ScheduledTask_EntryDate">
+        <End Type="OpenResKit.DomainModel.Appointment" Role="ScheduledTask_EntryDate_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_EntryDate_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_EntryResponsibleSubject">
+        <End Type="OpenResKit.DomainModel.ResponsibleSubject" Role="ScheduledTask_EntryResponsibleSubject_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_EntryResponsibleSubject_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="ScheduledTask_RelatedSeries">
+        <End Type="OpenResKit.DomainModel.Series" Role="ScheduledTask_RelatedSeries_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.ScheduledTask" Role="ScheduledTask_RelatedSeries_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="Map_MapSource">
+        <End Type="OpenResKit.DomainModel.MapSource" Role="Map_MapSource_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.Map" Role="Map_MapSource_Source" Multiplicity="*" />
+      </Association>
+      <Association Name="MapPosition_Map">
+        <End Type="OpenResKit.DomainModel.Map" Role="MapPosition_Map_Target" Multiplicity="0..1" />
+        <End Type="OpenResKit.DomainModel.MapPosition" Role="MapPosition_Map_Source" Multiplicity="*" />
+      </Association>
+      <EntityContainer Name="DomainModelContext" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Buildings" EntityType="OpenResKit.DomainModel.Building" />
+        <EntitySet Name="Addresses" EntityType="OpenResKit.DomainModel.Address" />
+        <EntitySet Name="BuildingRooms" EntityType="OpenResKit.DomainModel.BuildingRoom" />
+        <EntitySet Name="Inventories" EntityType="OpenResKit.DomainModel.Inventory" />
+        <EntitySet Name="InventoryTypes" EntityType="OpenResKit.DomainModel.InventoryType" />
+        <EntitySet Name="Measures" EntityType="OpenResKit.DomainModel.Measure" />
+        <EntitySet Name="Consumers" EntityType="OpenResKit.DomainModel.Consumer" />
+        <EntitySet Name="Readings" EntityType="OpenResKit.DomainModel.Reading" />
+        <EntitySet Name="ResponsibleSubjects" EntityType="OpenResKit.DomainModel.ResponsibleSubject" />
+        <EntitySet Name="MeasureImageSources" EntityType="OpenResKit.DomainModel.MeasureImageSource" />
+        <EntitySet Name="Documents" EntityType="OpenResKit.DomainModel.Document" />
+        <EntitySet Name="DocumentSources" EntityType="OpenResKit.DomainModel.DocumentSource" />
+        <EntitySet Name="ConsumerGroups" EntityType="OpenResKit.DomainModel.ConsumerGroup" />
+        <EntitySet Name="ConsumerTypes" EntityType="OpenResKit.DomainModel.ConsumerType" />
+        <EntitySet Name="SubMeasures" EntityType="OpenResKit.DomainModel.SubMeasure" />
+        <EntitySet Name="Catalogs" EntityType="OpenResKit.DomainModel.Catalog" />
+        <EntitySet Name="CollectivePartners" EntityType="OpenResKit.DomainModel.CollectivePartner" />
+        <EntitySet Name="CollectiveAgreements" EntityType="OpenResKit.DomainModel.CollectiveAgreement" />
+        <EntitySet Name="CollectiveCategories" EntityType="OpenResKit.DomainModel.CollectiveCategory" />
+        <EntitySet Name="Distributors" EntityType="OpenResKit.DomainModel.Distributor" />
+        <EntitySet Name="Appointments" EntityType="OpenResKit.DomainModel.Appointment" />
+        <EntitySet Name="Series" EntityType="OpenResKit.DomainModel.Series" />
+        <EntitySet Name="SeriesColors" EntityType="OpenResKit.DomainModel.SeriesColor" />
+        <EntitySet Name="DayOfWeeks" EntityType="OpenResKit.DomainModel.DayOfWeek" />
+        <EntitySet Name="ScheduledTasks" EntityType="OpenResKit.DomainModel.ScheduledTask" />
+        <EntitySet Name="Maps" EntityType="OpenResKit.DomainModel.Map" />
+        <EntitySet Name="MapSources" EntityType="OpenResKit.DomainModel.MapSource" />
+        <EntitySet Name="MapPositions" EntityType="OpenResKit.DomainModel.MapPosition" />
+        <AssociationSet Name="Address_Buildings" Association="OpenResKit.DomainModel.Address_Buildings">
+          <End Role="Address_Buildings_Target" EntitySet="Buildings" />
+          <End Role="Address_Buildings_Source" EntitySet="Addresses" />
+        </AssociationSet>
+        <AssociationSet Name="Building_Rooms" Association="OpenResKit.DomainModel.Building_Rooms">
+          <End Role="Building_Rooms_Source" EntitySet="Buildings" />
+          <End Role="Building_Rooms_Target" EntitySet="BuildingRooms" />
+        </AssociationSet>
+        <AssociationSet Name="BuildingRoom_Inventories" Association="OpenResKit.DomainModel.BuildingRoom_Inventories">
+          <End Role="BuildingRoom_Inventories_Source" EntitySet="BuildingRooms" />
+          <End Role="BuildingRoom_Inventories_Target" EntitySet="Inventories" />
+        </AssociationSet>
+        <AssociationSet Name="InventoryType_Inventories" Association="OpenResKit.DomainModel.InventoryType_Inventories">
+          <End Role="InventoryType_Inventories_Target" EntitySet="Inventories" />
+          <End Role="InventoryType_Inventories_Source" EntitySet="InventoryTypes" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_Consumer" Association="OpenResKit.DomainModel.Measure_Consumer">
+          <End Role="Measure_Consumer_Source" EntitySet="Measures" />
+          <End Role="Measure_Consumer_Target" EntitySet="Consumers" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_ConsumptionActual" Association="OpenResKit.DomainModel.Measure_ConsumptionActual">
+          <End Role="Measure_ConsumptionActual_Source" EntitySet="Measures" />
+          <End Role="Measure_ConsumptionActual_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_ConsumptionNormative" Association="OpenResKit.DomainModel.Measure_ConsumptionNormative">
+          <End Role="Measure_ConsumptionNormative_Source" EntitySet="Measures" />
+          <End Role="Measure_ConsumptionNormative_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_ResponsibleSubject" Association="OpenResKit.DomainModel.Measure_ResponsibleSubject">
+          <End Role="Measure_ResponsibleSubject_Source" EntitySet="Measures" />
+          <End Role="Measure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_MeasureImageSource" Association="OpenResKit.DomainModel.Measure_MeasureImageSource">
+          <End Role="Measure_MeasureImageSource_Source" EntitySet="Measures" />
+          <End Role="Measure_MeasureImageSource_Target" EntitySet="MeasureImageSources" />
+        </AssociationSet>
+        <AssociationSet Name="Measure_AttachedDocuments" Association="OpenResKit.DomainModel.Measure_AttachedDocuments">
+          <End Role="Measure_AttachedDocuments_Source" EntitySet="Measures" />
+          <End Role="Measure_AttachedDocuments_Target" EntitySet="Documents" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Inventory" Association="OpenResKit.DomainModel.Consumer_Inventory">
+          <End Role="Consumer_Inventory_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Inventory_Target" EntitySet="Inventories" />
+        </AssociationSet>
+        <AssociationSet Name="Consumer_Readings" Association="OpenResKit.DomainModel.Consumer_Readings">
+          <End Role="Consumer_Readings_Source" EntitySet="Consumers" />
+          <End Role="Consumer_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Employee_Groups" Association="OpenResKit.DomainModel.Employee_Groups">
+          <End Role="Employee_Groups_Source" EntitySet="ResponsibleSubjects" />
+          <End Role="Employee_Groups_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="Document_DocumentSource" Association="OpenResKit.DomainModel.Document_DocumentSource">
+          <End Role="Document_DocumentSource_Source" EntitySet="Documents" />
+          <End Role="Document_DocumentSource_Target" EntitySet="DocumentSources" />
+        </AssociationSet>
+        <AssociationSet Name="ConsumerGroup_ConsumerTypes" Association="OpenResKit.DomainModel.ConsumerGroup_ConsumerTypes">
+          <End Role="ConsumerGroup_ConsumerTypes_Source" EntitySet="ConsumerGroups" />
+          <End Role="ConsumerGroup_ConsumerTypes_Target" EntitySet="ConsumerTypes" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ResponsibleSubject" Association="OpenResKit.DomainModel.SubMeasure_ResponsibleSubject">
+          <End Role="SubMeasure_ResponsibleSubject_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="SubMeasure_ReleatedMeasure" Association="OpenResKit.DomainModel.SubMeasure_ReleatedMeasure">
+          <End Role="SubMeasure_ReleatedMeasure_Source" EntitySet="SubMeasures" />
+          <End Role="SubMeasure_ReleatedMeasure_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="Catalog_Measures" Association="OpenResKit.DomainModel.Catalog_Measures">
+          <End Role="Catalog_Measures_Source" EntitySet="Catalogs" />
+          <End Role="Catalog_Measures_Target" EntitySet="Measures" />
+        </AssociationSet>
+        <AssociationSet Name="CollectivePartner_CollectiveAgreements" Association="OpenResKit.DomainModel.CollectivePartner_CollectiveAgreements">
+          <End Role="CollectivePartner_CollectiveAgreements_Source" EntitySet="CollectivePartners" />
+          <End Role="CollectivePartner_CollectiveAgreements_Target" EntitySet="CollectiveAgreements" />
+        </AssociationSet>
+        <AssociationSet Name="CollectiveCategory_CollectiveAgreements" Association="OpenResKit.DomainModel.CollectiveCategory_CollectiveAgreements">
+          <End Role="CollectiveCategory_CollectiveAgreements_Target" EntitySet="CollectiveAgreements" />
+          <End Role="CollectiveCategory_CollectiveAgreements_Source" EntitySet="CollectiveCategories" />
+        </AssociationSet>
+        <AssociationSet Name="CollectiveCategory_Distributors" Association="OpenResKit.DomainModel.CollectiveCategory_Distributors">
+          <End Role="CollectiveCategory_Distributors_Source" EntitySet="CollectiveCategories" />
+          <End Role="CollectiveCategory_Distributors_Target" EntitySet="Distributors" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Room" Association="OpenResKit.DomainModel.Distributor_Room">
+          <End Role="Distributor_Room_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Room_Target" EntitySet="BuildingRooms" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Distributors" Association="OpenResKit.DomainModel.Distributor_Distributors">
+          <End Role="Distributor_Distributors_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Distributors_Target" EntitySet="Distributors" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Readings" Association="OpenResKit.DomainModel.Distributor_Readings">
+          <End Role="Distributor_Readings_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Readings_Target" EntitySet="Readings" />
+        </AssociationSet>
+        <AssociationSet Name="Distributor_Consumers" Association="OpenResKit.DomainModel.Distributor_Consumers">
+          <End Role="Distributor_Consumers_Source" EntitySet="Distributors" />
+          <End Role="Distributor_Consumers_Target" EntitySet="Consumers" />
+        </AssociationSet>
+        <AssociationSet Name="Series_SeriesColor" Association="OpenResKit.DomainModel.Series_SeriesColor">
+          <End Role="Series_SeriesColor_Source" EntitySet="Series" />
+          <End Role="Series_SeriesColor_Target" EntitySet="SeriesColors" />
+        </AssociationSet>
+        <AssociationSet Name="Series_WeekDays" Association="OpenResKit.DomainModel.Series_WeekDays">
+          <End Role="Series_WeekDays_Source" EntitySet="Series" />
+          <End Role="Series_WeekDays_Target" EntitySet="DayOfWeeks" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_AppointmentResponsibleSubject" Association="OpenResKit.DomainModel.ScheduledTask_AppointmentResponsibleSubject">
+          <End Role="ScheduledTask_AppointmentResponsibleSubject_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_AppointmentResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_DueDate" Association="OpenResKit.DomainModel.ScheduledTask_DueDate">
+          <End Role="ScheduledTask_DueDate_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_DueDate_Target" EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_EntryDate" Association="OpenResKit.DomainModel.ScheduledTask_EntryDate">
+          <End Role="ScheduledTask_EntryDate_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_EntryDate_Target" EntitySet="Appointments" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_EntryResponsibleSubject" Association="OpenResKit.DomainModel.ScheduledTask_EntryResponsibleSubject">
+          <End Role="ScheduledTask_EntryResponsibleSubject_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_EntryResponsibleSubject_Target" EntitySet="ResponsibleSubjects" />
+        </AssociationSet>
+        <AssociationSet Name="ScheduledTask_RelatedSeries" Association="OpenResKit.DomainModel.ScheduledTask_RelatedSeries">
+          <End Role="ScheduledTask_RelatedSeries_Source" EntitySet="ScheduledTasks" />
+          <End Role="ScheduledTask_RelatedSeries_Target" EntitySet="Series" />
+        </AssociationSet>
+        <AssociationSet Name="Map_MapSource" Association="OpenResKit.DomainModel.Map_MapSource">
+          <End Role="Map_MapSource_Source" EntitySet="Maps" />
+          <End Role="Map_MapSource_Target" EntitySet="MapSources" />
+        </AssociationSet>
+        <AssociationSet Name="MapPosition_Map" Association="OpenResKit.DomainModel.MapPosition_Map">
+          <End Role="MapPosition_Map_Source" EntitySet="MapPositions" />
+          <End Role="MapPosition_Map_Target" EntitySet="Maps" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

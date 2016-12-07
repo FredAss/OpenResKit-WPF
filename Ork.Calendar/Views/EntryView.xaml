@@ -1,0 +1,55 @@
+﻿<UserControl
+  x:Class="Ork.Calendar.Views.EntryView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary
+          Source="Theme.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <converters:BoolToVisibilityReversableConverter
+        x:Key="BoolToVisibilityReversableConverter" />
+    </ResourceDictionary>
+
+  </UserControl.Resources>
+
+  <Grid
+    Height="{Binding Height}">
+
+    <Grid.RowDefinitions>
+      <RowDefinition
+        Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Border
+      Grid.Row="0"
+      Grid.RowSpan="2"
+      Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityReversableConverter}, ConverterParameter=false}"
+      Background="{Binding Color}"
+      Style="{StaticResource BorderHoverStyle}" />
+
+    <Border
+      Grid.Row="0"
+      Grid.RowSpan="2"
+      Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityReversableConverter}, ConverterParameter=true}"
+      Background="{StaticResource BlueColor}"
+      Style="{StaticResource BorderHoverStyle}" />
+
+    <TextBlock
+      Grid.Row="0"
+      Style="{StaticResource TextBlockSubjectStyle}"
+      Text="{Binding Subject}" />
+
+  </Grid>
+
+</UserControl>

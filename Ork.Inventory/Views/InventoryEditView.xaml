@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="Ork.Inventory.Views.InventoryEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:views="clr-namespace:Ork.Inventory.Views"
+             xmlns:converters="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+             xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+             xmlns:tkControls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             lex:LocalizeDictionary.DesignCulture="de"
+             lex:ResxLocalizationProvider.DefaultAssembly="Ork.Inventory"
+             lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <Storyboard
+                x:Key="OpenDeletePopup"
+                BeginTime="0:0:0">
+                <BooleanAnimationUsingKeyFrames
+                    Storyboard.TargetName="DeleteChoicesPopup"
+                    Storyboard.TargetProperty="IsOpen">
+                    <DiscreteBooleanKeyFrame
+                        KeyTime="00:00:00"
+                        Value="true" />
+                </BooleanAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <views:InventoryModifyView />
+        <DockPanel Margin="0 20 0 0">
+            <Button
+                x:Name="DeleteButton"
+                Content="{lex:Loc Delete}"
+                HorizontalAlignment="Left">
+
+                <Button.Triggers>
+                    <EventTrigger
+                        RoutedEvent="Button.Click">
+                        <BeginStoryboard
+                            Storyboard="{StaticResource OpenDeletePopup}" />
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Popup
+                AllowsTransparency="True"
+                x:Name="DeleteChoicesPopup"
+                StaysOpen="False"
+                Placement="Top"
+                PlacementTarget="{Binding ElementName=DeleteButton}">
+
+                <StackPanel
+                    Background="{DynamicResource WindowBackgroundColorBrush}"
+                    HorizontalAlignment="Center">
+
+                    <Button
+                        Style="{DynamicResource DeleteButtonStyle}"
+                        cal:Message.Attach="RemoveInventory()"
+                        Content="{lex:Loc Sure}" />
+
+                </StackPanel>
+
+            </Popup>
+
+            <Button
+                cal:Message.Attach="Accept($dataContext)"
+                HorizontalAlignment="Right"
+                Content="{lex:Loc Save}" />
+        </DockPanel>
+    </StackPanel>
+    
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto" />
+
+            <ColumnDefinition
+                Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <views:InventoryModifyView
+            x:Name="MeasureModifyView"
+            Grid.Column="0" />
+
+        --><!--<Grid
+            Grid.Column="1"
+            Margin="10,0,0,0">
+            <StackPanel />
+        </Grid>--><!--
+        <Grid
+            Margin="0 20 0 0"
+            Row="1"
+            ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom">
+
+            <Button
+                x:Name="DeleteButton"
+                Content="{lex:Loc Delete}"
+                HorizontalAlignment="Left">
+
+                <Button.Triggers>
+                    <EventTrigger
+                        RoutedEvent="Button.Click">
+                        <BeginStoryboard
+                            Storyboard="{StaticResource OpenDeletePopup}" />
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Popup
+                AllowsTransparency="True"
+                x:Name="DeleteChoicesPopup"
+                StaysOpen="False"
+                Placement="Top"
+                PlacementTarget="{Binding ElementName=DeleteButton}">
+
+                <StackPanel
+                    Background="{DynamicResource WindowBackgroundColorBrush}"
+                    HorizontalAlignment="Center">
+
+                    <Button
+                        Style="{DynamicResource DeleteButtonStyle}"
+                        cal:Message.Attach="RemoveInventory()"
+                        Content="{lex:Loc Sure}" />
+
+                </StackPanel>
+
+            </Popup>
+
+            <Button
+                cal:Message.Attach="Accept($dataContext)"
+                HorizontalAlignment="Right"
+                Content="{lex:Loc Save}" />
+
+        </Grid>
+
+    </Grid>-->
+</UserControl>

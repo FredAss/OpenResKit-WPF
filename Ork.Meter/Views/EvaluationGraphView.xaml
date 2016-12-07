@@ -1,0 +1,66 @@
+<UserControl
+  x:Class="Ork.Meter.Views.EvaluationGraphView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:wpf="http://oxyplot.org/wpf"
+  lex:LocalizeDictionary.DesignCulture="de"
+  lex:ResxLocalizationProvider.DefaultAssembly="Ork.Meter"
+  lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ControlTemplate
+      x:Key="TrackerControlTemplate">
+
+      <wpf:TrackerControl
+        Position="{Binding Position}"
+        BorderThickness="2"
+        LineStroke="SteelBlue"
+        Background="{DynamicResource WindowBackgroundColorBrush}"
+        LineExtents="{Binding PlotModel.PlotArea}">
+        <wpf:TrackerControl.Content>
+
+          <UniformGrid
+            Columns="1"
+            Canvas.Left="{Binding Position.X}"
+            Canvas.Top="{Binding Position.Y}"
+            Margin="6">
+
+            <TextBlock
+              Text="{Binding Series.Title}"
+              FontWeight="Bold"
+              FontSize="15"
+              Foreground="{DynamicResource TextForegroundColorBrush}" />
+
+            <TextBlock
+              Foreground="{DynamicResource TextForegroundColorBrush}">
+              <Run
+                Text="{lex:Loc Ork.Meter:Translate:Value}"
+                FontWeight="Bold" />
+              <Run
+                Text="{Binding DataPoint.Y, StringFormat='{}{0:0.000}'}" />
+            </TextBlock>
+
+          </UniformGrid>
+
+        </wpf:TrackerControl.Content>
+      </wpf:TrackerControl>
+
+    </ControlTemplate>
+
+  </UserControl.Resources>
+
+
+  <wpf:Plot
+    DefaultTrackerTemplate="{StaticResource TrackerControlTemplate}"
+    Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+    Title="{lex:Loc Ork.Meter:Translate:Evaluation}"
+    Model="{Binding PlotModel, Mode=OneWay}"
+    Margin="0" />
+
+</UserControl>

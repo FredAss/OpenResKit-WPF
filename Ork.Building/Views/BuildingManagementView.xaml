@@ -1,0 +1,420 @@
+﻿<UserControl
+    x:Class="Ork.Building.Views.BuildingManagementView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+    xmlns:global="clr-namespace:Ork.Framework.Controls;assembly=Ork.Framework"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:converters2="clr-namespace:Ork.Framework.Converters;assembly=Ork.Framework"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="de"
+    lex:ResxLocalizationProvider.DefaultAssembly="Ork.Building"
+    lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+    xmlns:vma="clr-namespace:Ork.Building.ViewModels"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="600">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <converters2:BoolToVisibilityReversableConverter
+                x:Key="BoolToVisibilityReversableConverter" />
+
+
+            <ToolTip x:Key="BuildingToolTip">
+                <StackPanel>
+                    <TextBlock Text="{Binding Description}" />
+                </StackPanel>
+
+            </ToolTip>
+
+            <converters2:PinnedToThicknessConverter
+                x:Key="PinnedToThickness" />
+
+            <Style
+                BasedOn="{StaticResource {x:Type toolkit:DataGrid}}"
+                TargetType="toolkit:DataGrid">
+
+                <Setter
+                    Property="cal:Message.Attach"
+                    Value="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]" />
+
+            </Style>
+
+            <!--<Storyboard
+                x:Key="OpenDeletePopup"
+                BeginTime="0:0:0">
+                <BooleanAnimationUsingKeyFrames
+                    Storyboard.TargetName="DeleteChoicesPopup"
+                    Storyboard.TargetProperty="IsOpen">
+                    <DiscreteBooleanKeyFrame
+                        KeyTime="00:00:00"
+                        Value="true" />
+                </BooleanAnimationUsingKeyFrames>
+            </Storyboard>-->
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid
+            Background="{DynamicResource WorkspaceBackgroundColorBrush}"
+            Name="RoomTable">
+
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.Margin>
+                <MultiBinding
+                    Converter="{StaticResource PinnedToThickness}">
+                    <Binding
+                        ElementName="BuildingFlyout" />
+                    <Binding
+                        ElementName="RoomTable" />
+                    <Binding
+                        ElementName="BuildingFlyout"
+                        Path="Pinned"
+                        Mode="OneWay" />
+                </MultiBinding>
+            </Grid.Margin>
+
+            <AdornerDecorator
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                Width="300"
+                Margin="10 10 0 0">
+                <xctk:AutoSelectTextBox
+                    Style="{DynamicResource EntryControl}"
+                    Text="{Binding SearchTextRooms, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+                    <global:WatermarkService.Watermark>
+                        <TextBlock
+                            Text="{lex:Loc Ork.Building:Translate:FilterRooms}"
+                            Foreground="{DynamicResource TextForegroundColorBrush}" />
+                    </global:WatermarkService.Watermark>
+                </xctk:AutoSelectTextBox>
+            </AdornerDecorator>
+
+            <toolkit:DataGrid
+                Grid.Row="1"
+                Visibility="{Binding VisibleBuilding, Converter={StaticResource BoolToVisibilityReversableConverter}}"
+                ItemsSource="{Binding Rooms}"
+                IsReadOnly="False">
+
+                <toolkit:DataGrid.Columns>
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Room}"
+                        Binding="{Binding Name}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Description}"
+                        Binding="{Binding Description}"
+                        SortDirection="Ascending"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:AreaInM2}"
+                        Binding="{Binding Area}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:HeightInM}"
+                        Binding="{Binding Height}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Volume}"
+                        Binding="{Binding Volume, Mode=OneWay}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTemplateColumn>
+                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock
+                                        x:Name="DeleteButton"
+                                        Margin="0 1 0 0"
+                                        FontFamily="Marlett"
+                                        Text="r"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Stretch"
+                                        cal:Message.Attach="[Event Button.MouseLeftButtonDown]=[Action DeleteRoom($dataContext)]">
+                                        <!--<TextBlock.Triggers>
+                                            <EventTrigger
+                                                RoutedEvent="TextBlock.MouseLeftButtonDown">
+                                                <BeginStoryboard
+                                                    Storyboard="{StaticResource OpenDeletePopup}" />
+                                            </EventTrigger>
+                                        </TextBlock.Triggers>-->
+                                    </TextBlock>
+                                    <!--<Popup
+                                        AllowsTransparency="True"
+                                        x:Name="DeleteChoicesPopup"
+                                        StaysOpen="False"
+                                        Placement="Left"
+                                        PlacementTarget="{Binding ElementName=DeleteButton}">
+
+                                        <StackPanel
+                                            Background="{DynamicResource WindowBackgroundColorBrush}"
+                                            HorizontalAlignment="Center">
+
+                                            <Button
+                                                Style="{DynamicResource DeleteButtonStyle}"
+                                                cal:Action.TargetWithoutContext="{Binding ElementName=DeleteButton, Path=DataContext}"
+                                                cal:Message.Attach="[Event Button.MouseLeftButtonDown]=[Action DeleteRoom($dataContext)]"
+                                                Content="{lex:Loc Sure}" />
+
+                                        </StackPanel>
+                                    </Popup>-->
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </toolkit:DataGridTemplateColumn.CellTemplate>
+
+                    </toolkit:DataGridTemplateColumn>
+
+                </toolkit:DataGrid.Columns>
+
+            </toolkit:DataGrid>
+
+            <toolkit:DataGrid
+                Grid.Row="1"
+                ItemsSource="{Binding Rooms}"
+                Visibility="{Binding VisibleNormal, Converter={StaticResource BoolToVisibilityReversableConverter}}"
+                IsReadOnly="False">
+
+                <toolkit:DataGrid.Columns>
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Room}"
+                        Binding="{Binding Name}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Description}"
+                        Binding="{Binding Description}"
+                        SortDirection="Ascending"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:AreaInM2}"
+                        Binding="{Binding Area}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:HeightInM}"
+                        Binding="{Binding Height}"
+                        Width="10*" />
+
+                    <toolkit:DataGridTextColumn
+                        Header="{lex:Loc Ork.Building:Translate:Volume}"
+                        Binding="{Binding Volume, Mode=OneWay}"
+                        Width="10*" />
+
+                    <toolkit:DataGridComboBoxColumn
+                        Header="{lex:Loc Ork.Building:Translate:Building}"
+                        EditingElementStyle="{DynamicResource ComboBoxStyle}"
+                        ItemsSource="{Binding Source={x:Static vma:RoomViewModel.Buildings}}"
+                        SelectedItemBinding="{Binding Building}"
+                        DisplayMemberPath="Name"
+                        Width="10*" />
+
+                    <toolkit:DataGridTemplateColumn>
+                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="0 1 0 0"
+                                    FontFamily="Marlett"
+                                    Text="r"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    cal:Message.Attach="[Event MouseLeftButtonDown]=[Action DeleteRoom($dataContext)]" />
+                            </DataTemplate>
+                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                    </toolkit:DataGridTemplateColumn>
+
+                </toolkit:DataGrid.Columns>
+
+            </toolkit:DataGrid>
+
+            <DockPanel VerticalAlignment="Center" Grid.Row="3">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button
+                        Content="{lex:Loc SaveAsPdf}"
+                        Width="Auto"
+                        Margin="10 0 0 0"
+                        cal:Message.Attach="CreateRoomListPdf()" />
+                    <Button
+                        Content="{lex:Loc SaveAsExcel}"
+                        Width="Auto"
+                        Margin="10 0 0 0"
+                        cal:Message.Attach="CreateRoomListExcel()" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button
+                        Width="100"
+                        Content="{lex:Loc Save}"
+                        Margin="0 0 10 0"
+                        cal:Message.Attach="SaveRooms()" />
+
+                    <Button
+                        Content="{lex:Loc Add}"
+                        Width="100"
+                        Margin="0 0 10 0"
+                        IsEnabled="{Binding CanAdd}"
+                        cal:Message.Attach="AddRoom()" />
+                </StackPanel>
+
+            </DockPanel>
+        </Grid>
+
+        <global:Flyout
+            Pinned="True"
+            IsEnabled="{Binding FlyoutActivated}"
+            Name="BuildingFlyout"
+            HorizontalAlignment="Left">
+
+            <Grid
+                Margin="0 0 12 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition
+                        Height="Auto" />
+                </Grid.RowDefinitions>
+                <AdornerDecorator
+                    Grid.Row="0">
+                    <xctk:AutoSelectTextBox
+                        Style="{DynamicResource EntryControl}"
+                        Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+                        <global:WatermarkService.Watermark>
+                            <TextBlock
+                                Text="{lex:Loc Ork.Building:Translate:FilterBuildings}"
+                                Foreground="{DynamicResource TextForegroundColorBrush}" />
+                        </global:WatermarkService.Watermark>
+                    </xctk:AutoSelectTextBox>
+                </AdornerDecorator>
+
+                <Button
+                    Grid.Row="1"
+                    Style="{DynamicResource ButtonAsItem}"
+                    cal:Message.Attach="ShowAllRooms"
+                    Margin="12 0 0 2">
+                    <Button.Content>
+                        <StackPanel
+                            Orientation="Vertical">
+                            <TextBlock
+                                Text="{lex:Loc AllRooms}"
+                                FontSize="16"
+                                Margin="3 0 0 0" />
+                            <!--<TextBlock
+                                Text="{Binding AllMeasures, Mode=OneWay}"
+                                FontSize="12"
+                                Margin="3 0 0 0" />-->
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <ListBox
+                    ItemsSource="{Binding Buildings}"
+                    Margin="12 0 0 12"
+                    SelectedItem="{Binding SelectedBuilding}"
+                    SelectedIndex="0"
+                    Grid.Row="2"
+                    Style="{DynamicResource FlyoutListBoxStyle}">
+
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+
+                            <GroupStyle.ContainerStyle>
+                                <Style
+                                    TargetType="{x:Type GroupItem}">
+
+                                    <Setter
+                                        Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate
+                                                TargetType="{x:Type GroupItem}">
+                                                <Grid>
+
+                                                    <Expander
+                                                        IsExpanded="True">
+                                                        <Expander.Header>
+                                                            <TextBlock
+                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Text="{Binding Name}"
+                                                                FontSize="18"
+                                                                Margin="0 12 0 6" />
+
+                                                        </Expander.Header>
+                                                        <Expander.Content>
+                                                            <ItemsPresenter />
+                                                        </Expander.Content>
+                                                    </Expander>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Margin="0 0 4 0"
+                                Background="Transparent"
+                                Orientation="Vertical"
+                                cal:Message.Attach="[Event MouseLeftButtonDown]=[Action OpenEditor($dataContext, $eventArgs)]">
+                                <TextBlock
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    FontSize="16"
+                                    Text="{Binding Name}"
+                                    TextTrimming="CharacterEllipsis"
+                                    Margin="0 0 0 0" />
+                                <TextBlock
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    Text="{Binding LongAddress}"
+                                    FontSize="10"
+                                    Margin="0 0 0 4" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button
+                    Grid.Row="3"
+                    Width="100"
+                    HorizontalAlignment="Right"
+                    Content="{lex:Loc Add}"
+                    cal:Message.Attach="OpenBuildingAddDialog" />
+
+            </Grid>
+        </global:Flyout>
+
+        <ContentControl
+            VerticalContentAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            x:Name="Dialogs" />
+
+    </Grid>
+
+</UserControl>

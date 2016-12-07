@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema
+  xmlns:tns="http://schemas.datacontract.org/2004/07/OpenResKit.CarbonFootprint.Positions"
+  elementFormDefault="qualified"
+  targetNamespace="http://schemas.datacontract.org/2004/07/OpenResKit.CarbonFootprint.Positions"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType
+    name="ArrayOfFullyQualifiedCarData">
+    <xs:sequence>
+      <xs:element
+        minOccurs="0"
+        maxOccurs="unbounded"
+        name="FullyQualifiedCarData"
+        nillable="true"
+        type="tns:FullyQualifiedCarData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element
+    name="ArrayOfFullyQualifiedCarData"
+    nillable="true"
+    type="tns:ArrayOfFullyQualifiedCarData" />
+  <xs:complexType
+    name="FullyQualifiedCarData">
+    <xs:sequence>
+      <xs:element
+        minOccurs="0"
+        name="CO2"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="DateOfChange"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="Description"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="EmissionsCO"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="EmissionsHC"
+        nillable="true"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="EmissionsHCNOx"
+        nillable="true"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="EmissionsNOx"
+        nillable="true"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="EmissionsParticulates"
+        nillable="true"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="EngineCapacity"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="EuroStandard"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="FuelCost"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="FuelType"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="Id"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="ImperialCombined"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="ImperialExtraUrban"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="ImperialUrbanCold"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="Manufacturer"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="MetricCombined"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="MetricExtraUrban"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="MetricUrbanCold"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="Model"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="NoiseLevel"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="Transmission"
+        nillable="true"
+        type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element
+    name="FullyQualifiedCarData"
+    nillable="true"
+    type="tns:FullyQualifiedCarData" />
+  <xs:complexType
+    name="ArrayOfGlobalAirport">
+    <xs:sequence>
+      <xs:element
+        minOccurs="0"
+        maxOccurs="unbounded"
+        name="GlobalAirport"
+        nillable="true"
+        type="tns:GlobalAirport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element
+    name="ArrayOfGlobalAirport"
+    nillable="true"
+    type="tns:ArrayOfGlobalAirport" />
+  <xs:complexType
+    name="GlobalAirport">
+    <xs:sequence>
+      <xs:element
+        minOccurs="0"
+        name="continent"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="elevation_ft"
+        nillable="true"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="gps_code"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="home_link"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="iata_code"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="id"
+        type="xs:int" />
+      <xs:element
+        minOccurs="0"
+        name="ident"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="iso_country"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="iso_region"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="keywords"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="latitude_deg"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="local_code"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="longitude_deg"
+        type="xs:double" />
+      <xs:element
+        minOccurs="0"
+        name="municipality"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="name"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="scheduled_service"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="type"
+        nillable="true"
+        type="xs:string" />
+      <xs:element
+        minOccurs="0"
+        name="wikipedia_link"
+        nillable="true"
+        type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element
+    name="GlobalAirport"
+    nillable="true"
+    type="tns:GlobalAirport" />
+</xs:schema>

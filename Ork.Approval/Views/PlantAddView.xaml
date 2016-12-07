@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Ork.Approval.Views.PlantAddView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Ork.Approval"
+             lex:ResxLocalizationProvider.DefaultDictionary="Translate"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:views="clr-namespace:Ork.Approval.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <views:PlantModifyView/>
+    
+    <Grid>
+        <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+            <Button
+          cal:Message.Attach="AddPlant($dataContext)"
+          Content="{lex:Loc Add}" />
+            <Button
+          cal:Message.Attach="Cancel"
+          Content="{lex:Loc Abort}"
+          Margin="12 0 0 0" />
+
+        </StackPanel>
+    
+    </Grid>
+    </StackPanel>
+
+</UserControl>
