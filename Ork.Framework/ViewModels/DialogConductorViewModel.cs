@@ -33,7 +33,8 @@ namespace Ork.Framework.ViewModels
       createMessageBox = messageBoxFactory;
     }
 
-    public IScreen ActiveItem { get; private set; }
+    //Changed Setter from private to public to avoid Exception in Ork.Framework Bootstrapper.cs
+    public IScreen ActiveItem { get;  set; }
 
     object IHaveActiveItem.ActiveItem
     {
